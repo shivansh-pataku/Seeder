@@ -11,7 +11,7 @@
 [![MySQL](https://img.shields.io/badge/MySQL-8.0-orange?style=flat-square&logo=mysql)](https://mysql.com/)
 [![NextAuth](https://img.shields.io/badge/NextAuth-v5%20Beta-purple?style=flat-square&logo=auth0)](https://next-auth.js.org/)
 
-[🚀 Live Demo](#) • [📖 Documentation](#installation) • [🐛 Report Bug](#contributing) • [💡 Request Feature](#contributing)
+<!-- [🚀 Live Demo](#) • [📖 Documentation](#installation) • [🐛 Report Bug](#contributing) • [💡 Request Feature](#contributing) -->
 
 </div>
 
@@ -33,9 +33,9 @@
 > *"Every great achievement starts with a single seed of an idea."*
 
 Seeder embraces the metaphor of growth through a **fast, minimal, and dynamic** approach:
-- **Plant** your ideas as new tasks instantly
+- **Plant** your ideas instantly
 - **Nurture** them with real-time editing and organization  
-- **Watch them bloom** as you complete your goals with satisfying progress tracking
+<!-- - **Watch them bloom** as you complete your goals with satisfying progress tracking -->
 
 **Perfect for:** Quick note-taking, task management, idea capture, project planning, and daily productivity workflows.
 
@@ -49,6 +49,19 @@ Seeder embraces the metaphor of growth through a **fast, minimal, and dynamic** 
 - Persistent login sessions with automatic token refresh
 - Protected routes and user-specific data isolation
 
+### 🔗 **RESTful API Architecture**
+- **Complete REST endpoints** - GET, POST, PUT, PATCH, DELETE operations
+- **Standardized responses** - Consistent JSON API responses
+- **Proper HTTP status codes** - 200, 201, 400, 401, 404, 500
+- **Resource-based URLs** - `/api/tasks`, `/api/auth`, `/api/feedback`
+
+### 🔑 **JWT & Session Management**
+- **JWT tokens** for secure authentication
+- **Session persistence** across browser refreshes
+- **Automatic token refresh** - Seamless user experience
+- **Secure cookie storage** - HttpOnly and SameSite flags
+- **Session expiration handling** - Automatic logout on token expiry
+
 ### ⚡ **Performance & Speed**
 - **Lightning-fast loading** with Next.js 15 optimizations
 - **Real-time auto-save** - Never lose your thoughts
@@ -56,23 +69,23 @@ Seeder embraces the metaphor of growth through a **fast, minimal, and dynamic** 
 - **Minimal bundle size** for rapid page loads
 
 ### 📱 **Responsive & Dynamic**
-- **Mobile-first design** that works on any screen size
-- **Touch-friendly interface** for tablet and phone users
+<!-- - **Mobile-first design** that works on any screen size -->
+<!-- - **Touch-friendly interface** for tablet and phone users -->
 - **Dynamic layouts** that adapt to content and device
 - **Smooth animations** and transitions throughout
 
 ### 🎨 **Minimal & Clean Design**
 - **Distraction-free interface** focused on productivity
 - **Intuitive navigation** with clear visual hierarchy
-- **Adaptive theming** - Dark/Light mode with smooth transitions*
+- **Adaptive theming** - Dark/Light mode with smooth transitions * Under Construction
 - **Typography-focused** design for excellent readability
 
-### 📝 **Smart Task & Notes Management**
-- **Dual-purpose system** - Works as both task manager and note-taking app
-- **Rich text editing** with title and description fields
-- **Status tracking** - Growing 🌱 → Bloomed 🌸
-- **Instant search and filtering** (coming soon)
-- **Bulk operations** for managing multiple items
+<!-- ### 📝 **Smart Task & Notes Management*/*
+- **Dual-purpose system** - Works as both task manager and note-taking app -->
+<!-- - **Rich text editing** with title and description fields -->
+<!-- - **Status tracking** - Growing 🌱 → Bloomed 🌸 -->
+<!-- - **Instant search and filtering** (coming soon) -->
+<!-- - **Bulk operations** for managing multiple items -->
 
 ### 🔐 **Secure & Reliable**
 - **NextAuth v5 Beta** integration with secure session management
@@ -81,15 +94,15 @@ Seeder embraces the metaphor of growth through a **fast, minimal, and dynamic** 
 - **Protected routes** and authenticated API endpoints
 
 ### 🎨 **Adaptive Theming**
-- **Dark/Light Mode** with smooth transitions * Theme management is just initialised
-- **CSS Variables** for consistent styling
-- **Persistent theme** selection across sessions
+- **Dark/Light Mode** with smooth transitions * Under Construction
+<!-- - **CSS Variables** for consistent styling -->
+<!-- - **Persistent theme** selection across sessions -->
 - **Responsive design** for all devices
 
 ### 📝 **Smart Task Management**
 - **Real-time auto-save** - Never lose your thoughts
-- **Rich text editing** with title and description fields
-- **Status tracking** - Growing 🌱 → Bloomed 🌸
+<!-- - **Rich text editing** with title and description fields -->
+<!-- - **Status tracking** - Growing 🌱 → Bloomed 🌸 -->
 - **Instant updates** with optimistic UI
 
 ### 🗄️ **Robust Data Management**
@@ -122,8 +135,10 @@ Seeder embraces the metaphor of growth through a **fast, minimal, and dynamic** 
 ### **Backend**
 - **[Next.js API Routes](https://nextjs.org/docs/api-routes/introduction)** - Serverless backend functions
 - **[NextAuth.js v5 Beta](https://next-auth.js.org/)** - Authentication and session management
+- **[JWT (JSON Web Tokens)](https://jwt.io/)** - Secure token-based authentication
 - **[MySQL](https://mysql.com/)** - Relational database for data persistence
 - **[mysql2](https://www.npmjs.com/package/mysql2)** - MySQL driver for Node.js
+- **RESTful API Design** - Standard HTTP methods and status codes
 
 ### **Development Tools**
 - **[npm](https://www.npmjs.com/)** - Package management
@@ -325,16 +340,38 @@ GET  /api/auth/session     # Get current session
 
 ### Task Management
 ```
-GET    /api/tasks          # Get user's tasks
-POST   /api/tasks          # Create new task
-PUT    /api/tasks/[id]     # Update task
-DELETE /api/tasks/[id]     # Delete task
+GET /api/tasks             # Retrieve all user's tasks 
+POST /api/tasks            # Create a new task 
+PUT /api/tasks             # Complete update/replace entire task 
+PATCH /api/tasks           # Partial update (status, title, or description) 
+DELETE /api/tasks?id={id}  # Permanently delete a task
+```
+
+#### Response Format:
+```json
+{
+  "success": true,
+  "message": "Task created successfully",
+  "task": {
+    "id": 123,
+    "title": "Sample Task",
+    "description": "Task description",
+    "status": false,
+    "created_at": "2024-01-01T00:00:00Z"
+  }
+}
+```
+#### JWT & Session Management
+```
+POST /api/auth/refresh     # Refresh JWT token
+GET  /api/auth/me          # Get current user info
+POST /api/auth/logout      # Invalidate session and JWT
 ```
 
 ### Feedback System
 ```
-POST /api/feedback         # Submit feedback
-GET  /api/feedback         # Get feedback (admin)
+POST /api/feedback         # Submit user feedback (authenticated users only)
+GET  /api/feedback         # Retrieve feedback entries (admin access)
 ```
 
 ---
@@ -379,6 +416,18 @@ npm start
 - **PlanetScale** - Serverless MySQL platform
 - **Railway** - Simple database hosting
 - **AWS RDS** - Managed MySQL service
+
+### JWT Configuration
+Set these additional environment variables for JWT:
+
+```env
+# JWT Configuration
+JWT_SECRET=your-jwt-secret-key-here
+JWT_EXPIRES_IN=7d
+REFRESH_TOKEN_EXPIRES_IN=30d
+
+# Session Configuration  
+SESSION_MAX_AGE=604800  # 7 days in seconds
 
 ---
 
