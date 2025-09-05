@@ -12,17 +12,17 @@ export const authOptions = {
         password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials) {
-        console.log('🔐 Auth.js authorize called for:', credentials?.email)
+        console.log('Auth.js authorize called for:', credentials?.email)
         
         if (!credentials?.email || !credentials?.password) {
-          console.log('❌ Missing credentials')
+          console.log('Missing credentials')
           return null
         }
 
         try {
           // Simple test user first
           if (credentials.email === 'test@test.com' && credentials.password === 'password') {
-            console.log('✅ Test user authenticated successfully')
+            console.log('Test user authenticated successfully')
             return {
               id: '1',
               email: 'test@test.com',
@@ -32,19 +32,19 @@ export const authOptions = {
           }
 
           // Check database for real users
-          console.log('🔍 Checking database for user:', credentials.email)
+          console.log('Checking database for user:', credentials.email)
           const [users] = await dbConfig.execute(
             'SELECT id, username, email, password FROM users WHERE email = ?',
             [credentials.email]
           )
 
           if (!users || users.length === 0) {
-            console.log('❌ User not found in database')
+            console.log('User not found in database')
             return null
           }
 
           const user = users[0]
-          console.log('👤 Found user:', user.email)
+          console.log('Found user:', user.email)
 
           // Verify password
           const isPasswordValid = await bcrypt.compare(
@@ -53,11 +53,11 @@ export const authOptions = {
           )
 
           if (!isPasswordValid) {
-            console.log('❌ Invalid password')
+            console.log('Invalid password')
             return null
           }
 
-          console.log('✅ Database user authenticated successfully')
+          console.log('Database user authenticated successfully')
           return {
             id: user.id.toString(),
             email: user.email,
@@ -65,7 +65,7 @@ export const authOptions = {
             username: user.username
           }
         } catch (error) {
-          console.error('🚨 Auth error:', error)
+          console.error('Auth error:', error)
           return null
         }
       }

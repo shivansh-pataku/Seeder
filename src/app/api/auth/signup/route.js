@@ -12,7 +12,7 @@ export async function POST(request) {
 
     // Validate required fields
     if (!username || !email || !password) {
-      console.log('❌ Missing required fields')
+      console.log('Missing required fields')
       return new Response(JSON.stringify({ 
         error: 'Username, email, and password are required' 
       }), {
@@ -24,7 +24,7 @@ export async function POST(request) {
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(email)) {
-      console.log('❌ Invalid email format')
+      console.log('Invalid email format')
       return new Response(JSON.stringify({ 
         error: 'Please enter a valid email address' 
       }), {
@@ -35,7 +35,7 @@ export async function POST(request) {
 
     // Validate password length
     if (password.length < 6) {
-      console.log('❌ Password too short')
+      console.log('Password too short')
       return new Response(JSON.stringify({ 
         error: 'Password must be at least 6 characters long' 
       }), {
@@ -47,7 +47,7 @@ export async function POST(request) {
     // Check if user already exists
     const existingUser = await UserService.findByEmail(email)
     if (existingUser) {
-      console.log('❌ User already exists')
+      console.log('User already exists')
       return new Response(JSON.stringify({ 
         error: 'User with this email already exists' 
       }), {
@@ -63,7 +63,7 @@ export async function POST(request) {
       password
     })
 
-    console.log('✅ User created successfully with ID:', userId)
+    console.log('User created successfully with ID:', userId)
 
     return new Response(JSON.stringify({ 
       message: 'Account created successfully',
@@ -74,7 +74,7 @@ export async function POST(request) {
     })
 
   } catch (error) {
-    console.error('🚨 Signup error:', error)
+    console.error('Signup error:', error)
     
     // Handle specific database errors
     if (error.message.includes('Duplicate entry')) {

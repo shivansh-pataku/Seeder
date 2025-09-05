@@ -11,7 +11,7 @@ export async function GET(request) {
     const currentUser = await getCurrentUser()
     
     if (!currentUser) {
-      console.log('❌ No authenticated user - returning 401')
+      console.log('No authenticated user - returning 401')
       return new Response(JSON.stringify({ 
         message: 'Authentication required',
         error: 'Not authenticated' 
@@ -21,7 +21,7 @@ export async function GET(request) {
       })
     }
 
-    console.log('👤 Fetching tasks for user:', currentUser.email)
+    console.log('Fetching tasks for user:', currentUser.email)
 
     // Fix: Use .execute() instead of .query()
     const [rows] = await dbConfig.execute(
@@ -29,7 +29,7 @@ export async function GET(request) {
       [currentUser.id]
     )
 
-    console.log('📊 Found tasks:', rows.length)
+    console.log('Found tasks:', rows.length)
 
     // If no tasks are found, return an empty array
     const tasks = rows && rows.length > 0 ? rows.map(task => ({
@@ -44,7 +44,7 @@ export async function GET(request) {
       },
     })
   } catch (error) {
-    console.error('🚨 Error fetching tasks:', error)
+    console.error('Error fetching tasks:', error)
     return new Response(JSON.stringify({ 
       message: 'Internal server error',
       error: error.message 
@@ -58,7 +58,7 @@ export async function GET(request) {
 //////////////// RESTful POST handler /////////////////////////////////////
 export async function POST(request) {
   try {
-    console.log('📝 POST /api/tasks - Creating task...')
+    console.log('POST /api/tasks - Creating task...')
     
     // Get current authenticated user
     const currentUser = await getCurrentUser()
@@ -87,7 +87,7 @@ export async function POST(request) {
       })
     }
 
-    console.log('➕ Creating task for user:', currentUser.email)
+    console.log('Creating task for user:', currentUser.email)
 
     // Fix: Use .execute() instead of .query()
     const [result] = await dbConfig.execute(
@@ -101,7 +101,7 @@ export async function POST(request) {
       [result.insertId]
     )
 
-    console.log('✅ Task created with ID:', result.insertId)
+    console.log('Task created with ID:', result.insertId)
 
     return new Response(JSON.stringify({ 
       message: 'Task created successfully',
@@ -115,7 +115,7 @@ export async function POST(request) {
     })
 
   } catch (error) {
-    console.error('🚨 Error creating task:', error)
+    console.error('Error creating task:', error)
     return new Response(JSON.stringify({ 
       message: 'Internal server error',
       error: error.message 

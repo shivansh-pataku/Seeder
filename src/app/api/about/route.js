@@ -47,7 +47,7 @@ export async function POST(request) {
       })
     }
 
-    console.log('💾 Saving feedback to database...')
+    console.log('Saving feedback to database...')
 
     // Insert feedback into database
     const [result] = await dbConfig.execute(
@@ -59,7 +59,7 @@ export async function POST(request) {
       ]
     )
 
-    console.log('✅ Feedback saved successfully with ID:', result.insertId)
+    console.log('Feedback saved successfully with ID:', result.insertId)
 
     return new Response(JSON.stringify({ 
       message: 'Feedback saved successfully',
@@ -115,7 +115,7 @@ export async function GET(request) {
       'SELECT id, username, feedback_text, created_at FROM feedback ORDER BY created_at DESC LIMIT 20'
     )
 
-    console.log('📊 Found feedback entries:', rows.length)
+    console.log('Found feedback entries:', rows.length)
 
     return new Response(JSON.stringify({ 
       feedback: rows,

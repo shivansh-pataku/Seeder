@@ -3,8 +3,8 @@ import NextAuth from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import { UserService } from '../../../lib/user.js'
 
-console.log('🔧 NextAuth v5 Beta with Database loading...')
-console.log('🔑 Environment check:')
+console.log('NextAuth v5 Beta with Database loading...')
+console.log('Environment check:')
 console.log('  - AUTH_SECRET exists:', !!process.env.AUTH_SECRET)
 console.log('  - AUTH_URL:', process.env.AUTH_URL)
 console.log('  - DB_HOST:', process.env.DB_HOST)
@@ -18,17 +18,17 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials) {
-        console.log('🔐 v5 Beta authorize called for:', credentials?.email)
+        console.log('v5 Beta authorize called for:', credentials?.email)
         
         if (!credentials?.email || !credentials?.password) {
-          console.log('❌ Missing credentials')
+          console.log('Missing credentials')
           return null
         }
 
         try {
           // Step 1: Keep test user for fallback
           if (credentials.email === 'test@test.com' && credentials.password === 'password') {
-            console.log('✅ Test user authenticated (hardcoded)')
+            console.log('Test user authenticated (hardcoded)')
             return {
               id: '999',
               email: 'test@test.com',
@@ -38,11 +38,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           }
 
           // Step 2: Check database for real users
-          console.log('🔍 Checking database for user...')
+          console.log('Checking database for user...')
           const user = await UserService.findByEmail(credentials.email)
           
           if (!user) {
-            console.log('❌ User not found in database')
+            console.log('User not found in database')
             return null
           }
 
@@ -53,12 +53,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           )
 
           if (!isPasswordValid) {
-            console.log('❌ Invalid password')
+            console.log('Invalid password')
             return null
           }
 
           // Step 4: Return user data (v5 Beta format)
-          console.log('✅ Database user authenticated successfully')
+          console.log('Database user authenticated successfully')
           return {
             id: user.userid.toString(),
             email: user.email,
@@ -67,7 +67,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           }
           
         } catch (error) {
-          console.error('🚨 Auth error:', error)
+          console.error('Auth error:', error)
           return null
         }
       }
@@ -80,7 +80,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
     // v5 Beta - Enhanced callbacks
     async jwt({ token, user, account }) {
-      console.log('🎫 JWT callback - v5 Beta')
+      console.log('JWT callback - v5 Beta')
       if (user) {
         token.userId = user.id
         token.username = user.username
@@ -89,7 +89,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return token
     },
     async session({ session, token }) {
-      console.log('📋 Session callback - v5 Beta')
+      console.log('Session callback - v5 Beta')
       if (token) {
         session.user.id = token.userId
         session.user.username = token.username

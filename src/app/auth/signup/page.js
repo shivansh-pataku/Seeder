@@ -21,7 +21,7 @@ export default function SignupPage() {
     setLoading(true)
     setSuccess(false)
 
-    console.log('📝 Signup attempt for:', email)
+    console.log('Signup attempt for:', email)
 
     try {
       // Validation
@@ -43,7 +43,7 @@ export default function SignupPage() {
         throw new Error("Please enter a valid email address")
       }
 
-      console.log('🔄 Sending signup request...')
+      console.log('Sending signup request...')
       
       const res = await fetch("/api/auth/signup", {
         method: "POST",
@@ -56,13 +56,13 @@ export default function SignupPage() {
       })
 
       const data = await res.json()
-      console.log('📋 Signup response:', data)
+      console.log('Signup response:', data)
 
       if (!res.ok) {
         throw new Error(data.error || data.message || "Signup failed")
       }
 
-      console.log('✅ Signup successful')
+      console.log('Signup successful')
       setSuccess(true)
       
       // Redirect to signin page after success
@@ -71,7 +71,7 @@ export default function SignupPage() {
       }, 1500)
 
     } catch (err) {
-      console.error('❌ Signup error:', err.message)
+      console.error('Signup error:', err.message)
       setError(err.message)
     } finally {
       setLoading(false)

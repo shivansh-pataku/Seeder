@@ -33,7 +33,7 @@ export default function AboutPage() {
     setError('');
 
     try {
-      console.log('📝 Submitting feedback...');
+      console.log('Submitting feedback...');
       
       const res = await fetch('/api/about', {
         method: 'POST',
@@ -47,13 +47,13 @@ export default function AboutPage() {
       });
 
       const data = await res.json();
-      console.log('📋 Feedback response:', data);
+      console.log('Feedback response:', data);
 
       if (!res.ok) {
         throw new Error(data.message || 'Failed to submit feedback');
       }
 
-      console.log('✅ Feedback submitted successfully');
+      console.log('Feedback submitted successfully');
       setSubmitted(true);
       setFeedback('');
       

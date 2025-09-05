@@ -19,7 +19,7 @@ export default function SignIn() {
     setError('')
     setSuccess(false)
 
-    console.log('🔐 NextAuth v5 Beta signin for:', email)
+    console.log('NextAuth v5 Beta signin for:', email)
 
     try {
       if (!email || !password) {
@@ -29,16 +29,16 @@ export default function SignIn() {
       // Test providers API first
       const providersResponse = await fetch('/api/auth/providers')
       if (!providersResponse.ok) {
-        console.error('❌ Providers API error:', providersResponse.status)
+        console.error('Providers API error:', providersResponse.status)
         setError('Authentication service unavailable')
         return
       }
 
       const providers = await providersResponse.json()
-      console.log('✅ Providers available:', providers)
+      console.log('Providers available:', providers)
 
       // Attempt signin with NextAuth
-      console.log('🔄 Calling NextAuth v5 signIn...')
+      console.log('Calling NextAuth v5 signIn...')
       const result = await signIn('credentials', {
         email,
         password,
@@ -46,27 +46,27 @@ export default function SignIn() {
         callbackUrl: '/'
       })
 
-      console.log('📋 SignIn result:', result)
+      console.log('SignIn result:', result)
 
       if (result?.error) {
-        console.error('❌ SignIn error:', result.error)
+        console.error('SignIn error:', result.error)
         if (result.error === 'CredentialsSignin') {
           setError('Invalid email or password')
         } else {
           setError(`Login failed: ${result.error}`)
         }
       } else if (result?.ok) {
-        console.log('✅ SignIn successful - redirecting')
+        console.log('SignIn successful - redirecting')
         setSuccess(true)
         setTimeout(() => {
           window.location.href = '/'
         }, 1000)
       } else {
-        console.error('❌ Unexpected result:', result)
+        console.error('Unexpected result:', result)
         setError('Authentication failed')
       }
     } catch (error) {
-      console.error('🚨 Signin exception:', error)
+      console.error('Signin exception:', error)
       setError(error.message || 'Network error - please try again')
     } finally {
       setLoading(false)
