@@ -1,0 +1,94 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* push title left, links right */
+  width: 100%;
+  height: 2.5rem;
+  background-color: #0e0e14; /* matches tasks UI */
+  border-bottom: 1px solid #333;
+  position: relative;
+  z-index: 1000; /* Changed from 10 to 1000 */
+  font-family: 'Montserrat';
+
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: 600;;
+  color: #fff;
+  border: none; /* cleaner */
+  margin: 0 0 0 8px;
+  user-select: none; 
+}
+
+.links {
+  display: flex;
+  gap: 0.6rem;
+  margin-left: auto;
+  padding: 0.2rem 0.5rem;
+  border: none; /* minimal */
+  align-items: center;
+  text-decoration: none; 
+  font-weight: 400;
+}
+.Link{
+  text-decoration: none;
+}
+.link, .logsig, .username {
+  padding: 0.2rem 0.5rem;
+  color: #fff;
+  border: 0.5px solid rgba(255, 255, 255, 0.504); /* cleaner look */
+  border-radius: 0.1rem;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 400; 
+  font-size: 0.75rem;
+}
+
+.username{
+  border: none;
+  font-weight: 400;
+}
+
+.username:hover {
+  background-color: #9393938a;
+  color: #ffffff;
+}
+
+.link:hover, .logsig:hover{
+  background-color: #ffffff14;
+  color: #ffffff;
+}
+
+.menu {
+  position: absolute;
+  top: 2rem; /* sits just below navbar */
+  right: 0.1rem;
+  background-color: #000000;
+  border: 1px solid #555;
+  padding: 0.2rem;
+  border-radius: 0.2rem;
+  z-index: 1001; /* Changed from 200 to 1001 */
+  min-width: 100px;
+}
+
+.menuLink {
+  display: block;
+  padding: 0.3rem 0.2rem 0.2rem 0.5rem;
+  color: #eee;
+  border-bottom: 1px solid #444;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+  border-radius: 0.2rem;
+    font-size: 0.7rem;
+}
+
+.menuLink:last-child {
+  border-bottom: none; /* clean ending */
+}
+
+.menuLink:hover {
+  background-color: #262626;
+  color: #ffffff;
+}

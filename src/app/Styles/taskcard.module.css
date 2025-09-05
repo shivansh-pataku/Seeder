@@ -1,0 +1,185 @@
+.taskCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.4rem 0.2rem 0.3rem 0.2rem;
+  border: #333 solid 1.8px;
+  background-color: #1c1b21;
+  border-radius: 0.2rem;
+    font-family: 'DM Sans';
+
+  /* Tailwind-like utilities */
+  transition: all 0.2s ease-in-out; /* like transition duration-200 ease-in-out */
+  cursor: pointer; /* like cursor-pointer */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.25); /* like shadow-sm */
+}
+
+/* Hover styles */
+.taskCard:hover {
+  border-color: #555; /* subtle border change */
+  transform: translateY(-2px) scale(1.01); /* like hover:scale-105 */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.35); /* like hover:shadow-lg */
+  background-color: #22212a; /* subtle darken */
+}
+
+
+
+
+.tcareaA {
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* <-- THIS aligns them vertically */
+  /* padding: 0.1rem; */
+  /* border: #333 solid 0.5px; */
+  height: auto;
+  padding-bottom: 0px;
+}
+
+.taskTitle {
+  color: #d3d3d3;
+  /* border: #333 solid 0.5px; */
+  margin: 0rem auto 0.1rem 0.1rem;
+  font-size: 0.85rem;
+  line-clamp: 1;
+  font-weight: 550;
+
+  white-space: nowrap;
+  overflow:hidden;
+  text-overflow: ellipsis;
+}
+
+
+
+.tcareaB{
+
+  display: flex;
+  flex-direction: row;
+  width: auto;
+  /* padding: 0.1rem; */
+  /* border: #333 solid 0.5px; */
+  position: relative;
+  /* padding-top: none; */
+
+
+
+}
+
+.taskDescription{
+
+  flex-direction: row;
+  width: 100%;
+  margin: 0rem 0rem auto 0rem;
+  /* border: #333 solid 0.5px; */
+  padding: 0.1rem;
+  margin: auto;
+  color: #ababab;
+  text-align: justify;
+  background-color: #19181fe3;
+  line-height: 0.95;
+  text-align: left;
+  line-height: 1.2;
+  border-radius: 0.2rem;
+  font-size: 0.7rem;
+
+  display: -webkit-box;          
+  -webkit-line-clamp: 4;         
+  -webkit-box-orient: vertical;  
+  font-weight: 500;
+
+  white-space:unset;
+  overflow: hidden;           
+  text-overflow:unset;    
+
+  position: relative;
+  z-index: 1; 
+
+}
+
+.taskDate{
+ 
+  padding: auto;
+  margin-left: auto;
+  margin-top: auto;
+  /* border: #333 solid 0.5px; */
+  color: #fff7e8;
+  background-color: #1c1b21;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  font-style: italic;
+  font-weight:lighter;
+  font-size: 0.6rem;
+  box-shadow: -3px -1px 4px 0px #1c1b21;
+
+
+  bottom: -0.9px;
+  right: 1.1px;
+  position: absolute;
+  z-index: 2; /* Ensure it appears above the task description */
+
+}
+
+
+
+.taskButton {
+  width: auto;
+  height: auto;
+  margin: 0rem;
+  /* border: #ffffff solid 0.5px; */
+  border: none;
+  color: #ffffff;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  cursor: pointer;
+  /* color: aliceblue; */
+  font-size: 0.7rem;
+  font-weight: 400;
+  font-family: monospace, system-ui, sans-serif;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+
+/* 
+.taskButton.active {
+  background-color: #28a745;
+  color: white;
+  border-color: #28a745;
+}
+
+.taskButton.completed {
+  background-color: #6c757d;
+  color: white;
+  border-color: #6c757d;
+}
+
+.taskButton:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+.taskButton.active:hover {
+  background-color: #218838;
+  border-color: #218838;
+}
+
+.taskButton.completed:hover {
+  background-color: #5a6268;
+  border-color: #5a6268;
+} */
+
+/* Make sure the parent container has position: relative so .taskDate can position correctly.
+Give .taskDate a higher z-index than .taskDescription.
+Both need a position set (relative or absolute), because z-index only works on positioned elements.
+If there’s any ancestor with a high z-index, it can block stacking — so watch out for that. */
+/* 
+
+.tcareaB → position: relative;
+This means any absolutely positioned child will use .tcareaB's edges as the reference point.
+
+.taskDate → position: absolute; bottom: 0.2rem; right: 0.3rem;
+This means “place me 0.2rem above the bottom and 0.3rem from the right of .tcareaB.”
+It ignores the text flow, so it won't push the description down — it just overlaps or floats inside.
+
+.taskDescription → position: relative; z-index: 2;
+This keeps it in the normal layout but allows you to control stacking order with z-index.
+Here, z-index: 2 means it’s under .taskDate (z-index: 3).
+ */

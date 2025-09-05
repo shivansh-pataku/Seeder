@@ -1,0 +1,150 @@
+
+
+
+/* src/app/Styles/logsig.module.css */
+.logsigContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* min-height: 100vh; */
+  margin-top: 2rem;
+  /* background-color: #000000; */
+  padding: 1rem;
+/* 
+    background: #071a29;
+  background: linear-gradient(90deg, rgba(7, 26, 41, 1) 0%, rgba(0, 0, 0, 1) 100%); */
+}
+
+.logsigForm {
+  background: #2a2a2a;
+  padding: 2rem;
+  border-radius: 8px;
+  /* border: 1px solid #555; */
+  max-width: 320px;
+  width: 100%;
+}
+
+.logsigTitle {
+  color: #fff;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.logsigError {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  padding: 0.6rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  font-size: 0.7rem;
+}
+
+.logsigSuccess {
+  background: rgba(34, 197, 94, 0.1);
+  color: #4ade80;
+  padding: 0.6rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  font-size: 0.7rem;
+}
+
+.logsigField {
+  margin-bottom: 1rem;
+}
+
+.logsigLabel {
+  display: block;
+  color: #ccc;
+  margin-bottom: 0.2rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.logsigInput {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background: #19191f;
+  color: #fff;
+  box-sizing: border-box;
+  font-size: 0.8rem;
+  transition: border-color 0.2s;
+  font-family: montserrat;
+}
+
+.logsigInput:focus {
+  outline: none;
+  border-color: #60a5fa;
+  
+}
+
+.logsigInput:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.logsigButton {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 1.5rem;
+  background: #2e3091;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-weight: 500;
+  font-family: montserrat;
+}
+
+.logsigButton:hover:not(:disabled) {
+  background: #3133a7;
+}
+
+.logsigButton:disabled {
+  background: #555;
+  cursor: not-allowed;
+}
+
+.logsigLinks {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #ccc;
+  font-size: 0.7rem;
+}
+
+.logsigLinks a {
+  color: #60a5fa;
+  text-decoration: none;
+  transition: color 0.2s;
+  font-weight: 400;
+  transition: all 0.8ms;
+  padding: 0px 5px 0px 5px;
+  margin: 5px;
+  font-weight:500;
+}
+
+.logsigLinks a:hover {
+  color: #2688ff;
+  font-weight: 500;
+  transition: all 350ms ease-in-out;
+  /* text-decoration: underline; */
+}
+
+.logsigTestInfo {
+  text-align: center;
+  margin-top: 1rem;
+  color: #999;
+  font-size: 0.85rem;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}

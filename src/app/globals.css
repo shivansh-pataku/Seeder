@@ -1,26 +1,96 @@
-@import "tailwindcss";
+/* src/app/globals.css */
 
+/* Define the CSS variables that Next.js creates */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  margin: 0px;
+  padding: 0px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* Font utility classes with direct font names // following will work with classnames : className="font-montserrat"> */
+/* .font-montserrat { font-family: 'Montserrat', sans-serif !important; }
+.font-grotesk { font-family: 'Space Grotesk', sans-serif !important; }
+.font-sharetech { font-family: 'Share Tech Mono', monospace !important; }
+.font-michroma { font-family: 'Michroma', sans-serif !important; }
+.font-kiteone { font-family: 'Kite One', sans-serif !important; }
+.font-golos { font-family: 'Golos Text', sans-serif !important; }
+.font-dmsans { font-family: 'DM Sans', sans-serif !important; } */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* Font utility classes // following will work with inline styles : style={{ fontFamily: 'Kite One, sans-serif' }} */
+/* .font-montserrat { font-family: var(--font-montserrat), sans-serif; }
+.font-grotesk { font-family: var(--font-grotesk), sans-serif; }
+.font-sharetech { font-family: var(--font-sharetech), monospace; }
+.font-michroma { font-family: var(--font-michroma), sans-serif; }
+.font-kiteone { font-family: var(--font-kiteone), sans-serif; }
+.font-golos { font-family: var(--font-golos), sans-serif; }
+.font-dmsans { font-family: var(--font-dmsans), sans-serif; } */
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;  */
+  /* font-family: 'Montserrat'; */
+  /* font-family: 'Kite One'; */
+  /* font-family: 'Varela'; */
+  /* font-family: 'DM Sans'; */
+  /* font-family: 'Cal Sans'; */
+  /* font-family: 'Golos Text'; */
+
+  /* font-family: 'Michroma'; */
+  /* font-family: 'Share Tech Mono'; */
+  /* font-family: 'Space Grotesk'; */
+  /* font-family: 'Readex Pro'; */
+
+  font-family: 'Montserrat';
+  font-weight: 400;
+  margin: 0px;
+  padding: 0px;
 }
+
+body.light {
+  background-color: #f9f9f9;
+  color: #222;
+}
+
+body.dark {
+  background-color: #121212;
+  color: #eee;
+}
+
+.card {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: white;
+}
+
+body.dark .card {
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+}
+
+.Page-Home {
+  justify-items: center; 
+}
+
+.Page-Home{
+  /* display: flex; */
+  justify-items: center; 
+  /* Controls how the content inside each grid cell aligns left–right i.e. horizontally */
+  /* align-items: center; */
+  /* Controls how each item sits top–bottom (cross axis). */
+  /* justify-content: center; */
+  /* Moves the whole group of items left–right (main axis). */
+  /* flex-direction: column; */
+
+}
+.Welcome{
+  justify-items: center;
+  border: solid 0.01rem;
+  background-color: rgb(43, 43, 43);
+  margin: 20px;
+  padding: 20px;
+  margin-top: 220px;
+  border-radius: 0.2rem;
+  
+}
+
+
+
+/* ////////////////////////////////////////////////////////////////////////////// */
