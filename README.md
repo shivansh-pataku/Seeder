@@ -4,8 +4,8 @@
 
 ![Seeder Logo](https://img.shields.io/badge/🌱-Seeder-green?style=for-the-badge&labelColor=black)
 
-**Transform your thoughts into achievements with intelligent task management**
-*This is an initialization - interesting features are under development to enhance and increase app productivity.*
+**Transform your thoughts into achievements with intelligent task management** 
+</br> *This is an initialization - interesting features are under development to enhance and increase app productivity.* </br>
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-18-blue?style=flat-square&logo=react)](https://reactjs.org/)
 [![MySQL](https://img.shields.io/badge/MySQL-8.0-orange?style=flat-square&logo=mysql)](https://mysql.com/)
@@ -95,15 +95,15 @@ Seeder embraces the metaphor of growth through a **fast, minimal, and dynamic** 
 
 ### 🎨 **Adaptive Theming**
 - **Dark/Light Mode** with smooth transitions * Under Construction
+- **Responsive design** for all devices
 <!-- - **CSS Variables** for consistent styling -->
 <!-- - **Persistent theme** selection across sessions -->
-- **Responsive design** for all devices
 
 ### 📝 **Smart Task Management**
 - **Real-time auto-save** - Never lose your thoughts
+- **Instant updates** with optimistic UI
 <!-- - **Rich text editing** with title and description fields -->
 <!-- - **Status tracking** - Growing 🌱 → Bloomed 🌸 -->
-- **Instant updates** with optimistic UI
 
 ### 🗄️ **Robust Data Management**
 - **MySQL database** for reliable data persistence
