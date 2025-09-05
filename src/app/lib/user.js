@@ -6,7 +6,7 @@ export class UserService {
   
   static async findByEmail(email) {
     try {
-      console.log('🔍 Searching for user:', email)
+      console.log('Searching for user:', email)
       
       const [users] = await dbConfig.execute(
         'SELECT userid, username, email, password FROM users WHERE email = ?',
@@ -14,27 +14,27 @@ export class UserService {
       )
       
       if (users.length === 0) {
-        console.log('❌ User not found')
+        console.log('User not found')
         return null
       }
       
-      console.log('✅ User found:', users[0].email)
+      console.log('User found:', users[0].email)
       return users[0]
       
     } catch (error) {
-      console.error('🚨 Database error:', error)
+      console.error('Database error:', error)
       throw new Error('Database query failed')
     }
   }
   
   static async verifyPassword(plainPassword, hashedPassword) {
     try {
-      console.log('🔐 Verifying password...')
+      console.log('Verifying password...')
       const isValid = await bcrypt.compare(plainPassword, hashedPassword)
-      console.log('🔐 Password valid:', isValid)
+      console.log('Password valid:', isValid)
       return isValid
     } catch (error) {
-      console.error('🚨 Password verification error:', error)
+      console.error('Password verification error:', error)
       return false
     }
   }
@@ -54,11 +54,11 @@ export class UserService {
         [username, email, hashedPassword]
       )
       
-      console.log('✅ User created with ID:', result.insertId)
+      console.log('User created with ID:', result.insertId)
       return result.insertId
       
     } catch (error) {
-      console.error('🚨 User creation error:', error)
+      console.error('User creation error:', error)
       throw new Error('Failed to create user')
     }
   }
