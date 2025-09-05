@@ -5,7 +5,7 @@
 ![Seeder Logo](https://img.shields.io/badge/🌱-Seeder-green?style=for-the-badge&labelColor=black)
 
 **Transform your thoughts into achievements with intelligent task management**
-
+This is a initialisation there are somw interesting features we are working on to enhance and increase app productivity.
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-18-blue?style=flat-square&logo=react)](https://reactjs.org/)
 [![MySQL](https://img.shields.io/badge/MySQL-8.0-orange?style=flat-square&logo=mysql)](https://mysql.com/)
@@ -418,8 +418,6 @@ npm start
 - **AWS RDS** - Managed MySQL service
 
 ### JWT Configuration
-Set these additional environment variables for JWT:
-
 ```env
 # JWT Configuration
 JWT_SECRET=your-jwt-secret-key-here
@@ -429,7 +427,7 @@ REFRESH_TOKEN_EXPIRES_IN=30d
 # Session Configuration  
 SESSION_MAX_AGE=604800  # 7 days in seconds
 
----
+```
 
 ## 🤝 Contributing
 
