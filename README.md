@@ -17,6 +17,8 @@
 
 ---
 
+![presentation](/public/presentation.png)
+
 ## 🌱 What is Seeder?
 
 **Seeder** is a **lightweight, responsive, and blazingly fast** task and notes management application that transforms scattered thoughts into organized achievements. Built for speed and simplicity, Seeder provides a **minimal yet powerful** interface where your ideas can take root and grow.
@@ -121,6 +123,16 @@ Seeder embraces the metaphor of growth through a **fast, minimal, and dynamic** 
 - **User feedback collection** with database storage
 - **Authenticated submissions** linked to user accounts
 - **Admin dashboard** capabilities for feedback review
+
+---
+![Alt text](/public/home.png)
+![Alt text](/public/editor.png)
+![Alt text](/public/login.png)
+![Alt text](/public/signup.png)
+![Alt text](/public/profile%20dark.png)
+![Alt text](/public/profile%20light.png)
+## Screenshots
+
 
 ---
 

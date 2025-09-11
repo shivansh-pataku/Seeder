@@ -16,8 +16,9 @@
 .aboutLeft, .aboutRight {
   display: flex;
   flex-direction: column;
-  background: #19191f;
-  border: 1px solid #333;
+  /* background: #19191f; */
+  background: #19191f32;
+  /* border: 1px solid #333; */
   border-radius: 0.3rem;
   padding: 1rem;
   min-width: 320px;
@@ -25,12 +26,15 @@
   width: 100%;
   margin: 0 auto;
   box-sizing: border-box;
-  color: #eee;
+  /* color: #eee; */
+  color: #656565;
+  box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.166);
 }
 /* FIXED: Proper list styling */
 .aboutList {
   margin: 0.5rem 0;
   padding-left: 1.2rem;
+ 
 }
 
 .aboutList li {
@@ -38,7 +42,7 @@
   margin: 0.1rem 0;
   line-height: 1.4;
   list-style-type: disc;
-  color: #ddd;
+  color: #715b5b;
 }
 
 .aboutList li strong {
@@ -52,21 +56,24 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  background: #1f1f25;
+  /* background: #1f1f25; */
+  background: #19191f1c;
   padding: 1rem;
   border-radius: 0.3rem;
-  border: 1px solid #333;
+  /* border: 1px solid #333; */
   margin-bottom: 1rem;
   box-sizing: border-box;
 }
 
 .contactSection {
-  background: #23232b;
+  /* background: #23232b; */
+  background: #19191f1c;
+
   color: #bbb;
 }
 
 .contactLink {
-  color: #9ab4ff;
+  color: #3472ab;
   text-decoration: none;
   font-weight: 500;
 }
@@ -78,7 +85,9 @@
   border: 1px solid #444;
   padding: 0.6rem;
   font-size: 0.95rem;
-  background: #23232b;
+  /* background: #23232b; */
+  background: #19191f1c;
+
   color: #eee;
   resize: vertical;
   margin-bottom: 0.8rem;
@@ -125,13 +134,15 @@
 
 .aboutText {
   line-height: 1.3;
+  /* color: #715b5b !important; */
 }
 
 
 /* src/app/Styles/about.module.css - ADD THESE CLASSES */
 
 .aboutTitle {
-  color: #9ab4ff;
+  color: #89a6fb;
+   /* color: #715b5b; */
   font-size: 1.8rem;
   font-weight: 600;
   margin-bottom: 1rem;
@@ -141,7 +152,11 @@
 .aboutText {
   line-height: 1.3;
   margin-bottom: 0.8rem;
-  color: #ddd;
+  color: #715b5b !important;
+}
+
+.contactSection p {
+  color: #4b4141;
 }
 
 .aboutText strong {
@@ -150,13 +165,13 @@
 }
 
 .aboutText em {
-  color: #bbb;
+  color: #5c5353;
   font-style: italic;
   font-size: 0.95rem;
 }
 
 .feedbackSection h3, .contactSection h3 {
-  color: #9ab4ff;
+  color: #3d5cbb;
   font-size: 1.2rem;
   margin-bottom: 0.8rem;
   font-weight: 600;
@@ -170,3 +185,4 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+

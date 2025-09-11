@@ -1,59 +1,72 @@
-// middleware.js (ROOT DIRECTORY)
-import { auth } from './src/app/api/auth/[...nextauth]/route.js'
+// middleware.js - COMPLETE PROTECTION
+// This middleware protects all routes except for public ones like signin, signup, and static assets.
+// NextAuth V4, the session is not available in middleware, so we use a custom auth solution.
+// But NextAuth V5 (currently employing managebly) fails to work /well in middleware as of now (09/09/2024).
+import { auth } from './src/app/lib/auth'
 import { NextResponse } from 'next/server'
 
 export default auth((req) => {
-  const { pathname } = req.nextUrl
+  const { pathname, origin } = req.nextUrl
   const isAuthenticated = !!req.auth
 
-  console.log('Middleware - Path:', pathname, 'Auth:', isAuthenticated)
+  console.log('🔒 Middleware Check:', {
+    path: pathname,
+    authenticated: isAuthenticated,
+    userEmail: req.auth?.user?.email
+  })
 
-  // Allow public routes
+  // Public routes that anyone can access
   const publicRoutes = [
+    '/',
+    '/about',
+    '/contact',
     '/auth/signin',
     '/auth/signup', 
     '/auth/error',
-    '/api/auth',
-    '/favicon.ico',
-    '/_next',
-    '/public'
+    '/api/auth'
   ]
 
-  // Check if route is public
-  const isPublicRoute = publicRoutes.some(route => pathname.startsWith(route))
+  // Static assets and Next.js internal routes
+  const staticRoutes = [ // Updated to cover more static paths else than just /_next/static which are by default public; all these are not accessible through urls directly
+    '/_next', 
+    '/favicon.ico',
+    '/public',
+    '/__nextjs'
+  ]
+
+  // Check if route is public or static
+  const isPublicRoute = publicRoutes.some(route => pathname === route || pathname.startsWith(route))
+  const isStaticRoute = staticRoutes.some(route => pathname.startsWith(route))
   
-  if (isPublicRoute) {
-    console.log('Public route allowed:', pathname)
+  if (isPublicRoute || isStaticRoute) {
+    console.log('Public/Static route allowed:', pathname)
     return NextResponse.next()
   }
 
-  // Protect API routes (except auth)
-  if (pathname.startsWith('/api/') && !pathname.startsWith('/api/auth/')) {
-    if (!isAuthenticated) {
-      console.log('API route blocked - no auth:', pathname)
-      return new NextResponse(
-        JSON.stringify({ message: 'Authentication required' }),
-        { status: 401, headers: { 'Content-Type': 'application/json' } }
-      )
-    }
+  // PROTECT ALL OTHER ROUTES (including profile, settings, tasks)
+  if (!isAuthenticated) {
+    console.log('BLOCKED - Redirecting to signin:', pathname)
+    
+    const signInUrl = new URL('/auth/signin', origin)
+    signInUrl.searchParams.set('callbackUrl', pathname)
+    
+    return NextResponse.redirect(signInUrl)
   }
 
-  // Protect main app routes
-  if (pathname === '/' || pathname.startsWith('/tasks') || pathname.startsWith('/dashboard')) {
-    if (!isAuthenticated) {
-      console.log('Protected route blocked - redirecting to signin:', pathname)
-      const signInUrl = new URL('/auth/signin', req.url)
-      signInUrl.searchParams.set('callbackUrl', req.url)
-      return NextResponse.redirect(signInUrl)
-    }
-  }
-
-  console.log('Route allowed:', pathname)
+  console.log('Authenticated access granted:', pathname)
   return NextResponse.next()
 })
 
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|public/).*)',
+    /*
+     * Match all request paths except:
+     * - api/auth (NextAuth endpoints)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - public folder
+     */
+    '/((?!api/auth|_next/static|_next/image|favicon.ico|public/).*)',
   ]
 }

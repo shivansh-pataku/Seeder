@@ -1,5 +1,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import TaskCard from '../Components/TaskCard';
 import TaskEditor from '../Components/TaskEditor';
 import styles from "../Styles/fetchdata.module.css";
@@ -11,6 +13,29 @@ export default function TasksPage() {
   const [selectedTask, setSelectedTask] = useState(null);
   const [isCreatingNew, setIsCreatingNew] = useState(false);
   const [saveStatus, setSaveStatus] = useState(''); // 'saving', 'saved', 'error'
+  const { data: session, status } = useSession()
+  const router = useRouter()
+
+
+    useEffect(() => {
+    if (status === 'unauthenticated') {
+      // Redirect to signin with callback
+      router.push('/auth/signin?callbackUrl=/profile')
+    } else if (status !== 'loading') {
+      setLoading(false)
+    }
+  }, [status, router])
+
+  // Show loading while checking session
+  if (status === 'loading' || loading) {
+    return (
+      <div className={styles.profileContainer}>
+        <div className={styles.loadingSpinner}>
+          <h2>Loading...</h2>
+        </div>
+      </div>
+    )
+  }
 
 ///// Fetch tasks from databse through api ////////////////////////////////////////////////////////////////////////////////
   useEffect(() => {
