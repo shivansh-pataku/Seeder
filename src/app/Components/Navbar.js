@@ -26,7 +26,7 @@ export default function Navbar() {
         {
          router.push('/auth/signin')
         }else{
-          router.push('/profile')
+          router.push(`/${session.user.username}`) //username is from database (in profile table)
         }
       }
       const handleSettings = () => {

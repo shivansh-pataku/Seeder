@@ -51,7 +51,7 @@ export async function POST(request) {
 
     // Insert feedback into database
     const [result] = await dbConfig.execute(
-      'INSERT INTO feedback (user_id, username, feedback_text, created_at) VALUES (?, ?, ?, NOW())',
+      'INSERT INTO feedback (userid, username, feedback_text, created_at) VALUES (?, ?, ?, NOW())',
       [
         currentUser.id, 
         currentUser.username || currentUser.name || currentUser.email, 

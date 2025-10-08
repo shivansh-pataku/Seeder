@@ -16,8 +16,8 @@ export default function TasksPage() {
   const { data: session, status } = useSession()
   const router = useRouter()
 
-
-    useEffect(() => {
+  // Authentication check effect - MUST be at the top before any conditional returns
+  useEffect(() => {
     if (status === 'unauthenticated') {
       // Redirect to signin with callback
       router.push('/auth/signin?callbackUrl=/profile')
@@ -26,7 +26,30 @@ export default function TasksPage() {
     }
   }, [status, router])
 
-  // Show loading while checking session
+  // Fetch tasks from database through api - MUST be at the top before any conditional returns
+  useEffect(() => {
+    async function fetchTasks() {
+      // Only fetch if authenticated
+      if (status === 'authenticated') {
+        setLoading(true);
+
+        try {
+          const res = await fetch('/api/tasks');
+          if (!res.ok) throw new Error('Failed to fetch tasks');
+          const data = await res.json();
+          setTasks(data.tasks || []);
+          setError(null);
+        } catch (err) {
+          setError(err.message);
+        } finally {
+          setLoading(false);
+        }
+      }
+    }
+    fetchTasks();
+  }, [status])
+
+  // Show loading while checking session - AFTER all hooks are called
   if (status === 'loading' || loading) {
     return (
       <div className={styles.profileContainer}>
@@ -36,27 +59,6 @@ export default function TasksPage() {
       </div>
     )
   }
-
-///// Fetch tasks from databse through api ////////////////////////////////////////////////////////////////////////////////
-  useEffect(() => {
-    async function fetchTasks() {
-      setLoading(true);
-
-      try {
-        const res = await fetch('/api/tasks');
-        if (!res.ok) throw new Error('Failed to fetch tasks');
-        const data = await res.json();
-        setTasks(data.tasks || []);
-        setError(null);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-
-      }
-    }
-    fetchTasks();
-  }, []);
 
 ///// Auto-save function for NEW tasks ////////////////////////////////////////////////////////////////////////////////
 
@@ -271,11 +273,8 @@ const handleDeleteTask = async (taskId) => {
       <div className={styles.tasks_list}>
         <div className={styles.tasks_bar}>
           <h2 className={styles.b1}>Seeds</h2> 
-          <h2 className={styles.b2} onClick={handleNewTask}>Sow One</h2>
-        </div>
-        
-        {/* Auto-save Status Indicator */}
-        {saveStatus && (
+
+          {/* {saveStatus && (
           <div className={`${styles.saveStatus} ${styles[saveStatus]}`}>
             {saveStatus === 'saving' && 'Auto-saving...'}
             {saveStatus === 'saved' && 'Saved automatically!'}
@@ -284,7 +283,13 @@ const handleDeleteTask = async (taskId) => {
             {saveStatus === 'pending' && 'Add description to auto-save'}
             {saveStatus === 'error' && 'Failed'}
           </div>
-        )}
+        )} */}
+
+          <h2 className={styles.b2} onClick={handleNewTask}>Sow One</h2>
+        </div>
+        
+        {/* Auto-save Status Indicator */}
+
         
         {error && <p style={{ color: 'red' }}>{error}</p>}
         {loading && !error && <p>Loading tasks...</p>}

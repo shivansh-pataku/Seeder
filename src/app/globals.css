@@ -3,6 +3,9 @@
   padding: 0px;
 }
 
+   /* @import '../styles/_variables.scss';
+   @import '../styles/_keyframe-animations.scss'; */
+
 /* Font utility classes with direct font names // following will work with classnames : className="font-montserrat"> */
 /*.font-montserrat { font-family: 'Montserrat', sans-serif !important; }
 .font-grotesk { font-family: 'Space Grotesk', sans-serif !important; }
@@ -119,4 +122,283 @@ body.dark .card {
   transition: all 0.3s ease-in-out;
     font-weight: 700;
 }
+/* ////////////////////////////////////////////////////////////////////////////// */
+
+
+
+
+/* ============================================================================== */
+/* CUSTOM SCROLLBAR STYLES */
+/* ============================================================================== */
+
+/* Default scrollbar styling for all elements */
+/* * {
+  scrollbar-width: thin;
+  scrollbar-color: #3e3e3e #0c0d10;
+  scrollbar-width: 1px;
+} */
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+/* ::-webkit-scrollbar {
+  width: 2px;
+  height: 8px;
+} */
+
+/* ::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+} */
+
+/* ::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+  border: 1px solid #f1f1f1;
+} */
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+::-webkit-scrollbar-corner {
+  background: #f1f1f1;
+}
+
+/* Dark theme scrollbars */
+body.dark ::-webkit-scrollbar-track {
+  background: #2a2a2a;
+}
+
+body.dark ::-webkit-scrollbar-thumb {
+  background: #555;
+  border: 1px solid #2a2a2a;
+}
+
+body.dark ::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+body.dark ::-webkit-scrollbar-corner {
+  background: #2a2a2a;
+}
+
+body.dark * {
+  scrollbar-color: #555 #2a2a2a;
+}
+
+/* ============================================================================== */
+/* UTILITY CLASSES FOR DIFFERENT SCROLLBAR STYLES */
+/* ============================================================================== */
+
+/* Thin scrollbar */
+/* .scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+} */
+
+/* Thick scrollbar */
+/* .scrollbar-thick::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+} */
+
+/* Hidden scrollbar (but still scrollable) */
+/* .scrollbar-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+} */
+
+/* .scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+} */
+
+/* Colored scrollbars */
+/* .scrollbar-blue::-webkit-scrollbar-thumb {
+  background: #007bff;
+} */
+
+/* .scrollbar-blue::-webkit-scrollbar-thumb:hover {
+  background: #0056b3;
+} */
+
+/* .scrollbar-green::-webkit-scrollbar-thumb {
+  background: #28a745;
+} */
+
+/* .scrollbar-green::-webkit-scrollbar-thumb:hover {
+  background: #1e7e34;
+} */
+
+/* .scrollbar-red::-webkit-scrollbar-thumb {
+  background: #dc3545;
+} */
+
+/* .scrollbar-red::-webkit-scrollbar-thumb:hover {
+  background: #c82333;
+} */
+
+/* Rounded scrollbar */
+/* .scrollbar-rounded::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+} */
+
+/* .scrollbar-rounded::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+} */
+
+/* .scrollbar-rounded::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+} */
+
+/* Modern minimal scrollbar */
+/* .scrollbar-modern::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+} */
+
+/* .scrollbar-modern::-webkit-scrollbar-track {
+  background: transparent;
+} */
+
+/* .scrollbar-modern::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+} */
+
+/* .scrollbar-modern::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.5);
+} */
+
+/* Glass effect scrollbar */
+/* .scrollbar-glass::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+} */
+
+/* .scrollbar-glass::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  backdrop-filter: blur(10px);
+} */
+
+/* .scrollbar-glass::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  backdrop-filter: blur(10px);
+} */
+
+/* .scrollbar-glass::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+} */
+
+/* ============================================================================== */
+/* SPECIFIC CONTAINER SCROLLBAR STYLES */
+/* ============================================================================== */
+
+/* For markdown content or text containers */
+.text-container::-webkit-scrollbar {
+  width: 2px;
+}
+
+.text-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+}
+
+.text-container::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.text-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* For sidebar or navigation */
+.sidebar-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* For modal or popup content */
+.modal-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-scroll::-webkit-scrollbar-track {
+  background: #f8f9fa;
+  border-radius: 4px;
+}
+
+.modal-scroll::-webkit-scrollbar-thumb {
+  background: #dee2e6;
+  border-radius: 4px;
+}
+
+.modal-scroll::-webkit-scrollbar-thumb:hover {
+  background: #adb5bd;
+}
+
+/* ============================================================================== */
+/* RESPONSIVE SCROLLBAR STYLES */
+/* ============================================================================== */
+
+/* Mobile devices - thinner scrollbars */
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  
+  .scrollbar-thick::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+/* Tablet devices */
+@media (min-width: 769px) and (max-width: 1024px) {
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+/* ============================================================================== */
+/* ANIMATION EFFECTS FOR SCROLLBARS */
+/* ============================================================================== */
+
+/* Smooth scrollbar appearance */
+.scrollbar-smooth {
+  scroll-behavior: smooth;
+}
+
+.scrollbar-smooth::-webkit-scrollbar-thumb {
+  transition: background 0.2s ease;
+}
+
+/* Fade in/out scrollbar */
+.scrollbar-fade::-webkit-scrollbar-thumb {
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.scrollbar-fade:hover::-webkit-scrollbar-thumb {
+  opacity: 1;
+}
+
 /* ////////////////////////////////////////////////////////////////////////////// */
