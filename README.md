@@ -43,6 +43,44 @@ Seeder embraces the metaphor of growth through a **fast, minimal, and dynamic** 
 
 ---
 
+
+## 🆕 Latest Updates (v1.1.0)
+
+### **✨ MasterAI - Intelligent Content Creation & Enhancement**
+- AI-driven task optimization: Master analyzes and enhances your task descriptions for clarity and completeness
+- Document intelligence: Real-time content analysis with suggestions for improvement and structure optimization
+- Smart note-taking: AI-powered recommendations to enhance note quality and organization
+- Improvement recommendations: Receive actionable suggestions to enhance readability, coherence, and impact
+- Source integration: AI provides relevant sources and references to strengthen your content
+
+### **✨ Enhanced Text Editor**
+- Full-featured rich text editor with comprehensive formatting options
+- Headings support (H1-H6) for better content structure
+- Interactive checkboxes for task management and to-do lists
+- Text styling options: Bold, Italic, Underline, Strikethrough
+- Color customization: Text color and highlight options
+- List formatting: Bullets, numbered lists, and nested lists
+- Link management: Easy insertion and editing of hyperlinks
+- Character counter: Real-time word and character tracking
+- Intuitive toolbar UI with modern design and responsive layout
+
+### **👤 Enhanced Profile Management**
+- Complete profile customization with personal information updates
+- Social media integration: Add and manage multiple social profiles
+- Supported platforms: GitHub, LinkedIn, Twitter, Instagram, Reddit, Behance, Pinterest, ArtStation
+- Real-time profile preview with live social links
+- Dynamic profile editing with instant save functionality
+- Profile validation to ensure data integrity
+- Clean, responsive profile interface for optimal user experience
+
+### **🎨 UI/UX Improvements**
+- Great text designs for all editor features
+- Modern editor interface with floating toolbar
+- Smooth animations and transitions throughout the application
+- Enhanced responsiveness across all device sizes
+- Improved visual hierarchy for better content organization
+
+
 ## ✨ Key Features
 
 ### 🔐 **Secure Authentication**
