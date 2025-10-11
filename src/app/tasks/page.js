@@ -53,9 +53,9 @@ export default function TasksPage() {
   if (status === 'loading' || loading) {
     return (
       <div className={styles.profileContainer}>
-        <div className={styles.loadingSpinner}>
+        {/* <div className={styles.loadingSpinner}>
           <h2>Loading...</h2>
-        </div>
+        </div> */}
       </div>
     )
   }
