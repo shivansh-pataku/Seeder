@@ -20,7 +20,7 @@
 
 <div align="center">
   <a href="https://github.com/shivansh-pataku/Seeder/raw/main/public/Seeder.mp4">
-    <img src="/public/seeder-preview.png" alt="Seeder Application Preview" width="800">
+    <!-- <img src="/public/seeder-preview.png" alt="Seeder Application Preview" width="800"> -->
     <br>
     <sub>🎥 <strong>Click to watch the full demo video</strong></sub>
   </a>
