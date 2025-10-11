@@ -9,7 +9,7 @@
   width: 100%;
   box-sizing: border-box;
   padding: auto;
-  font-size: small;
+  font-size:x-small;
   text-align: justify;
 }
 
@@ -167,7 +167,7 @@
 .aboutText em {
   color: #5c5353;
   font-style: italic;
-  font-size: 0.95rem;
+  font-size: 0.7rem;
 }
 
 .feedbackSection h3, .contactSection h3 {

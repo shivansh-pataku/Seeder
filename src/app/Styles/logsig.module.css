@@ -1,35 +1,35 @@
-
-
-
 /* src/app/Styles/logsig.module.css */
 .logsigContainer {
-  display: flex;
+  display: flex; 
   justify-content: center;
   align-items: center;
   /* min-height: 100vh; */
   margin-top: 2rem;
   /* background-color: #000000; */
   padding: 1rem;
-/* 
-    background: #071a29;
+  background: transparent;
+  /* background: #071a29;
   background: linear-gradient(90deg, rgba(7, 26, 41, 1) 0%, rgba(0, 0, 0, 1) 100%); */
 }
 
 .logsigForm {
-  background: #2a2a2a;
+  background: var(--logsig-form-bg);  
+  border: 1px solid var(--logsig-form-border);  
+  box-shadow: var(--logsig-form-shadow);  
   padding: 2rem;
   border-radius: 8px;
-  /* border: 1px solid #555; */
   max-width: 320px;
   width: 100%;
+  transition: all 0.3s ease;  
 }
 
 .logsigTitle {
-  color: #fff;
+  color: var(--logsig-title-color);  
   text-align: center;
   margin-bottom: 1.5rem;
   font-size: 1.5rem;
   font-weight: 600;
+  transition: color 0.3s ease;  
 }
 
 .logsigError {
@@ -60,19 +60,20 @@
 
 .logsigLabel {
   display: block;
-  color: #ccc;
+  color: var(--logsig-label-color);  
   margin-bottom: 0.2rem;
   font-size: 0.7rem;
   font-weight: 500;
+  transition: color 0.3s ease;  
 }
 
 .logsigInput {
   width: 100%;
   padding: 0.7rem;
-  border: 1px solid #555;
+  border: 1px solid var(--logsig-input-border);  
   border-radius: 4px;
-  background: #19191f;
-  color: #fff;
+  background: var(--logsig-input-bg);  
+  color: var(--logsig-input-color);  
   box-sizing: border-box;
   font-size: 0.8rem;
   transition: border-color 0.2s;
@@ -81,8 +82,7 @@
 
 .logsigInput:focus {
   outline: none;
-  border-color: #60a5fa;
-  
+  border-color: var(--logsig-input-focus);  
 }
 
 .logsigInput:disabled {
@@ -94,8 +94,8 @@
   width: 100%;
   padding: 0.6rem;
   margin-top: 1.5rem;
-  background: #2e3091;
-  color: white;
+  background: var(--logsig-button-bg);  
+  color: var(--logsig-button-text);  
   border: none;
   border-radius: 4px;
   font-size: 0.8rem;
@@ -106,23 +106,24 @@
 }
 
 .logsigButton:hover:not(:disabled) {
-  background: #3133a7;
+  background: var(--logsig-button-hover);  
 }
 
 .logsigButton:disabled {
-  background: #555;
+  background: var(--logsig-button-disabled);  
   cursor: not-allowed;
 }
 
 .logsigLinks {
   text-align: center;
   margin-top: 1.5rem;
-  color: #ccc;
+  color: var(--logsig-links-color);  
   font-size: 0.7rem;
+  transition: color 0.3s ease;  
 }
 
 .logsigLinks a {
-  color: #60a5fa;
+  color: var(--logsig-link-color);  
   text-decoration: none;
   transition: color 0.2s;
   font-weight: 400;
@@ -133,7 +134,7 @@
 }
 
 .logsigLinks a:hover {
-  color: #2688ff;
+  color: var(--logsig-link-hover);  
   font-weight: 500;
   transition: all 350ms ease-in-out;
   /* text-decoration: underline; */
@@ -142,9 +143,10 @@
 .logsigTestInfo {
   text-align: center;
   margin-top: 1rem;
-  color: #999;
+  color: var(--logsig-test-info-color);  
   font-size: 0.85rem;
   padding: 0.5rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--logsig-test-info-bg);  
   border-radius: 4px;
+  transition: all 0.3s ease;  
 }

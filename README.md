@@ -8,6 +8,7 @@
 </br> *This is an initialization - interesting features are under development to enhance and increase app productivity.* </br>
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-18-blue?style=flat-square&logo=react)](https://reactjs.org/)
+[![TipTap](https://img.shields.io/badge/TipTap-v2.0-6366f1?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K)](https://tiptap.dev/)
 [![MySQL](https://img.shields.io/badge/MySQL-8.0-orange?style=flat-square&logo=mysql)](https://mysql.com/)
 [![NextAuth](https://img.shields.io/badge/NextAuth-v5%20Beta-purple?style=flat-square&logo=auth0)](https://next-auth.js.org/)
 
@@ -17,13 +18,14 @@
 
 ---
 
-![presentation](/public/presentation.png)
+<!-- ![presentation](/public/presentation.png) -->
 
 ## 🌱 What is Seeder?
 
 **Seeder** is a **lightweight, responsive, and blazingly fast** task and notes management application that transforms scattered thoughts into organized achievements. Built for speed and simplicity, Seeder provides a **minimal yet powerful** interface where your ideas can take root and grow.
 
 ### ⚡ **Why Seeder?**
+- **Master AI** - AI which helps to caurate your work in most extensive and productive approcjh.
 - **Lightning Fast** - Optimized for speed with instant loading and real-time updates
 - **Fully Responsive** - Seamless experience across desktop, tablet, and mobile devices  
 - **Minimal Design** - Clean, distraction-free interface that focuses on your tasks
@@ -36,8 +38,8 @@
 
 Seeder embraces the metaphor of growth through a **fast, minimal, and dynamic** approach:
 - **Plant** your ideas instantly
-- **Nurture** them with real-time editing and organization  
-<!-- - **Watch them bloom** as you complete your goals with satisfying progress tracking -->
+- **Nurture** them with real-time editing and organization with Master's Recommendations.
+
 
 **Perfect for:** Quick note-taking, task management, idea capture, project planning, and daily productivity workflows.
 
@@ -109,23 +111,13 @@ Seeder embraces the metaphor of growth through a **fast, minimal, and dynamic** 
 - **Minimal bundle size** for rapid page loads
 
 ### 📱 **Responsive & Dynamic**
-<!-- - **Mobile-first design** that works on any screen size -->
-<!-- - **Touch-friendly interface** for tablet and phone users -->
 - **Dynamic layouts** that adapt to content and device
 - **Smooth animations** and transitions throughout
 
 ### 🎨 **Minimal & Clean Design**
 - **Distraction-free interface** focused on productivity
 - **Intuitive navigation** with clear visual hierarchy
-- **Adaptive theming** - Dark/Light mode with smooth transitions * Under Construction
 - **Typography-focused** design for excellent readability
-
-<!-- ### 📝 **Smart Task & Notes Management*/*
-- **Dual-purpose system** - Works as both task manager and note-taking app -->
-<!-- - **Rich text editing** with title and description fields -->
-<!-- - **Status tracking** - Growing 🌱 → Bloomed 🌸 -->
-<!-- - **Instant search and filtering** (coming soon) -->
-<!-- - **Bulk operations** for managing multiple items -->
 
 ### 🔐 **Secure & Reliable**
 - **NextAuth v5 Beta** integration with secure session management
@@ -136,14 +128,12 @@ Seeder embraces the metaphor of growth through a **fast, minimal, and dynamic** 
 ### 🎨 **Adaptive Theming**
 - **Dark/Light Mode** with smooth transitions * Under Construction
 - **Responsive design** for all devices
-<!-- - **CSS Variables** for consistent styling -->
-<!-- - **Persistent theme** selection across sessions -->
+- **CSS Variables** for consistent styling
+- **Persistent theme** selection across sessions
 
 ### 📝 **Smart Task Management**
 - **Real-time auto-save** - Never lose your thoughts
 - **Instant updates** with optimistic UI
-<!-- - **Rich text editing** with title and description fields -->
-<!-- - **Status tracking** - Growing 🌱 → Bloomed 🌸 -->
 
 ### 🗄️ **Robust Data Management**
 - **MySQL database** for reliable data persistence
@@ -164,10 +154,10 @@ Seeder embraces the metaphor of growth through a **fast, minimal, and dynamic** 
 
 ---
 ![Alt text](/public/home.png)
-![Alt text](/public/editor.png)
+![Alt text](/public/editor%20a%20(2).png)
+![Alt text](/public/editor%20b%20(1).png)
 ![Alt text](/public/login.png)
 ![Alt text](/public/signup.png)
-![Alt text](/public/profile%20dark.png)
 ![Alt text](/public/profile%20light.png)
 ## Screenshots
 
@@ -179,6 +169,7 @@ Seeder embraces the metaphor of growth through a **fast, minimal, and dynamic** 
 ### **Frontend**
 - **[Next.js 15](https://nextjs.org/)** - React framework with App Router
 - **[React 18](https://reactjs.org/)** - Modern React with hooks and context
+- **[TipTap](https://tiptap.dev/)** - Modern rich-text editor for React
 - **[CSS Modules](https://github.com/css-modules/css-modules)** - Scoped styling system
 - **[Google Fonts](https://fonts.google.com/)** - Typography with Montserrat, Golos Text, and more
 
@@ -188,12 +179,14 @@ Seeder embraces the metaphor of growth through a **fast, minimal, and dynamic** 
 - **[JWT (JSON Web Tokens)](https://jwt.io/)** - Secure token-based authentication
 - **[MySQL](https://mysql.com/)** - Relational database for data persistence
 - **[mysql2](https://www.npmjs.com/package/mysql2)** - MySQL driver for Node.js
+- **[Google Generative AI](https://ai.google.dev/)** - AI integration for content enhancement
 - **RESTful API Design** - Standard HTTP methods and status codes
 
-### **Development Tools**
+### Development Tools
 - **[npm](https://www.npmjs.com/)** - Package management
 - **[ESLint](https://eslint.org/)** - Code linting and formatting
 - **[bcryptjs](https://www.npmjs.com/package/bcryptjs)** - Password hashing
+- **[TipTap Extensions](https://tiptap.dev/extensions)** - Rich text editor extensions
 
 
 ### **Why This Tech Stack?**
@@ -250,6 +243,9 @@ DB_NAME=seeder_db
 NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=your-super-secret-key-here
 
+# AI Configuration
+GEMINI_API_KEY=your-google-ai-api-key
+
 # Optional: For production
 # NEXTAUTH_URL=https://your-domain.com
 ```
@@ -263,13 +259,21 @@ CREATE DATABASE seeder_db;
 USE seeder_db;
 
 -- Users table
-CREATE TABLE users (
-  userid INT AUTO_INCREMENT PRIMARY KEY,
-  username VARCHAR(50) NOT NULL,
-  email VARCHAR(100) NOT NULL UNIQUE,
-  password VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+CREATE TABLE `users` (
+  `userid` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `name` varchar(255) DEFAULT 'n/a',
+  `dob` varchar(255) DEFAULT 'n/a',
+  `location` varchar(255) DEFAULT 'n/a',
+  `bio` varchar(255) DEFAULT 'n/a',
+  `socialProfiles` json DEFAULT NULL,
+  `UPDATED_AT` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`userid`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci 
 
 -- Tasks table
 CREATE TABLE tasks (
@@ -310,37 +314,44 @@ Open [http://localhost:3000](http://localhost:3000) to view the app! 🎉
 ```
 seeder/
 ├── src/app/
-│   ├── about/                  # About page with feedback system
-│   ├── api/                    # API routes
-│   │   ├── auth/              # Authentication endpoints
-│   │   ├── feedback/          # Feedback API
-│   │   └── tasks/             # Task management API
-│   ├── auth/                  # Authentication pages
-│   │   ├── signin/           # Sign in page
-│   │   └── signup/           # Sign up page
-│   ├── Components/           # Reusable React components
-│   │   ├── ClientLayout.js   # Client-side layout wrapper
-│   │   ├── Navbar.js         # Navigation component
-│   │   ├── TaskCard.js       # Individual task display
-│   │   ├── TaskEditor.js     # Task creation/editing
-│   │   ├── ThemeProvider.js  # Theme context provider
-│   │   └── Button-ThemeToggle.js # Theme toggle button
-│   ├── lib/                  # Utility libraries
-│   │   ├── db.js            # Database connection
-│   │   ├── user.js          # User service functions
-│   │   └── getCurrentUser.js # Session management
-│   ├── Styles/              # CSS modules
-│   │   ├── globals.css      # Global styles and theme variables
-│   │   ├── about.module.css # About page styles
-│   │   ├── logsig.module.css # Auth pages styles
-│   │   ├── navbar.module.css # Navigation styles
+│   ├── [username]/            # Dynamic profile pages
+│   ├── about/                 # About page with feedback system
+│   ├── api/                   # API routes
+│   │   ├── auth/             # Authentication endpoints
+│   │   ├── feedback/         # Feedback API
+│   │   ├── master.js/        # AI enhancement API
+│   │   ├── profile/          # Profile management API
+│   │   └── tasks/            # Task management API
+│   ├── auth/                 # Authentication pages
+│   │   ├── signin/          # Sign in page
+│   │   └── signup/          # Sign up page
+│   ├── Components/          # Reusable React components
+│   │   ├── Button-ThemeToggle.js # Theme toggle button
+│   │   ├── ClientLayout.js  # Client-side layout wrapper
+│   │   ├── Navbar.js        # Navigation component
+│   │   ├── TaskCard.js      # Individual task display
+│   │   ├── TaskEditor.js    # Task creation/editing
+│   │   └── ThemeProvider.js # Theme context provider
+│   ├── lib/                 # Utility libraries
+│   │   ├── auth.js          # Authentication utilities
+│   │   ├── db.js           # Database connection
+│   │   ├── getCurrentUser.js # Session management
+│   │   └── user.js         # User service functions
+│   ├── profile/            # Profile management pages
+│   ├── Styles/             # CSS modules
+│   │   ├── about.module.css    # About page styles
+│   │   ├── fetchdata.module.css # Task data styles
+│   │   ├── logsig.module.css   # Auth pages styles
+│   │   ├── navbar.module.css   # Navigation styles
+│   │   ├── Page_main.module.css # Main page styles
+│   │   ├── profile.module.css  # Profile page styles
+│   │   ├── settings.module.css # Settings styles
 │   │   ├── taskcard.module.css # Task card styles
-│   │   ├── taskeditor.module.css # Task editor styles
-│   │   └── themetoggle.module.css # Theme button styles
-│   ├── tasks/               # Task management pages
-│   ├── globals.css          # Global CSS
-│   ├── layout.js           # Root layout
-│   └── page.js             # Home page
+│   │   └── taskeditor.module.css # Task editor styles
+│   ├── tasks/              # Task management pages
+│   ├── globals.css         # Global styles and theme variables
+│   ├── layout.js          # Root layout
+│   └── page.js            # Home page
 ├── public/                 # Static assets
 ├── .env.local             # Environment variables
 ├── package.json           # Dependencies and scripts
@@ -353,21 +364,34 @@ seeder/
 
 ### Getting Started
 1. **Create Account** - Sign up with email and password
-2. **Sign In** - Access your personal task garden
-3. **Plant Your First Seed** - Click "+" to create a new task
-4. **Watch It Grow** - Add descriptions and toggle status
-5. **Harvest Success** - Mark tasks as completed (🌱 → 🌸)
+2. **Sign In** - Access your personal workspace
+3. **Complete Profile** - Visit profile page to add personal information and social links
+4. **Create Tasks** - Click "Sow One" to create a new task or note
+5. **Use AI Enhancement** - Try Master AI to improve your writing
+6. **Organize Content** - Use the rich text editor with formatting options
 
-### Task Management
-- **Creating Tasks**: Click the "+" button and fill in title/description
-- **Editing Tasks**: Click on any task card to open the editor
-- **Status Toggle**: Use the status button to mark progress
+### Task & Note Management
+- **Creating Content**: Click "Sow One" button and use the rich text editor
+- **Editing**: Click on any task card to open the full editor
 - **Auto-Save**: Changes are saved automatically as you type
-- **Delete Tasks**: Use the delete button in the task editor
+- **AI Enhancement**: Use Master AI to analyze and improve your content
+- **Formatting**: Use the toolbar for rich text formatting, links, lists, and more
+- **Delete**: Use the "Remove" button in the task editor
+
+### Profile Management
+- **Edit Profile**: Click your username to access profile editing
+- **Add Social Links**: Include GitHub, LinkedIn, Twitter, and other social profiles
+- **Public Profile**: Share your profile using `/username` URL
+- **Privacy**: Only you can edit your profile; others can view it
+
+### AI Writing Assistant
+- **Content Analysis**: Master AI analyzes your writing for improvements
+- **Suggestions**: Get recommendations for better structure and clarity
+- **Resource Discovery**: AI provides relevant sources and references
+- **Writing Enhancement**: Improve grammar, style, and readability
 
 ### Theme Customization
-<!-- - **Toggle Theme**: Click the 🌙/☀️ button in the navbar -->
-- **Toggle Theme**: Click the N/D button in the navbar * Theme management is just initialised
+- **Toggle Theme**: Click the 🌙/☀️ button in the navbar
 - **Persistent Choice**: Your theme preference is remembered
 - **Adaptive Design**: All components automatically adjust
 
@@ -395,6 +419,17 @@ POST /api/tasks            # Create a new task
 PUT /api/tasks             # Complete update/replace entire task 
 PATCH /api/tasks           # Partial update (status, title, or description) 
 DELETE /api/tasks?id={id}  # Permanently delete a task
+```
+
+### Profile Management
+```
+GET /api/profile/[username]    # Get user profile data
+PUT /api/profile/[username]    # Update user profile information
+```
+
+### AI Enhancement
+```
+POST /api/master.js        # Analyze and enhance text content with AI
 ```
 
 #### Response Format:
@@ -442,6 +477,22 @@ GET  /api/feedback         # Retrieve feedback entries (admin access)
 1. Add new columns to existing tables
 2. Create migration scripts
 3. Update API endpoints and services
+
+---
+
+## 🌟 Roadmap
+
+### **🔼 Under Development**
+
+### **🔮 Future Features**
+- [ ] **Search & Filter** - Find tasks and notes quickly
+- [ ] **Export Options** - Download content as PDF, Markdown, or HTML
+- [ ] **Mobile App** - Native mobile application
+- [ ] **Collaboration** - Share and collaborate on documents
+- [ ] **Analytics Dashboard** - Track writing habits and productivity
+- [ ] **Multi-language Support** - AI assistance in multiple languages
+- [ ] **Advanced AI Features** - More sophisticated content analysis
+- [ ] **Integration APIs** - Connect with other productivity tools
 
 ---
 
@@ -508,22 +559,6 @@ We welcome contributions! Here's how you can help Seeder grow:
 
 ---
 
-<!-- ## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
---- -->
-<!-- 
-## 🙏 Acknowledgments
-
-- **Next.js Team** - For the amazing framework
-- **NextAuth.js** - For simplified authentication
-- **Vercel** - For hosting and deployment platform
-- **Google Fonts** - For beautiful typography
-- **Open Source Community** - For inspiration and tools 
-
----
--->
 
 
 ## 📞 Support & Contact

@@ -73,31 +73,97 @@ export default function AboutPage() {
   return (
     <div className={styles.aboutMainRow}>
       {/* Left: About */}
-      <div className={styles.aboutLeft}>
-        <h2 className={styles.aboutTitle}>🌱 About Seeder</h2>
-        <p className={styles.aboutText}>
-          <strong>Plant your ideas. Watch them grow. Harvest success.</strong><br /><br />
-          Seeder transforms the way you manage thoughts, tasks, and projects. Just like a gardener carefully tends to seeds, 
-          Seeder helps you nurture your ideas from conception to completion. Whether you're brainstorming the next big thing 
-          or organizing daily tasks, Seeder provides the perfect environment for your thoughts to flourish.
-          <br /><br />
-          Some of the key features are under development and will be available soon! until then, enjoy the core functionalities and stay tuned for exciting updates.
-        </p> <br />
-          <strong>What Makes Seeder Special:</strong>
-          <ul className={styles.aboutList}>
-            <li><strong>Smart Task Management:</strong> Create, edit, and organize your "seeds" with intelligent auto-save and real-time updates</li>
-            <li><strong>Seamless Authentication:</strong> Secure login with NextAuth v5 Beta - your data stays protected while remaining easily accessible</li>
-            <li><strong>Growth Tracking:</strong> Watch your ideas evolve from "Growing" to "Bloomed" as you complete tasks</li>
-            <li><strong>Adaptive Interface:</strong> Beautiful dark/light themes that adapt to your working style and environment</li>
-            <li><strong>Database-Powered:</strong> Robust MySQL backend ensures your ideas are never lost and always synchronized</li>
-            <li><strong>Lightning Fast:</strong> Built with Next.js 15 for instant page loads and smooth interactions</li>
-          </ul>
-          <br />
-          <p className={styles.aboutText}>
-            <em>"Every great achievement starts with a single seed of an idea. Seeder gives you the tools to plant, 
+<div className={styles.aboutLeft}>
+  <h2 className={styles.aboutTitle}>🌱 About Seeder</h2>
+  
+  {/* Hero Statement */}
+  <div className={styles.heroStatement}>
+    <p className={styles.aboutText}>
+      <strong>Your Ultimate Writing Companion - Cultivate Ideas, Craft Excellence</strong><br /><br />
+      <strong>Well curate your writings</strong> - notes, tasks, ideas, literature, documents, project work, daily tracks, blogs, research papers, creative writing, or anything that flows from your mind to the page.
+      <br /><br />
+      Seeder transforms the way you manage thoughts, tasks, and projects. Just like a gardener carefully tends to seeds, 
+      Seeder helps you nurture your ideas from conception to completion. Whether you're brainstorming the next big thing 
+      or organizing daily tasks, Seeder provides the perfect environment for your thoughts to flourish.
+      <br /><br />
+      This platform purely focuses on <strong>enhancing your writing experience</strong> and helping you <strong>interpret your ideas</strong> with precision and clarity.
+    </p>
+  </div>
+
+  {/* Development Notice */}
+  <div className={styles.developmentNotice}>
+    <p className={styles.aboutText}>
+      <em>Some advanced features are under active development and will be available soon! Until then, enjoy the core functionalities and stay tuned for exciting updates.</em>
+    </p>
+  </div>
+
+  <br />
+
+  {/* Core Features */}
+  <div className={styles.featuresSection}>
+    <h3 className={styles.sectionTitle}>✨ What Makes Seeder Special:</h3>
+    <ul className={styles.aboutList}>
+      
+      {/* AI Features */}
+      <li className={styles.featureItem}>
+        <strong>Master AI Assistant: </strong> 
+        Advanced AI that enhances, corrects, improves, and analyzes your writing. Get professional writing assistance by identifying limitations, discovering additional resources, and exploring deeper insights - regardless of your writing type (academic, creative, technical, or casual).
+      </li>
+      
+      {/* Editor Features */}
+      <li className={styles.featureItem}>
+        <strong>Advanced Rich Text Editor: </strong> 
+        Modern editor with comprehensive formatting options - from basic styling to tables, code blocks, task lists, links, and mathematical expressions. Everything you need for professional writing.
+      </li>
+      
+      
+      {/* Organization */}
+      <li className={styles.featureItem}>
+        <strong>Smart Organization: </strong> 
+        Create, edit, and organize your writings with intelligent auto-save, real-time updates, tagging system, and powerful search to find your content instantly.
+      </li>
+      
+      {/* Security */}
+      <li className={styles.featureItem}>
+        <strong>Seamless Authentication: </strong> 
+        Secure login with NextAuth v5 Beta - your data stays protected while remaining easily accessible across all your devices.
+      </li>
+      
+      {/* Design */}
+      <li className={styles.featureItem}>
+        <strong>Adaptive Interface: </strong> 
+        Beautiful dark/light themes that adapt to your working style and environment. Design and theme have been kept minimal and engaging for maintaining focus on productivity and reducing writing distractions.
+      </li>
+      
+      {/* Technical */}
+      <li className={styles.featureItem}>
+        <strong>Database-Powered: </strong> 
+        Robust MySQL backend ensures your writings are never lost, always synchronized, and backed up securely in the cloud.
+      </li>
+      
+      {/* Performance */}
+      <li className={styles.featureItem}>
+        <strong>Lightning Fast: </strong> 
+        Built with Next.js 15 for instant page loads, smooth interactions, and responsive editing experience that keeps up with your thoughts.
+      </li>
+    </ul>
+  </div>
+
+  <br />
+
+  {/* Inspirational Quote */}
+  <div className={styles.quoteSection}>
+    <blockquote className={styles.inspirationalQuote}>
+      <p className={styles.aboutText}>
+        <em>"Every great achievement starts with a single seed of an idea. Seeder gives you the tools to plant, 
             nurture, and harvest your potential."</em>
-          </p>
-      </div>
+      </p>
+    </blockquote>
+  </div>
+
+</div>
+
+      
       
       {/* Right: Feedback & Contact */}
       <div className={styles.aboutRight}>

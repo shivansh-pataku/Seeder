@@ -1,3 +1,4 @@
+// src/app/Components/ThemeProvider.js
 'use client'
 
 import { createContext, useContext, useEffect, useState } from 'react'
@@ -5,23 +6,24 @@ import { createContext, useContext, useEffect, useState } from 'react'
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(null); // Start as null
+  const [theme, setTheme] = useState(null);
 
   useEffect(() => {
     const stored = localStorage.getItem('theme');
-    const initialTheme = stored || 'light';
+    const initialTheme = stored || 'dark'; // Default to dark
     setTheme(initialTheme);
-    document.body.className = initialTheme;
+    // ✅ Change from body.className to data-theme attribute
+    document.documentElement.setAttribute('data-theme', initialTheme);
   }, []);
 
   const toggleTheme = () => {
     const next = theme === 'light' ? 'dark' : 'light';
     setTheme(next);
     localStorage.setItem('theme', next);
-    document.body.className = next;
+    // ✅ Change from body.className to data-theme attribute
+    document.documentElement.setAttribute('data-theme', next);
   };
 
-  // Don't render children until theme is known
   if (!theme) return null;
 
   return (

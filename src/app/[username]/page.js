@@ -211,6 +211,11 @@ useEffect(() => {
     )
   }
 
+
+
+
+
+
   return (
     <div className={styles.profilepageContainer}>
       {/* Profile Header */}
@@ -227,7 +232,7 @@ useEffect(() => {
             </div>
             <div className={styles.profileHeader}>
               <p className={styles.displayName}>{profiledata.name || username}</p>
-              <p className={styles.username}>The {username}</p>
+              <p className={styles.username}>{username}</p>
 
             {isOwnProfile && (
               <div className={styles.profileActions}>
@@ -248,20 +253,9 @@ useEffect(() => {
         {/* Profile Content */}
         <div className={styles.profile_Ab}>
           <div className={styles.profile_card}>
-            <h4>Profile Information</h4>
-            <p className={styles.profile_item}>
-              <strong>Name:</strong> {profiledata.name || 'Not provided'}
-            </p>
-            <p className={styles.profile_item}>
-              <strong>Born On:</strong> {profiledata.dob || 'N/A'}
-            </p>
-            <p className={styles.profile_item}>
-              <strong>Location:</strong> {profiledata.location || 'N/A'}
-            </p>
-            <p className={styles.profile_item}>
-              <strong>Member since:</strong> {profiledata.created_at ? 
-                new Date(profiledata.created_at).toLocaleDateString() : 'Recently'}
-            </p>
+
+            <p>Top-written contributions</p>
+
 
             {/* Edit Form - for own profile */}
             {isOwnProfile && isEditing && (
@@ -293,6 +287,7 @@ useEffect(() => {
                     <label htmlFor="bio">Bio</label>
                     <textarea id="bio" value={profiledata.bio} onChange={(e) => handleProfileChange('bio', e.target.value)} rows="4" />
                   </div>
+                  
 
                   {/* Social Profiles Section */}
                   <div>
@@ -356,10 +351,25 @@ useEffect(() => {
             {profiledata.bio || 'No bio provided yet.'}
           </p>
 
+                      {/* <h4>Profile Information</h4> */}
+            {/* <p className={styles.profile_item}>
+              <strong>Name:</strong> {profiledata.name || 'Not provided'}
+            </p> */}
+            <p className={styles.profile_item}>
+              <strong>Born On:</strong> {profiledata.dob || 'N/A'}
+            </p>
+            <p className={styles.profile_item}>
+              <strong>Location:</strong> {profiledata.location || 'N/A'}
+            </p>
+            <p className={styles.profile_item}>
+              <strong>Member since:</strong> {profiledata.created_at ? 
+                new Date(profiledata.created_at).toLocaleDateString() : 'Recently'}
+            </p>
 
-          <div className={styles.profile_item}>
+
+          {/* <div className={styles.profile_item}>
             <strong>Location:</strong> <span>{profiledata.location || 'Not specified'}</span>
-          </div>
+          </div> */}
           
           {profiles.filter(p => p.username.trim()).length > 0 && (
 

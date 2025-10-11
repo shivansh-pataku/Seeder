@@ -1,42 +1,42 @@
+/* src/app/Styles/fetchdata.module.css */
 /* Tasks Bar: Horizontal flex container */
-.tasks_bar {
+.tasks_bar { 
   display: flex;
   flex-direction: row;
   width: 100%;
   margin: 0;
   padding: 0;
-  /* Removed commented-out border */
-  align-items: center; /* Align items vertically */
-  box-sizing: border-box; /* Ensure padding/margin don't affect width */
+  align-items: center;
+  box-sizing: border-box;
 }
 
 /* Button styles for .b1 and .b2 */
 .b1, .b2 {
-  color: #ffffff;
+  color: var(--fetch-button-text);
   width: auto;
   margin: 0.1rem;
   padding: 0.1rem;
-  font-size: 0.9rem; /* Consistent font size */
-  transition: all 0.3s ease; /* Smoother transition */
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
 }
 
 /* Specific styles for .b2 */
 .b2 {
   text-align: right;
-  border: 1px solid #ffffff;
+  border: 1px solid var(--fetch-button-border);
   margin-left: auto;
   padding: 0.1rem 0.5rem;
   border-radius: 0.2rem;
-  background-color: transparent; /* Explicit background */
+  background-color: transparent;
 }
 
 /* Hover effect for .b2 */
 .b2:hover {
-  background-color: #ffffff;
-  color: #000000;
+  background-color: var(--fetch-button-hover-bg);
+  color: var(--fetch-button-hover-text);
   cursor: pointer;
-  transform: scale(1.02); /* Subtle zoom effect */
-  transition: all 0.3s ease; /* Consistent timing */
+  transform: scale(1.02);
+  transition: all 0.3s ease;
 }
 
 /* Tasks Major: Main flex container */
@@ -47,14 +47,12 @@
   flex-direction: row;
   gap: 0.5rem;
   padding: 0.4rem;
-  border: 0.5px solid #000000;
-  background-color: rgb(13, 14, 22);
-  height: 90vh; /* Simplified from min-height and height */
+  border: 0.5px solid var(--fetch-container-border);
+  background-color: var(--fetch-container-bg);
+  height: 90vh;
   margin-top: 8px;
   box-sizing: border-box;
-  overflow: hidden; /* Prevent overflow issues */
-  
-  /* Subtle improvements */
+  overflow: hidden;
   border-radius: 2px;
   box-shadow: 
     inset 0 1px 2px rgba(0,0,0,0.1),
@@ -63,45 +61,23 @@
   position: relative;
 }
 
-/* .tasksMajor:hover {
-  border-color: #555;
-  box-shadow: 
-    inset 0 1px 2px rgba(0,0,0,0.1),
-    0 4px 12px rgba(0,0,0,0.1);
-}
-
-.tasksMajor::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, 
-    rgba(255,255,255,0.02) 0%, 
-    transparent 25%, 
-    transparent 75%, 
-    rgba(255,255,255,0.01) 100%);
-  pointer-events: none;
-  border-radius: inherit;
-} */
-
 /* Tasks List: Sidebar-like list container */
 .tasks_list {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   padding: 0.8rem;
-  border: 0.5px solid #535353;
+  border: 0.5px solid var(--fetch-list-border);
   border-radius: 0.2rem;
-  background-color: #0f0f13;
+  background-color: var(--fetch-list-bg);
   width: 30%;
   min-width: 30%;
   max-width: 500px;
   overflow-y: auto;
   overflow-x: hidden;
-  scrollbar-width: thin; /* Firefox scrollbar support */
-  scrollbar-color: #555 transparent; /* Firefox scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: var(--fetch-scrollbar-thumb) transparent;
+  transition: all 0.3s ease;
 }
 
 /* Scrollbar styling for .tasks_list */
@@ -111,7 +87,7 @@
 }
 
 .tasks_list::-webkit-scrollbar-thumb {
-  background: #555;
+  background: var(--fetch-scrollbar-thumb);
   border-radius: 0;
 }
 
@@ -120,7 +96,7 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  box-sizing: border-box; /* Consistent box model */
+  box-sizing: border-box;
 }
 
 /* Task Editor Box: Content editing area */
@@ -129,15 +105,15 @@
   flex-direction: column;
   gap: 1rem;
   padding: 0.8rem;
-    border: 0.5px solid #535353;
+  border: 0.5px solid var(--fetch-list-border);
   border-radius: 0.2rem;
-  background-color: #0f0f13;
+  background-color: var(--fetch-editor-bg);
   width: 80%;
   min-width: 40%;
   overflow-y: auto;
-  background-color: #19191f; /* Consistent background */
-  scrollbar-width: thin; /* Firefox support */
-  scrollbar-color: #555 transparent;
+  scrollbar-width: thin;
+  scrollbar-color: var(--fetch-scrollbar-thumb) transparent;
+  transition: all 0.3s ease;
 }
 
 /* Scrollbar styling for .task_editor_box */
@@ -147,31 +123,31 @@
 }
 
 .task_editor_box::-webkit-scrollbar-thumb {
-  background: #555;
+  background: var(--fetch-scrollbar-thumb);
   border-radius: 0;
-  border: 2px solid #555; /* Consistent with original */
+  border: 2px solid var(--fetch-scrollbar-thumb);
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .tasksMajor {
-    flex-direction: column; /* Stack vertically on smaller screens */
-    height: auto; /* Allow natural height */
+    flex-direction: column;
+    height: auto;
     min-height: 50vh;
   }
 
   .tasks_list {
     width: 100%;
-    min-width: unset; /* Remove min-width constraint */
-    max-width: unset; /* Allow full width */
+    min-width: unset;
+    max-width: unset;
   }
 
   .task_editor_box {
     width: 100%;
-    min-width: unset; /* Full width on mobile */
+    min-width: unset;
   }
 
   .b2 {
-    padding: 0.2rem 0.4rem; /* Slightly smaller padding */
+    padding: 0.2rem 0.4rem;
   }
 }

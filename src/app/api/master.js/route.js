@@ -46,43 +46,46 @@ export async function POST(request) {
       }, { status: 400 });
     }
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
     
     // Use the received text, not hardcoded text
     // const prompt = `Mostly you are not getting some professional text rather it would be text form or note of someone working on something you need to help them in enhancing their work, Read the text and structure and find what type of literature it belongs; if it appears fact or facts do verify its correctness; to then find the limitations in text and do : 1. list of limitations 2. suggestions for improvements 3. sources to refer to make it better, qualitative, more reliable, experienced from literature it belongs to. Optional : Current advancements and history on it. Provide the result appering natural not like you are answering prompt. Text: ${text}`;
     // const prompt = await model.generateContent("Read the text and structure and find what type of literature it belongs to then find the limitations in text and do : 1. list of limitations 2. suggestions for improvements 3. sources to refer to make it better, qualitative, more reliable, experienced from literature it belongs to. Optional : Current advancements and history on it. Text: Lensing is the method used in determining the mass and distance of celestial objects.");
 const prompt = 
 
-`this is not a professional or a true statement rather you have to identify its belonging or literature it can be linked to
+`
+Before analyzing or improving any given text, first identify what kind of writing it is — not just by form, but by intention. It could be:
+anything from a personal reflection, a technical explanation, a creative story, an academic argument, or a casual note, a blog, an internet post and so forth.
 
-it can be a 
-idea just lingered in mind can be sure or unsure about idea rather trying to analyze the idea while writing so you have to first confirm its possibility
-or 
-academic or professional notes
-or
-a daily or once in all time experience or a self analysis
-or
-trying writing a poetry/story/lekh
-or 
-trying to write a blog or a post
-or
-a daily task
-or
-writing some kind or casual/professional document
-or 
-can be anything 
+Step 1: Context Identification
 
-so
-identify it first
-most important is that you verify its correctness and authencity then proceed further 
-and then
+Determine the belonging or literary/creative context of the text.
+Ask:
+What is the writer trying to do or express?
+Is the tone exploratory, analytical, emotional, experimental, or practical?
+Does it connect to any existing form of literature, theory, expression, or genre, and if so, which one?
 
-1. list of limitations 
-2. suggestions for improvements
-3. sources to refer to make it better, qualitative, more reliable, experienced from literature it belongs to.
-vision : Current advancements and history on it. Provide the result appearing natural not like you are answering prompt.
+-- dont reflect the above in response --
 
-exactly according to the text.
+Step 2: Authenticity & Correctness Check
+Before evaluation, verify the possibility, correctness, and authenticity of the content.
+Is the idea logically or emotionally consistent?
+Does it reflect genuine experience, imagination, or research, or is it derivative or superficial?
+Is it reliable in its claims, or intentionally speculative?
+If the text contains factual claims, verify their accuracy using trusted sources. If verification is not possible, note this in your evaluation.
+
+Step 3: Evaluation Framework
+After confirming authenticity, provide:
+List of Limitations – what constrains or weakens the text (clarity, coherence, depth, tone, structure, factual gaps).
+Suggestions for Improvement – how to refine expression, strengthen authenticity, or align better with its intended form or audience.
+Focus well on - Sources or References – mention key readings, frameworks, or literary traditions to explore (e.g., creative nonfiction, stream-of-consciousness, academic essaying, etc.).
+Vision: History and Current Advancements – connect the text or its idea to broader movements or current discourse in the relevant field or genre.
+
+Step 4: Since you have analysed the text-type and confirmed its authenticity, help the writer to improve its writing in the related context. (eg: if it is a personal reflection, help them deepen their introspection; if it is a technical explanation, help them clarify and structure their points; if it is a creative story, help them enhance imagery and emotional impact; if it is an academic argument, help them strengthen logic and evidence; if it is a casual note or internet post, help them make it engaging and clear, if it blog help them to write better and so on  by telling what is missing).
+Do find the grammar and spelling mistakes and correct them.
+
+Guidelines:
+Keep the response natural, interpretive, and humane — as though engaging with a living idea, not grading an assignment. Avoid robotic evaluation or rigid correctness. Dont include the steps and guidelines in the response. Just provide the analysis and improvement suggestions. Only give your improvised version in case of grammatical, structural improvement otherwise agitate writer to rewrite better.
 
 Text: ${text}`;
 

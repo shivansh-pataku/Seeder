@@ -1,404 +1,519 @@
+
 :root {
   margin: 0px;
   padding: 0px;
+  
+/* =============================================================================================== */
+/* ================================= DEFAULT THEME VARIABLES (DARK) ============================== */
+/* =============================================================================================== */
+
+/* ============================== HOMEPAGE DEFAULT THEME VARIABLES (DARK) ======================== */
+
+  --background: #121212;
+  --foreground: #eee;
+  --card-bg: #1e1e1e;
+  --card-border: #333;
+  --card-shadow: rgba(0, 0, 0, 0.166);
+  --card-shadow-light: rgba(0, 0, 0, 0.06);
+  
+  /* Welcome section */
+  --welcome-bg: rgba(43, 43, 43, 0.699);
+  --welcome-border: rgba(0, 0, 0, 0.1);
+  
+  /* Buttons */
+  --button-bg: rgba(43, 43, 43, 0.493);
+  --button-bg-hover: rgba(255, 255, 255, 0.546);
+  --button-text: white;
+  --button-text-hover: black;
+  
+  /* Scrollbar */
+  --scrollbar-track: #2a2a2a;
+  --scrollbar-thumb: #555;
+  --scrollbar-thumb-hover: #666;
+  --min-borders: #444; /* New variable for minimal borders */
+
+
+
+
+/* ======================= LOGIN/SIGNUP VARIABLES (DARK - Original Colors) ======================== */
+
+  --logsig-container-bg: transparent; /* Keep as transparent like your original */
+  --logsig-form-bg: #2a2a2a; /* Your exact gray */
+  --logsig-form-border: transparent; /* You had it commented out */
+  --logsig-form-shadow: none; /* You don't use shadows */
+  
+  --logsig-title-color: #fff; /* Your exact white */
+  --logsig-label-color: #ccc; /* Your exact light gray */
+  
+  --logsig-input-bg: #19191f; /* Your exact dark input bg */
+  --logsig-input-color: #fff; /* Your exact white text */
+  --logsig-input-border: #555; /* Your exact border color */
+  --logsig-input-focus: #60a5fa; /* Your exact blue focus */
+  
+  --logsig-button-bg: #2e3091; /* Your exact blue */
+  --logsig-button-hover: #3133a7; /* Your exact hover blue */
+  --logsig-button-text: white; /* Your exact white */
+  --logsig-button-disabled: #555; /* Your exact disabled gray */
+  
+  --logsig-links-color: #ccc; /* Your exact link color */
+  --logsig-link-color: #60a5fa; /* Your exact link blue */
+  --logsig-link-hover: #2688ff; /* Your exact hover blue */
+  
+  --logsig-test-info-bg: rgba(255, 255, 255, 0.05); /* Your exact test info bg */
+  --logsig-test-info-color: #999; /* Your exact test info color */
+
+
+
+ /* ========== TASK EDITOR VARIABLES (DARK) ========== */
+  --task-editor-bg: #19191f;
+  --task-editor-border: #535353;
+  --task-editor-text: #ffffff;
+  --task-editor-text-muted: #888;
+  --task-editor-text-light: #ababab;
+  --task-editor-text-accent: #d3d3d3;
+  
+  /* Title and Description blocks */
+  --task-title-border: rgb(124, 124, 124);
+  --task-desc-hover-bg: rgba(46, 46, 46, 0.259);
+  
+  /* Header */
+  --task-header-bg: #111217;
+  --task-header-border: rgb(75, 75, 75);
+  --task-header-shadow: #171717;
+  --task-header-text: rgb(75, 75, 75);
+  
+  /* Buttons */
+  --task-button-bg: #2b4b6e;
+  --task-button-text: rgb(214, 214, 214);
+  --task-button-border: rgb(163, 163, 163);
+  --task-button-hover-bg: #ffffff;
+  --task-button-hover-text: #1e1e1e;
+  --task-delete-hover-text: #632929;
+  --task-button-disabled: #0000003b;
+  
+  /* TipTap Editor */
+  --editor-toolbar-bg: #1e2228;
+  --editor-toolbar-border: #323846;
+  --editor-content-bg: #1e1e1e;
+  --editor-content-text: #e0e0e0;
+  --editor-heading-color: #b5c2fe;
+  --editor-heading-border: #a3b4ff;
+  --editor-accent: #4a90e2;
+  --editor-code-bg: #2a2a2a;
+  --editor-code-color: #ff6b6b;
+  --editor-highlight-bg: #d2b26c;
+  --editor-blockquote-border: #4a90e2;
+  --editor-table-bg: #1a1a1a;
+  --editor-table-border: #404040;
+  
+  /* ========== FETCH DATA VARIABLES (DARK) ========== */
+  --fetch-container-bg: rgb(13, 14, 22);
+  --fetch-container-border: #000000;
+  --fetch-list-bg: #0f0f13;
+  --fetch-list-border: #535353;
+  --fetch-editor-bg: #19191f;
+  --fetch-button-border: #ffffff;
+  --fetch-button-text: #ffffff;
+  --fetch-button-hover-bg: #ffffff;
+  --fetch-button-hover-text: #000000;
+  --fetch-scrollbar-thumb: #555;
+  
+  /* ========== TASK CARD VARIABLES (DARK) ========== */
+  --card-bg: #262931e7;
+  --card-border: #333;
+  --card-border-hover: #555;
+  --card-title-color: #d3d3d3;
+  --card-desc-color: #ababab;
+  --card-desc-bg: #19181fe3;
+  --card-date-color: #fff7e8;
+  --card-date-bg: #1c1b21;
+  
+  /* Master AI Board */
+  --master-board-bg: #0e0e10e2;
+  --master-board-border: #212f3e;
+  --master-head-bg: #2c3e5042;
+  --master-head-text: #bed6f7;
+  --master-analyze-bg: #36526d;
+  --master-analyze-border: rgba(255, 255, 255, 0.337);
+  --master-analyze-text: #dfdfcb;
+  --master-analyze-hover-border: rgb(255, 250, 219);
+  --master-analyze-hover-text: #fefed3;
+  --master-content-text: #bababa;
+  --master-heading-color: #538abc;
+  --master-strong-color: #5b7a99;
+  --master-em-color: #7f8c8d;
+  --master-loading-bg: #16171e;
+  --master-loading-border: #4c5f957f;
+  --master-loading-text: #1d6c9e;
+  --master-error-bg: #1e1616;
+  --master-error-text: #642128;
+  --master-empty-bg: #10151b89;
+  --master-empty-border: #385067;
+
+  
+  /* ========== NAVBAR VARIABLES (DARK) ========== */
+  --navbar-bg: rgba(18, 18, 18, 0.8); /* Semi-transparent for blur */
+  --navbar-bg-blur: rgba(18, 18, 18, 0.9); /* More opaque on hover */
+  --navbar-border: rgba(255, 255, 255, 0.1);
+  --navbar-shadow: rgba(0, 0, 0, 0.3);
+  --navbar-title-color: #eee;
+  
+  /* Links */
+  --navbar-link-color: #ffffff;
+  --navbar-link-border: rgba(255, 255, 255, 0.2);
+  --navbar-link-hover-bg: rgba(255, 255, 255, 0.1);
+  --navbar-link-hover-color: #ffffff;
+  
+  /* Username */
+  --navbar-username-hover-bg: rgba(255, 255, 255, 0.1);
+  --navbar-username-hover-color: #ffffff;
+  
+  /* Dropdown Menu */
+  --navbar-menu-bg: rgba(30, 30, 30, 0.9); /* Semi-transparent for blur */
+  --navbar-menu-border: rgba(255, 255, 255, 0.15);
+  --navbar-menu-shadow: rgba(0, 0, 0, 0.4);
+  --navbar-menulink-color: #eee;
+  --navbar-menulink-border: rgba(255, 255, 255, 0.1);
+  --navbar-menulink-hover-bg: rgba(255, 255, 255, 0.1);
+  --navbar-menulink-hover-color: #ffffff;
 }
 
-   /* @import '../styles/_variables.scss';
-   @import '../styles/_keyframe-animations.scss'; */
 
-/* Font utility classes with direct font names // following will work with classnames : className="font-montserrat"> */
-/*.font-montserrat { font-family: 'Montserrat', sans-serif !important; }
-.font-grotesk { font-family: 'Space Grotesk', sans-serif !important; }
-.font-sharetech { font-family: 'Share Tech Mono', monospace !important; }
-.font-michroma { font-family: 'Michroma', sans-serif !important; }
-.font-kiteone { font-family: 'Kite One', sans-serif !important; }
-.font-golos { font-family: 'Golos Text', sans-serif !important; }
-.font-dmsans { font-family: 'DM Sans', sans-serif !important; } 
-*/
 
-/* Font utility classes // following will work with inline styles : style={{ fontFamily: 'Kite One, sans-serif' }} */
-/*.font-montserrat { font-family: var(--font-montserrat), sans-serif; }
-.font-grotesk { font-family: var(--font-grotesk), sans-serif; }
-.font-sharetech { font-family: var(--font-sharetech), monospace; }
-.font-michroma { font-family: var(--font-michroma), sans-serif; }
-.font-kiteone { font-family: var(--font-kiteone), sans-serif; }
-.font-golos { font-family: var(--font-golos), sans-serif; }
-.font-dmsans { font-family: var(--font-dmsans), sans-serif; } 
-*/
 
+
+
+/* =============================================================================================== */
+/* ==================================== LIGHT THEME OVERRIDES ==================================== */
+/* =============================================================================================== */
+[data-theme="light"] {
+
+/* ============================== HOMEPAGE DEFAULT THEME VARIABLES (LIGHT) ======================= */
+
+  --background: #f5f7fa; /* Slightly blue-tinted instead of pure gray */
+  --foreground: #2d3748; /* Darker, more readable text */
+  --card-bg: #ffffff;
+  --card-border: #cbd5e0; /* More visible borders */
+  --card-shadow: rgba(0, 0, 0, 0.15); /* Stronger shadows */
+  --card-shadow-light: rgba(0, 0, 0, 0.08);
+  
+  /* Welcome section */
+  --welcome-bg: rgba(255, 255, 255, 0.95); /* Slightly more opaque */
+  --welcome-border: rgba(0, 0, 0, 0.15); /* More visible border */
+  
+  /* Buttons */
+  --button-bg: #e2e8f0; /* Light gray background */
+  --button-bg-hover: #2d3748; /* Dark hover like dark theme */
+  --button-text: #4a5568; /* Dark text */
+  --button-text-hover: #ffffff; /* White text on dark hover */
+  
+  /* Scrollbar */
+  --scrollbar-track: #edf2f7;
+  --scrollbar-thumb: #a0aec0;
+  --scrollbar-thumb-hover: #718096;
+
+  --min-borders: #d5d5d5; /* New variable for minimal borders */
+
+
+
+  /* ============================== LOGIN FORM VARIABLES (LIGHT) ============================== */
+
+  --logsig-container-bg: #f7fafc; /* Very light blue-gray */
+  --logsig-form-bg: #ffffff;
+  --logsig-form-border: #cbd5e0; /* Visible border */
+  --logsig-form-shadow: 0 4px 16px rgba(0, 0, 0, 0.12); /* Stronger shadow */
+  
+  --logsig-title-color: #2d3748; /* Dark text */
+  --logsig-label-color: #4a5568; /* Medium gray, readable */
+  
+  --logsig-input-bg: #f7fafc; /* Light background like dark theme */
+  --logsig-input-color: #2d3748; /* Dark text */
+  --logsig-input-border: #cbd5e0; /* Visible border */
+  --logsig-input-focus: #3182ce; /* Blue focus */
+  
+  --logsig-button-bg: #3182ce; /* Distinct button color */
+  --logsig-button-hover: #2c5aa0; /* Darker hover */
+  --logsig-button-text: white;
+  --logsig-button-disabled: #cbd5e0;
+  
+  --logsig-links-color: #718096; /* Medium gray */
+  --logsig-link-color: #3182ce; /* Blue links */
+  --logsig-link-hover: #2c5aa0; /* Darker hover */
+  
+  --logsig-test-info-bg: #edf2f7; /* Light gray background */
+  --logsig-test-info-color: #718096;
+
+
+
+  /* ========== TASK EDITOR VARIABLES (LIGHT) ========== */
+  --task-editor-bg: #f7fafc; /* Light background instead of pure white */
+  --task-editor-border: #cbd5e0; /* More visible borders */
+  --task-editor-text: #2d3748; /* Darker text */
+  --task-editor-text-muted: #718096; /* Better contrast for muted text */
+  --task-editor-text-light: #4a5568; /* Medium gray */
+  --task-editor-text-accent: #1a202c; /* Very dark accent */
+  
+  /* Title and Description blocks */
+  --task-title-border: #a0aec0; /* More visible border */
+  --task-desc-hover-bg: rgba(226, 232, 240, 0.5); /* Light gray hover */
+  
+  /* Header */
+  --task-header-bg: #edf2f7; /* Light gray header */
+  --task-header-border: #cbd5e0;
+  --task-header-shadow: rgba(0, 0, 0, 0.08);
+  --task-header-text: #718096;
+  
+  /* Buttons */
+  --task-button-bg: #4299e1; /* Distinct blue */
+  --task-button-text: #ffffff;
+  --task-button-border: #4299e1;
+  --task-button-hover-bg: #2d3748; /* Dark hover like dark theme */
+  --task-button-hover-text: #ffffff;
+  --task-delete-hover-text: #e53e3e; /* Red for delete */
+  --task-button-disabled: #e2e8f0;
+  
+  /* TipTap Editor */
+  --editor-toolbar-bg: #edf2f7; /* Light gray toolbar */
+  --editor-toolbar-border: #cbd5e0;
+  --editor-content-bg: #ffffff;
+  --editor-content-text: #2d3748;
+  --editor-heading-color: #3182ce;
+  --editor-heading-border: #3182ce;
+  --editor-accent: #3182ce;
+  --editor-code-bg: #edf2f7; /* Light gray code background */
+  --editor-code-color: #d53f8c; /* Pink code text */
+  --editor-highlight-bg: #fefcbf; /* Yellow highlight */
+  --editor-blockquote-border: #3182ce;
+  --editor-table-bg: #f7fafc; /* Light table background */
+  --editor-table-border: #cbd5e0;
+  
+  /* ========== FETCH DATA VARIABLES (LIGHT) ========== */
+  --fetch-container-bg: #edf2f7; /* Light gray container */
+  --fetch-container-border: #a0aec0; /* Visible border */
+  --fetch-list-bg: #f7fafc; /* Slightly different from white */
+  --fetch-list-border: #cbd5e0;
+  --fetch-editor-bg: #ffffff;
+  --fetch-button-border: #3182ce;
+  --fetch-button-text: #3182ce;
+  --fetch-button-hover-bg: #3182ce;
+  --fetch-button-hover-text: #ffffff;
+  --fetch-scrollbar-thumb: #a0aec0;
+  
+  /* ========== TASK CARD VARIABLES (LIGHT) ========== */
+  --card-bg: #ffffff;
+  --card-border: #cbd5e0; /* More visible borders */
+  --card-border-hover: #a0aec0; /* Stronger hover border */
+  --card-title-color: #2d3748; /* Dark title */
+  --card-desc-color: #4a5568; /* Medium gray description */
+  --card-desc-bg: #f7fafc; /* Light background for description */
+  --card-date-color: #718096; /* Medium gray date */
+  --card-date-bg: #edf2f7; /* Light gray date background */
+  
+  /* Master AI Board */
+  --master-board-bg: #f7fafc; /* Light background instead of white */
+  --master-board-border: #cbd5e0; /* Visible border */
+  --master-head-bg: rgba(66, 153, 225, 0.1); /* Light blue background */
+  --master-head-text: #3182ce;
+  --master-analyze-bg: #3182ce;
+  --master-analyze-border: rgba(49, 130, 206, 0.3);
+  --master-analyze-text: #ffffff;
+  --master-analyze-hover-border: #2c5aa0;
+  --master-analyze-hover-text: #ffffff;
+  --master-content-text: #4a5568; /* Better contrast */
+  --master-heading-color: #3182ce;
+  --master-strong-color: #2c5aa0;
+  --master-em-color: #718096;
+  --master-loading-bg: #ebf8ff; /* Light blue loading */
+  --master-loading-border: #90cdf4;
+  --master-loading-text: #2c5aa0;
+  --master-error-bg: #fed7d7; /* Light red error */
+  --master-error-text: #c53030;
+  --master-empty-bg: #edf2f7; /* Light gray empty state */
+  --master-empty-border: #a0aec0;
+
+
+
+  /* ========== NAVBAR VARIABLES (LIGHT) ========== */
+  --navbar-bg: rgba(247, 250, 252, 0.85); /* Light blue-gray with transparency */
+  --navbar-bg-blur: rgba(247, 250, 252, 0.95);
+  --navbar-border: rgba(203, 213, 224, 0.6); /* Visible border */
+  --navbar-shadow: rgba(0, 0, 0, 0.08);
+  --navbar-title-color: #2d3748;
+  
+  /* Links */
+  --navbar-link-color: #4a5568;
+  --navbar-link-border: rgba(160, 174, 192, 0.4); /* Visible link borders */
+  --navbar-link-hover-bg: rgba(45, 55, 72, 0.1);
+  --navbar-link-hover-color: #1a202c;
+  
+  /* Username */
+  --navbar-username-hover-bg: rgba(45, 55, 72, 0.08);
+  --navbar-username-hover-color: #1a202c;
+  
+  /* Dropdown Menu */
+  --navbar-menu-bg: rgba(255, 255, 255, 0.95); /* Slightly more opaque */
+  --navbar-menu-border: rgba(203, 213, 224, 0.8); /* Visible border */
+  --navbar-menu-shadow: rgba(0, 0, 0, 0.12); /* Stronger shadow */
+  --navbar-menulink-color: #4a5568;
+  --navbar-menulink-border: rgba(226, 232, 240, 0.8);
+  --navbar-menulink-hover-bg: rgba(45, 55, 72, 0.05);
+  --navbar-menulink-hover-color: #2d3748;
+
+  
+
+}
+
+/* /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+
+
+/* ============================== APPLY VARIABLES TO ELEMENTS OF HOMEPAGE ============================== */
 body {
-  /* imported fonts available for use : */
-  /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;  */
-  /* font-family: 'Montserrat'; */
-  /* font-family: 'Kite One'; */
-  /* font-family: 'Varela'; */
-  /* font-family: 'DM Sans'; */
-  /* font-family: 'Cal Sans'; */
-  /* font-family: 'Golos Text'; */
-  /* font-family: 'Michroma'; */
-  /* font-family: 'Share Tech Mono'; */
-  /* font-family: 'Space Grotesk'; */
-  /* font-family: 'Readex Pro'; */
-
   font-family: 'Montserrat';
   font-weight: 400;
   margin: 0px;
   padding: 0px;
-}
-
-body.light {
-  background-color: #f9f9f9;
-  color: #222;
-}
-
-body.dark {
-  background-color: #121212;
-  color: #eee;
+  background-color: var(--background);
+  color: var(--foreground);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .card {
   padding: 1rem;
   border-radius: 0.5rem;
-  background-color: white;
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  transition: all 0.3s ease;
 }
 
-body.dark .card {
-  background-color: #1e1e1e;
-  border: 1px solid #333;
-}
-
-
-.Page-Home{
-  /* display: flex; */
-  justify-items: center; 
-  /* Controls how the content inside each grid cell aligns left–right i.e. horizontally */
-  /* align-items: center; */
-  /* Controls how each item sits top–bottom (cross axis). */
-  /* justify-content: center; */
-  /* Moves the whole group of items left–right (main axis). */
-  /* flex-direction: column; */
-
+.Page-Home {
+  justify-items: center;
 }
 
 .Home-Container1 {
   display: flex;
-  justify-content: center;   /* horizontal center */
-  align-items: center;       /* vertical center */
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
 }
 
 .Welcome {
-  
   justify-items: center;
-  /* border: solid 0.01rem; */
-  background-color: rgba(43, 43, 43, 0.699);
+  border: solid 0.01rem var(--welcome-border);
+  background-color: var(--welcome-bg);
   margin: 20px;
   padding: 20px;
-  margin-top: 220px;
+  margin-top: 80px;
   border-radius: 0.2rem;
-  box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.166);
-  
+  box-shadow: 0 0.25rem 1.25rem var(--card-shadow);
+  transition: all 0.3s ease;
 }
 
-.BT_continue{
-  background-color: rgba(43, 43, 43, 0.493);
-  color: white;
+.BT_continue {
+  background-color: var(--button-bg);
+  color: var(--button-text);
   border: solid 0.0rem;
   border-radius: 0.2rem;
   padding: 10px;
   margin-top: 20px;
   font-family: montserrat;
   font-weight: 400;
-  box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.06);
+  box-shadow: 0 0.25rem 1.25rem var(--card-shadow-light);
+  transition: all 0.3s ease-in-out;
 }
 
 .BT_continue:hover {
-  background-color: rgba(255, 255, 255, 0.546);
-  box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.166);
-  color: black;
+  background-color: var(--button-bg-hover);
+  box-shadow: 0 0.25rem 1.25rem var(--card-shadow);
+  color: var(--button-text-hover);
   cursor: pointer;
-  /* font-weight: bold; */
-  /* transform: scale(1.05); */
-  transition: all 0.3s ease-in-out;
-    font-weight: 700;
+  font-weight: 700;
 }
-/* ////////////////////////////////////////////////////////////////////////////// */
+
+.Seeder-About {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 40px;
+  /* margin: 20px;
+  padding: 20px; */
+  border-radius: 0.2rem;
+  /* box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.166); */
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.Seeder-About .intro {
+  background-color: var(--card-bg);
+  height:max-content;
+  min-height: 100px;
+  /* max-height: 100px; */
+  width: 40%;
+  max-width: 500px;
+  margin: 20px;
+  padding: 20px;
+  text-align: center;
+  font-size: x-small;
+  border: 1px solid var(--min-borders);
+  border-radius: 4px;
+  transition: all 0.4s ease-in-out;
+  box-shadow: 0 0.1rem 1.25rem var(--card-shadow-light);
+}
+
+.intro:hover{
+ transform: scale(1.02);
+}
 
 
 
 
-/* ============================================================================== */
-/* CUSTOM SCROLLBAR STYLES */
-/* ============================================================================== */
-
-/* Default scrollbar styling for all elements */
-/* * {
-  scrollbar-width: thin;
-  scrollbar-color: #3e3e3e #0c0d10;
-  scrollbar-width: 1px;
-} */
-
-/* Webkit browsers (Chrome, Safari, Edge) */
-/* ::-webkit-scrollbar {
-  width: 2px;
+/* =============================== ========== SCROLLBAR STYLES ========== ======================================*/
+::-webkit-scrollbar {
+  width: 8px;
   height: 8px;
-} */
+}
 
-/* ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
   border-radius: 4px;
-} */
+}
 
-/* ::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
   border-radius: 4px;
-  border: 1px solid #f1f1f1;
-} */
+  border: 1px solid var(--scrollbar-track);
+  transition: background 0.3s ease;
+}
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+  background: var(--scrollbar-thumb-hover);
 }
 
 ::-webkit-scrollbar-corner {
-  background: #f1f1f1;
+  background: var(--scrollbar-track);
 }
 
-/* Dark theme scrollbars */
-body.dark ::-webkit-scrollbar-track {
-  background: #2a2a2a;
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
 
-body.dark ::-webkit-scrollbar-thumb {
-  background: #555;
-  border: 1px solid #2a2a2a;
-}
-
-body.dark ::-webkit-scrollbar-thumb:hover {
-  background: #666;
-}
-
-body.dark ::-webkit-scrollbar-corner {
-  background: #2a2a2a;
-}
-
-body.dark * {
-  scrollbar-color: #555 #2a2a2a;
-}
-
-/* ============================================================================== */
-/* UTILITY CLASSES FOR DIFFERENT SCROLLBAR STYLES */
-/* ============================================================================== */
-
-/* Thin scrollbar */
-/* .scrollbar-thin::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
-} */
-
-/* Thick scrollbar */
-/* .scrollbar-thick::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
-} */
-
-/* Hidden scrollbar (but still scrollable) */
-/* .scrollbar-hidden {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-} */
-
-/* .scrollbar-hidden::-webkit-scrollbar {
-  display: none;
-} */
-
-/* Colored scrollbars */
-/* .scrollbar-blue::-webkit-scrollbar-thumb {
-  background: #007bff;
-} */
-
-/* .scrollbar-blue::-webkit-scrollbar-thumb:hover {
-  background: #0056b3;
-} */
-
-/* .scrollbar-green::-webkit-scrollbar-thumb {
-  background: #28a745;
-} */
-
-/* .scrollbar-green::-webkit-scrollbar-thumb:hover {
-  background: #1e7e34;
-} */
-
-/* .scrollbar-red::-webkit-scrollbar-thumb {
-  background: #dc3545;
-} */
-
-/* .scrollbar-red::-webkit-scrollbar-thumb:hover {
-  background: #c82333;
-} */
-
-/* Rounded scrollbar */
-/* .scrollbar-rounded::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-} */
-
-/* .scrollbar-rounded::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 10px;
-} */
-
-/* .scrollbar-rounded::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 10px;
-} */
-
-/* Modern minimal scrollbar */
-/* .scrollbar-modern::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-} */
-
-/* .scrollbar-modern::-webkit-scrollbar-track {
-  background: transparent;
-} */
-
-/* .scrollbar-modern::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 3px;
-} */
-
-/* .scrollbar-modern::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.5);
-} */
-
-/* Glass effect scrollbar */
-/* .scrollbar-glass::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-} */
-
-/* .scrollbar-glass::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-  backdrop-filter: blur(10px);
-} */
-
-/* .scrollbar-glass::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 4px;
-  backdrop-filter: blur(10px);
-} */
-
-/* .scrollbar-glass::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.5);
-} */
-
-/* ============================================================================== */
-/* SPECIFIC CONTAINER SCROLLBAR STYLES */
-/* ============================================================================== */
-
-/* For markdown content or text containers */
-.text-container::-webkit-scrollbar {
-  width: 2px;
-}
-
-.text-container::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.05);
-  border-radius: 3px;
-}
-
-.text-container::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 3px;
-}
-
-.text-container::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.4);
-}
-
-/* For sidebar or navigation */
-.sidebar-scroll::-webkit-scrollbar {
-  width: 5px;
-}
-
-.sidebar-scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.sidebar-scroll::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 5px;
-}
-
-.sidebar-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.4);
-}
-
-/* For modal or popup content */
-.modal-scroll::-webkit-scrollbar {
-  width: 8px;
-}
-
-.modal-scroll::-webkit-scrollbar-track {
-  background: #f8f9fa;
-  border-radius: 4px;
-}
-
-.modal-scroll::-webkit-scrollbar-thumb {
-  background: #dee2e6;
-  border-radius: 4px;
-}
-
-.modal-scroll::-webkit-scrollbar-thumb:hover {
-  background: #adb5bd;
-}
-
-/* ============================================================================== */
-/* RESPONSIVE SCROLLBAR STYLES */
-/* ============================================================================== */
-
-/* Mobile devices - thinner scrollbars */
+/* Mobile responsive scrollbars */
 @media (max-width: 768px) {
   ::-webkit-scrollbar {
     width: 4px;
     height: 4px;
   }
-  
-  .scrollbar-thick::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
 }
 
-/* Tablet devices */
 @media (min-width: 769px) and (max-width: 1024px) {
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
   }
 }
-
-/* ============================================================================== */
-/* ANIMATION EFFECTS FOR SCROLLBARS */
-/* ============================================================================== */
-
-/* Smooth scrollbar appearance */
-.scrollbar-smooth {
-  scroll-behavior: smooth;
-}
-
-.scrollbar-smooth::-webkit-scrollbar-thumb {
-  transition: background 0.2s ease;
-}
-
-/* Fade in/out scrollbar */
-.scrollbar-fade::-webkit-scrollbar-thumb {
-  opacity: 0.5;
-  transition: opacity 0.3s ease;
-}
-
-.scrollbar-fade:hover::-webkit-scrollbar-thumb {
-  opacity: 1;
-}
-
-/* ////////////////////////////////////////////////////////////////////////////// */

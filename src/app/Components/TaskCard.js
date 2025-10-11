@@ -136,7 +136,7 @@ export default function TaskCard({ task, onClick, onStatusToggle, isSelected = f
           <div className={styles.master_head}> 
             <div>Master</div> 
             <div onClick={handleMasterAnalysis} className={styles.master_analyse}>
-              {loading ? 'Analyzing...' : 'Reanalyse'}
+              {loading ? 'Analyzing...' : 'Analyse'}
             </div> 
           </div>
 

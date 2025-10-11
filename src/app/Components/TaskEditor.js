@@ -540,7 +540,7 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false,
         value={title}
         onChange={handleTitleChange}
         onKeyDown={handleTitleKeyDown}
-        placeholder={isCreating ? "Enter seed ..." : "Untitled"}
+        placeholder={isCreating ? "Title" : "Untitled"}
         rows={1}
         style={{
           resize: 'none',

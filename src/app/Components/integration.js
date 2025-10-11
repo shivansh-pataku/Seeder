@@ -13,7 +13,7 @@ async function main() {
   try {
     console.log("Testing Gemini AI...");
     
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
  
     const result = await model.generateContent("Read the text and structure and find what type of literature it belongs to then find the limitations in text and do : 1. list of limitations 2. suggestions for improvements 3. sources to refer to make it better, qualitative, more reliable, experienced from literature it belongs to. Optional : Current advancements and history on it. Text: Lensing is the method used in determining the mass and distance of celestial objects.");
     const response = await result.response;
