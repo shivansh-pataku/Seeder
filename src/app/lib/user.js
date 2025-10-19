@@ -9,9 +9,7 @@ export class UserService {
       console.log('Searching for user:', email)
       
       const [users] = await dbConfig.execute(
-        'SELECT userid, username, email, password FROM users WHERE email = ?',
-        [email]
-      )
+        'SELECT userid, username, email, password FROM users WHERE email = ?', [email] )
       
       if (users.length === 0) {
         console.log('User not found')

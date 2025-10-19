@@ -13,24 +13,14 @@ export const authOptions = {
       },
       async authorize(credentials) {
         console.log('Auth.js authorize called for:', credentials?.email)
-        
+
+        // credentials?.email → Safely accesses email (won’t throw an error if credentials is null or undefined).
         if (!credentials?.email || !credentials?.password) {
           console.log('Missing credentials')
           return null
         }
 
         try {
-          // Simple test user first
-          if (credentials.email === 'test@test.com' && credentials.password === 'password') {
-            console.log('Test user authenticated successfully')
-            return {
-              id: '1',
-              email: 'test@test.com',
-              name: 'Test User',
-              username: 'testuser'
-            }
-          }
-
           // Check database for real users
           console.log('Checking database for user:', credentials.email)
           const [users] = await dbConfig.execute(
@@ -92,7 +82,7 @@ export const authOptions = {
     }
   },
   pages: {
-    signIn: '/auth/signin',
+    signIn: '/auth/signin', // will use this custom sign-in page when not signed in or session has expired or invalid or user not authorized.
   },
-  debug: process.env.NODE_ENV === 'development',
+  debug: process.env.NODE_ENV === 'development', // Enable debug in development which means that when an error occurs, more details will be logged to the console. other options are 'production' and 'test' in which debug is false means no debug logs.
 }
