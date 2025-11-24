@@ -202,7 +202,7 @@ useEffect(() => {
       <div className={styles.profileContainer}>
         <div className={styles.notFound}>
           <h2>Profile Not Found</h2>
-          <p>The profile "@{username}" doesn't exist.</p>
+          <p>The profile &quot;@{username}&quot; doesn&apos;t exist.</p>
           <button onClick={() => router.push('/')} className={styles.goHomeButton}>
             Go Home
           </button>

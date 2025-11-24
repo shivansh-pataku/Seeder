@@ -10,7 +10,9 @@ import Link from "next/link";
 import { useRouter } from 'next/navigation'
 
 export default function Navbar() {
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
+    // const { data: session, status } = useSession()
+
   const [showMenu, setShowMenu] = useState(false); //useState helps to hide/show menu
   const handleMenuToggle = () => setShowMenu(prev => !prev);
   const router = useRouter()

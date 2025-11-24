@@ -17,8 +17,8 @@ import { TableRow } from '@tiptap/extension-table-row';
 import { TableHeader } from '@tiptap/extension-table-header';
 import { TableCell } from '@tiptap/extension-table-cell';
 import styles from '../Styles/taskeditor.module.css';
-
-export default function TaskEditor({ task, onSave, onDelete, isCreating = false, saveStatus = '' }) {
+// export default function TaskEditor({ task, onSave, onDelete, isCreating = false, saveStatus = '' }) {
+export default function TaskEditor({ task, onSave, onDelete, isCreating = false }) {
   const [title, setTitle] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [lastSavedData, setLastSavedData] = useState({ title: '', description: '' });
@@ -260,7 +260,7 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false,
         }
       };
     }
-  }, [title, task, onSave, lastSavedData, editor, isSaving]);
+  }, [getPlainText, hasContentChanged, performSave, preserveCursorPosition, title, task, onSave, lastSavedData, editor, isSaving]);
 
   // Handle title change
   const handleTitleChange = (e) => {
@@ -319,14 +319,14 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false,
   };
 
   // Add Table function
-  const addTable = () => {
-    editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
-  };
+  // const addTable = () => {
+  //   editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
+  // };
 
   if (!task) {
     return (
       <div className={styles.editorContainer}>
-        <div className={styles.noTask}>Click "Sow One" to create a new note</div>
+        <div className={styles.noTask}>Click &quot;Show One&quot; to create a new note</div>
       </div>
     );
   }

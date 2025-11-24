@@ -157,7 +157,7 @@ export default function TaskCard({ task, onClick, onStatusToggle, isSelected = f
             )}
             {!aiResult && !loading && !error && (
               <div className={styles.empty_state}>
-                Click "Analyze" above for master analysis
+                Click &quot;Analyze&quot; above for master analysis
               </div>
             )}
           </div>
