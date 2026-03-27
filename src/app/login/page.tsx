@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import styles from "../Styles/logsig.module.css"
+import Link from 'next/link';
 
 
 export default function LoginPage() {
@@ -38,8 +39,8 @@ export default function LoginPage() {
         // alert("Login successful!");
         setSuccess(true);
         // Optionally: save token/cookie, redirect, etc.
-    } catch (err: any) {
-        setError(err.message);
+    } catch (error: any) {
+        setError(error.message);
     } finally {
         setLoading(false);
     }

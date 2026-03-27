@@ -40,7 +40,7 @@ export default function HomePage() {
         <div className='intro'>
           <h2>Seeder</h2>
           <p style={{ fontFamily: 'var(--font-dmsans)' }}>
-            Seeder is an AI-powered text management application designed to help you organize, enhance, and optimize your written content. Whether you're a student, professional, or creative writer, Seeder provides tools to improve your writing quality and efficiency. It is purely made to curate your ideas and work in a master's way.
+            Seeder is an AI-powered text management application designed to help you organize, enhance, and optimize your written content. Whether you&apos;re a student, professional, or creative writer, Seeder provides tools to improve your writing quality and efficiency. It is purely made to curate your ideas and work in a master&apos;s way.
           </p>
         </div>
 

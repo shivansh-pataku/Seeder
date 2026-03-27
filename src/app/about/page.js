@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import styles from '../Styles/about.module.css';
+import Link from 'next/link';
 
 export default function AboutPage() {
   const { data: session, status } = useSession();
@@ -83,7 +84,7 @@ export default function AboutPage() {
       <strong>Well curate your writings</strong> - notes, tasks, ideas, literature, documents, project work, daily tracks, blogs, research papers, creative writing, or anything that flows from your mind to the page.
       <br /><br />
       Seeder transforms the way you manage thoughts, tasks, and projects. Just like a gardener carefully tends to seeds, 
-      Seeder helps you nurture your ideas from conception to completion. Whether you're brainstorming the next big thing 
+      Seeder helps you nurture your ideas from conception to completion. Whether you&apos;re brainstorming the next big thing 
       or organizing daily tasks, Seeder provides the perfect environment for your thoughts to flourish.
       <br /><br />
       This platform purely focuses on <strong>enhancing your writing experience</strong> and helping you <strong>interpret your ideas</strong> with precision and clarity.
@@ -171,7 +172,7 @@ export default function AboutPage() {
           <h3>🌻 Help Seeder Grow!</h3>
           <p>
             Your feedback is the fertilizer that helps Seeder bloom. Found a bug? Have a brilliant feature idea? 
-            We'd love to hear how we can make your productivity garden even more fruitful.
+            We&apos;d love to hear how we can make your productivity garden even more fruitful.
           </p>
           
           {/* Show authentication status */}

@@ -205,7 +205,7 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false,
   if (!task) {
     return (
       <div className={styles.editorContainer}>
-        <div className={styles.noTask}>Click "Sow One" to create a new note</div>
+        <div className={styles.noTask}>Click &quot; Sow One &quot; to create a new note</div>
       </div>
     );
   }
@@ -356,7 +356,7 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false,
               className={editor.isActive('blockquote') ? styles.active : ''}
               title="Quote"
             >
-              "
+              &quot;
             </button>
             <button
               onClick={() => editor.chain().focus().toggleCodeBlock().run()}

@@ -439,7 +439,7 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false 
               className={editor.isActive('blockquote') ? styles.active : ''}
               title="Quote"
             >
-              " 
+              &quot; 
             </button>
             <button
               onClick={() => editor.chain().focus().toggleCodeBlock().run()}

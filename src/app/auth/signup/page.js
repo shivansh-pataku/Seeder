@@ -3,6 +3,7 @@
 import React, { useState } from "react"
 import styles from "../../Styles/logsig.module.css"
 import { useRouter } from "next/navigation"
+import Link from 'next/link';
 
 export default function SignupPage() {
   const [name, setName] = useState("")
