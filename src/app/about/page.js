@@ -154,10 +154,10 @@ export default function AboutPage() {
   {/* Inspirational Quote */}
   <div className={styles.quoteSection}>
     <blockquote className={styles.inspirationalQuote}>
-      <p className={styles.aboutText}>
-        <em>"Every great achievement starts with a single seed of an idea. Seeder gives you the tools to plant, 
-            nurture, and harvest your potential."</em>
-      </p>
+        <p className={styles.aboutText}>
+          <em>&quot;Every great achievement starts with a single seed of an idea. Seeder gives you the tools to plant, 
+          nurture, and harvest your potential.&quot;</em>
+        </p>
     </blockquote>
   </div>
 
@@ -188,7 +188,7 @@ export default function AboutPage() {
               margin: '0.5rem 0',
               fontSize: '0.9rem'
             }}>
-              Please <a href="/auth/signin" style={{ color: '#9ab4ff' }}>sign in</a> to submit feedback
+              Please <Link href="/auth/signin" style={{ color: '#9ab4ff' }}>sign in</Link> to submit feedback
             </div>
           )}
 
@@ -249,7 +249,7 @@ export default function AboutPage() {
           <h3>🌿 Get in Touch</h3>
           <p>
             Ready to cultivate something amazing together?<br />
-            Email: <a href="mailto:patakushivansh@gmail.com" className={styles.contactLink}>patakushivansh@gmail.com</a>
+            Email: <Link href="mailto:patakushivansh@gmail.com" className={styles.contactLink}>patakushivansh@gmail.com</Link>
           </p>
           <p className={styles.aboutText}>
             <small>Built with 💚 by Shivansh : Using Next.js, React, MySQL, and NextAuth v5 Beta</small>

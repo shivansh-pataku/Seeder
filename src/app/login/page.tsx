@@ -94,9 +94,9 @@ export default function LoginPage() {
                     {success && <div className={styles["logsig-message"]}>Login Success</div>}
                     
                     <div className={styles["logsig-links"]}>
-                    <a href="#">Forgot password?</a>
+                    <Link href="#">Forgot password?</Link>
                     <span> | </span>
-                    <a href="/signup">Create account</a>
+                    <Link href="/signup">Create account</Link>
                     </div>
                 
                 </form>

@@ -130,9 +130,9 @@ export default function SignIn() {
         )}
 
         <div className={styles.logsigLinks}>
-          <a href="#">Forgot password?</a>
+          <Link href="/auth/forgot-password">Forgot password?</Link>
           <span> | </span>
-          <a href="/auth/signup">Create account</a>
+          <Link href="/auth/signup">Create account</Link>
         </div>
       </form>
     </div>

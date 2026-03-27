@@ -174,7 +174,7 @@ export default function SignupPage() {
           )}
           
           <div className={styles.logsigLinks}>
-            Already have an account? <a href="/auth/signin">Sign in</a>
+            Already have an account? <Link href="/auth/signin">Sign in</Link>
           </div>
         </form>
       </div>

@@ -268,7 +268,7 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false,
   if (!task) {
     return (
       <div className={styles.editorContainer}>
-        <div className={styles.noTask}>Click "Sow One" to create a new note</div>
+        <div className={styles.noTask}>Click {"Sow One"} to create a new note</div>
       </div>
     );
   }
@@ -309,7 +309,7 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false,
               <button
                 className={styles.deleteButton}
                 onClick={handleDelete}
-                title="Delete this seed"
+                title={"Delete this seed"}
               >
                 Remove
               </button>
@@ -325,7 +325,7 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false,
         value={title}
         onChange={handleTitleChange}
         onKeyDown={handleTitleKeyDown}
-        placeholder={isCreating ? "Enter seed ..." : "Untitled"}
+        placeholder={isCreating ? {"Enter seed ..."} : {"Untitled"}}
         rows={1}
         style={{
           resize: 'none',
@@ -342,35 +342,35 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false,
             <button
               onClick={() => editor.chain().focus().toggleBold().run()}
               className={editor.isActive('bold') ? styles.active : ''}
-              title="Bold (Ctrl+B)"
+              title={"Bold (Ctrl+B)"}
             >
               <strong>B</strong>
             </button>
             <button
               onClick={() => editor.chain().focus().toggleItalic().run()}
               className={editor.isActive('italic') ? styles.active : ''}
-              title="Italic (Ctrl+I)"
+              title={"Italic (Ctrl+I)"}
             >
               <em>I</em>
             </button>
             <button
               onClick={() => editor.chain().focus().toggleUnderline().run()}
               className={editor.isActive('underline') ? styles.active : ''}
-              title="Underline (Ctrl+U)"
+              title={"Underline (Ctrl+U)"}
             >
               <u>U</u>
             </button>
             <button
               onClick={() => editor.chain().focus().toggleStrike().run()}
               className={editor.isActive('strike') ? styles.active : ''}
-              title="Strikethrough"
+              title={"Strikethrough"}
             >
               <s>S</s>
             </button>
             <button
               onClick={() => editor.chain().focus().toggleHighlight().run()}
               className={editor.isActive('highlight') ? styles.active : ''}
-              title="Highlight"
+              title={"Highlight"}
             >
               ⚡
             </button>
@@ -381,21 +381,21 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false,
             <button
               onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
               className={editor.isActive('heading', { level: 1 }) ? styles.active : ''}
-              title="Heading 1"
+              title={"Heading 1"}
             >
               H1
             </button>
             <button
               onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
               className={editor.isActive('heading', { level: 2 }) ? styles.active : ''}
-              title="Heading 2"
+              title={"Heading 2"}
             >
               H2
             </button>
             <button
               onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
               className={editor.isActive('heading', { level: 3 }) ? styles.active : ''}
-              title="Heading 3"
+              title={"Heading 3"}
             >
               H3
             </button>
@@ -406,21 +406,21 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false,
             <button
               onClick={() => editor.chain().focus().toggleBulletList().run()}
               className={editor.isActive('bulletList') ? styles.active : ''}
-              title="Bullet List"
+              title={"Bullet List"}
             >
               • List
             </button>
             <button
               onClick={() => editor.chain().focus().toggleOrderedList().run()}
               className={editor.isActive('orderedList') ? styles.active : ''}
-              title="Numbered List"
+              title={"Numbered List"}
             >
               1. List
             </button>
             <button
               onClick={() => editor.chain().focus().toggleTaskList().run()}
               className={editor.isActive('taskList') ? styles.active : ''}
-              title="Task List"
+              title={"Task List"}
             >
               ☑ Tasks
             </button>
@@ -431,20 +431,20 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false,
             <button
               onClick={() => editor.chain().focus().toggleBlockquote().run()}
               className={editor.isActive('blockquote') ? styles.active : ''}
-              title="Quote"
+              title={"Quote"}
             >
               " Quote
             </button>
             <button
               onClick={() => editor.chain().focus().toggleCodeBlock().run()}
               className={editor.isActive('codeBlock') ? styles.active : ''}
-              title="Code Block"
+              title={"Code Block"}
             >
               {'</>'}
             </button>
             <button
               onClick={() => editor.chain().focus().setHorizontalRule().run()}
-              title="Horizontal Rule"
+              title={"Horizontal Rule"}
             >
               ―
             </button>
@@ -455,14 +455,14 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false,
             <button
               onClick={setLink}
               className={editor.isActive('link') ? styles.active : ''}
-              title="Add Link"
+              title={"Add Link"}
             >
               🔗
             </button>
             <button
               onClick={addTable}
               className={editor.isActive('table') ? styles.active : ''}
-              title="Insert Table"
+              title={"Insert Table"}
             >
               ⊞
             </button>
@@ -470,7 +470,7 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false,
               type="color"
               onInput={(e) => editor.chain().focus().setColor(e.target.value).run()}
               value={editor.getAttributes('textStyle').color || '#000000'}
-              title="Text Color"
+              title={"Text Color"}
               style={{ width: '30px', height: '30px', border: 'none', cursor: 'pointer' }}
             />
           </div>
@@ -480,14 +480,14 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false,
             <button
               onClick={() => editor.chain().focus().undo().run()}
               disabled={!editor.can().undo()}
-              title="Undo (Ctrl+Z)"
+              title={"Undo (Ctrl+Z)"}
             >
               ↶
             </button>
             <button
               onClick={() => editor.chain().focus().redo().run()}
               disabled={!editor.can().redo()}
-              title="Redo (Ctrl+Y)"
+              title={"Redo (Ctrl+Y)"}
             >
               ↷
             </button>
