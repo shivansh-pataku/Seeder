@@ -3,7 +3,7 @@ import dbConfig from '../../lib/db.js'
 import { getCurrentUser } from '../../lib/getCurrentUser.js'
 
 //////////////// RESTful GET handler /////////////////////////////////////
-export async function GET(request) {
+export async function GET(_request) {
   try {
     console.log('GET /api/tasks - Fetching tasks...')
     

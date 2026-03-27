@@ -95,7 +95,8 @@ export async function POST(request) {
 }
 
 // Optional: GET endpoint to fetch feedback (for admin use)
-export async function GET(_request) {
+// export async function GET(request) {
+export async function GET() {
   try {
     console.log('GET /api/feedback - Fetching feedback...')
     
