@@ -21,6 +21,7 @@ import styles from '../Styles/taskeditor.module.css';
 export default function TaskEditor({ task, onSave, onDelete, isCreating = false }) {
   const [title, setTitle] = useState('');
   // const [isTyping, setIsTyping] = useState(false); // Track if user is currently typing
+    const [ ,setIsTyping] = useState(false); // Track if user is currently typing
   const [lastSavedData, setLastSavedData] = useState({ title: '', description: '' });
   const [isSaving, setIsSaving] = useState(false); // Track saving state
   const titleRef = useRef(null);

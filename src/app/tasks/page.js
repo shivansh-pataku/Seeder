@@ -13,7 +13,9 @@ export default function TasksPage() {
   const [selectedTask, setSelectedTask] = useState(null);
   const [isCreatingNew, setIsCreatingNew] = useState(false);
   const [saveStatus, setSaveStatus] = useState(''); // 'saving', 'saved', 'error'
-  const { data: session, status } = useSession()
+  // const { data: session, status } = useSession()
+    const { status } = useSession()
+
   const router = useRouter()
 
   // Authentication check effect - MUST be at the top before any conditional returns
@@ -240,13 +242,13 @@ const handleDeleteTask = async (taskId) => {
         try {
           const errorData = await response.json();
           errorMessage = errorData.message || errorMessage;
-        } catch (jsonError) {
+        } catch { // removed 'jsonError' parameter entirely
           errorMessage = `Status update failed: ${response.status} ${response.statusText}`;
         }
         throw new Error(errorMessage);
       }
 
-      const data = await response.json();
+      // const data = await response.json();
       
       // Update the task in the tasks array
       setTasks(prevTasks => 

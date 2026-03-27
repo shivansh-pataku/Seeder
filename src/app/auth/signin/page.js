@@ -12,7 +12,7 @@ export default function SignIn() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
-  const router = useRouter()
+  // const router = useRouter()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
