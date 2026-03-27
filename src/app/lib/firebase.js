@@ -12,8 +12,8 @@ const firebaseConfig = {
   projectId: "seeder-sp",
   storageBucket: "seeder-sp.firebasestorage.app",
   messagingSenderId: "938345088902",
-  appId: "1:938345088902:web:31a86c839ba1d3c90bce07",
-  measurementId: "G-8QJSHZN9CS"
+  appId: "1:938345088902:web:c7e5f8977bbf14940bce07",
+  measurementId: "G-QNP267W8YC"
 };
 
 // Initialize Firebase
