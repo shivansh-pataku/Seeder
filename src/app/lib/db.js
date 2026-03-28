@@ -10,14 +10,17 @@ const dbConfig = mysql.createPool({
   database: process.env.DB_NAME || 'practicals',   
   port: process.env.DB_PORT || 3306,  
   waitForConnections: true,
-  connectionLimit: 10,
+  connectionLimit: 2,  // Limit to 2 connections for development/testing
   queueLimit: 0,
   // Connection timeout settings
   //acquireTimeout: 60000,  // 60 seconds to get connection
   //timeout: 60000,         // 60 seconds for queries
-  // Additional recommended settings
-  reconnect: true,
-  charset: 'utf8mb4'      // Full UTF-8 support including emojis
+  charset: 'utf8mb4',      // Full UTF-8 support including emojis
+  // SSL/TLS for TiDB Cloud (required for TiDB, safe for local MySQL too)
+  ssl: process.env.DB_HOST?.includes('tidbcloud.com') ? {
+    minVersion: 'TLSv1.2',
+    rejectUnauthorized: true 
+  } : false
 })
 
 console.log('Database pool created successfully')

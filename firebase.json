@@ -1,22 +1,11 @@
 {
   "firestore": {
     "database": "(default)",
-    "location": "asia-south1",
+    "location": "asia-southeast1",
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
   "apphosting": [
-    {
-      "backendId": "seeder",
-      "rootDir": "/",
-      "ignore": [
-        "node_modules",
-        ".git",
-        "firebase-debug.log",
-        "firebase-debug.*.log",
-        "functions"
-      ]
-    },
     {
       "backendId": "seeder-app",
       "rootDir": "/",
