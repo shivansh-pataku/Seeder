@@ -1,5 +1,6 @@
 // src/app/lib/getCurrentUser.js
-import { auth } from '../api/auth/[...nextauth]/route.js'
+// import { auth } from '../api/auth/[...nextauth]/route.js'
+import { auth } from './auth.js'
 
 export async function getCurrentUser() {
   try {

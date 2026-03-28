@@ -1,9 +1,15 @@
 // src/app/lib/auth.js
+import NextAuth from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
-import bcrypt from 'bcryptjs'
-import dbConfig from './db.js'
+import { UserService } from './user.js'
 
-export const authOptions = {
+console.log('NextAuth v5 Beta with Database loading...')
+console.log('Environment check:')
+console.log('  - AUTH_SECRET exists:', !!process.env.AUTH_SECRET)
+console.log('  - AUTH_URL:', process.env.AUTH_URL)
+console.log('  - DB_HOST:', process.env.DB_HOST)
+
+export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
     Credentials({
       name: 'credentials',
@@ -12,32 +18,36 @@ export const authOptions = {
         password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials) {
-        console.log('Auth.js authorize called for:', credentials?.email)
-
-        // credentials?.email → Safely accesses email (won’t throw an error if credentials is null or undefined).
+        console.log('v5 Beta authorize called for:', credentials?.email)
+        
         if (!credentials?.email || !credentials?.password) {
           console.log('Missing credentials')
           return null
         }
 
         try {
-          // Check database for real users
-          console.log('Checking database for user:', credentials.email)
-          const [users] = await dbConfig.execute(
-            'SELECT id, username, email, password FROM users WHERE email = ?',
-            [credentials.email]
-          )
+          // Step 1: Keep test user for fallback
+          if (credentials.email === 'test@test.com' && credentials.password === 'password') {
+            console.log('Test user authenticated (hardcoded)')
+            return {
+              id: '999',
+              email: 'test@test.com',
+              name: 'Test User',
+              username: 'testuser'
+            }
+          }
 
-          if (!users || users.length === 0) {
+          // Step 2: Check database for real users
+          console.log('Checking database for user...')
+          const user = await UserService.findByEmail(credentials.email)
+          
+          if (!user) {
             console.log('User not found in database')
             return null
           }
 
-          const user = users[0]
-          console.log('Found user:', user.email)
-
-          // Verify password
-          const isPasswordValid = await bcrypt.compare(
+          // Step 3: Verify password
+          const isPasswordValid = await UserService.verifyPassword(
             credentials.password,
             user.password
           )
@@ -47,13 +57,15 @@ export const authOptions = {
             return null
           }
 
+          // Step 4: Return user data (v5 Beta format)
           console.log('Database user authenticated successfully')
           return {
-            id: user.id.toString(),
+            id: user.userid.toString(),
             email: user.email,
             name: user.username,
             username: user.username
           }
+          
         } catch (error) {
           console.error('Auth error:', error)
           return null
@@ -66,23 +78,29 @@ export const authOptions = {
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   callbacks: {
-    async jwt({ token, user }) {
+    // v5 Beta - Enhanced callbacks
+    async jwt({ token, user, account }) {
+      console.log('JWT callback - v5 Beta')
       if (user) {
         token.userId = user.id
         token.username = user.username
+        token.provider = account?.provider || 'credentials'
       }
       return token
     },
     async session({ session, token }) {
+      console.log('Session callback - v5 Beta')
       if (token) {
         session.user.id = token.userId
         session.user.username = token.username
+        session.user.provider = token.provider
       }
       return session
     }
   },
   pages: {
-    signIn: '/auth/signin', // will use this custom sign-in page when not signed in or session has expired or invalid or user not authorized.
+    signIn: '/auth/signin',
   },
-  debug: process.env.NODE_ENV === 'development', // Enable debug in development which means that when an error occurs, more details will be logged to the console. other options are 'production' and 'test' in which debug is false means no debug logs.
-}
+  // v5 Beta - Enhanced debugging
+  debug: process.env.NODE_ENV === 'development',
+})
