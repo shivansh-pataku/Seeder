@@ -22,7 +22,7 @@ export default function TasksPage() {
   useEffect(() => {
     if (status === 'unauthenticated') {
       // Redirect to signin with callback
-      router.push('/auth/signin?callbackUrl=/profile')
+      router.push('/auth/signin?callbackUrl=/tasks')
     } else if (status !== 'loading') {
       setLoading(false)
     }
@@ -193,8 +193,10 @@ const handleDeleteTask = async (taskId) => {
     setSaveStatus('deleting');
     
     try {
-      const response = await fetch(`/api/fetch_data?id=${taskId}`, {
+      const response = await fetch('/api/tasks', {
         method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: taskId }),
       });
 
       if (!response.ok) {

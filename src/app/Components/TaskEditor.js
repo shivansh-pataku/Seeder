@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
@@ -95,7 +95,7 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false 
   });
 
   // Function to preserve and restore cursor position
-  const preserveCursorPosition = (callback) => {
+  const preserveCursorPosition = useCallback((callback) => {
     if (!editor) return;
 
     const currentSelection = cursorPositionRef.current || editor.state.selection;
@@ -118,7 +118,7 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false 
         }
       }
     }, 10);
-  };
+  }, [editor]);
   
   // Auto-resize textarea function
   const autoResizeTextarea = (textarea) => {
@@ -159,22 +159,22 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false 
   }, [task, isCreating, editor]);
 
   // Check if current content is different from last saved
-  const hasContentChanged = () => {
+  const hasContentChanged = useCallback(() => {
     const currentTitle = title.trim();
     const currentDescription = editor ? editor.getHTML().trim() : '';
     const lastTitle = lastSavedData.title.trim();
     const lastDescription = lastSavedData.description.trim();
     
     return currentTitle !== lastTitle || currentDescription !== lastDescription;
-  };
+  }, [title, editor, lastSavedData]);
 
   // Get plain text from editor for validation
-  const getPlainText = () => {
+  const getPlainText = useCallback(() => {
     return editor ? editor.getText().trim() : '';
-  };
+  }, [editor]);
 
   // Enhanced save function that preserves cursor
-  const performSave = async (dataToSave) => {
+  const performSave = useCallback(async (dataToSave) => {
     if (!onSave) return;
 
     setIsSaving(true);
@@ -193,10 +193,10 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false 
     } finally {
       setIsSaving(false);
     }
-  };
+  }, [onSave]);
 
   // Handle description change from editor
-  const handleDescriptionChange = (content) => {
+  const handleDescriptionChange = useCallback((content) => {
     if (onSave && task && !isSaving) {
       if (autoSaveTimeoutRef.current) {
         clearTimeout(autoSaveTimeoutRef.current);
@@ -224,7 +224,7 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false 
         setIsTyping(false);
       }
     }
-  };
+  }, [title, task, onSave, isSaving, getPlainText, hasContentChanged, preserveCursorPosition, performSave]);
 
   // Universal auto-save logic for title changes
   useEffect(() => {
@@ -261,7 +261,7 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false 
         }
       };
     }
-  }, [getPlainText, hasContentChanged, performSave, preserveCursorPosition, title, task, onSave, lastSavedData, editor, isSaving]);
+  }, [getPlainText, hasContentChanged, performSave, preserveCursorPosition, title, task, onSave, editor, isSaving]);
 
   // Handle title change
   const handleTitleChange = (e) => {

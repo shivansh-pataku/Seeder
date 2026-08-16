@@ -1,4 +1,3 @@
-// src/app/api/auth/signup/route.js - CREATE THIS FILE
 import { UserService } from '../../../lib/user.js'
 
 export async function POST(request) {

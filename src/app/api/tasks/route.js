@@ -160,7 +160,7 @@ export async function PUT(request) {
     }
 
     // Update task (ensure it belongs to current user)
-    const [result] = await dbConfig.query(
+    const [result] = await dbConfig.execute(
       'UPDATE TASKS SET title = ?, description = ? WHERE id = ? AND userid = ?',
       [title, description, id, currentUser.id]
     );
@@ -176,7 +176,7 @@ export async function PUT(request) {
     }
 
     // Fetch the updated task
-    const [updatedTask] = await dbConfig.query(
+    const [updatedTask] = await dbConfig.execute(
       'SELECT * FROM TASKS WHERE id = ? AND userid = ?',
       [id, currentUser.id]
     );
@@ -235,7 +235,7 @@ export async function DELETE(request) {
     }
 
     // Delete task (ensure it belongs to current user)
-    const [result] = await dbConfig.query(
+    const [result] = await dbConfig.execute(
       'DELETE FROM TASKS WHERE id = ? AND userid = ?',
       [id, currentUser.id]
     );
@@ -311,7 +311,7 @@ export async function PATCH(request) {
     }
 
     // Update only the status (ensure it belongs to current user)
-    const [result] = await dbConfig.query(
+    const [result] = await dbConfig.execute(
       'UPDATE TASKS SET status = ? WHERE id = ? AND userid = ?',
       [status ? 1 : 0, id, currentUser.id]
     );
@@ -327,7 +327,7 @@ export async function PATCH(request) {
     }
 
     // Fetch the updated task
-    const [updatedTask] = await dbConfig.query(
+    const [updatedTask] = await dbConfig.execute(
       'SELECT * FROM TASKS WHERE id = ? AND userid = ?',
       [id, currentUser.id]
     );

@@ -3,7 +3,7 @@ import { getCurrentUser } from "@/app/lib/getCurrentUser";
 import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
-  const { username } = params;
+  const { username } = await params;
 
   if (!username) {
     return NextResponse.json({ message: 'Username is required' }, { status: 400 });
@@ -70,7 +70,7 @@ export async function GET(request, { params }) {
 
 
 export async function PATCH(request, { params }) {
-  const { username } = params;
+  const { username } = await params;
 
   if (!username) {
     return NextResponse.json({ message: 'Username is required' }, { status: 400 });

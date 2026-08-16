@@ -75,7 +75,7 @@ export default function TaskCard({ task, onClick, onStatusToggle, isSelected = f
     const taskText = `Note: ${cleanTitle}. Description: ${cleanDescription}`;
 
     try {
-      const response = await fetch('/api/master.js', {
+      const response = await fetch('/api/master', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

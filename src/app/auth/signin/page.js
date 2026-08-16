@@ -30,7 +30,7 @@ export default function SignIn() {
       // Test providers API first
       const providersResponse = await fetch('/api/auth/providers')
       if (!providersResponse.ok) {
-        console.error('Providers API error:', providersResponse.status)
+        console.warn('Providers API error:', providersResponse.status)
         setError('Authentication service unavailable')
         return
       }
@@ -50,7 +50,7 @@ export default function SignIn() {
       console.log('SignIn result:', result)
 
       if (result?.error) {
-        console.error('SignIn error:', result.error)
+        console.warn('SignIn error:', result.error)
         if (result.error === 'CredentialsSignin') {
           setError('Invalid email or password')
         } else {
@@ -63,11 +63,11 @@ export default function SignIn() {
           window.location.href = '/'
         }, 1000)
       } else {
-        console.error('Unexpected result:', result)
+        console.warn('Unexpected result:', result)
         setError('Authentication failed')
       }
     } catch (error) {
-      console.error('Signin exception:', error)
+      console.warn('Signin exception:', error)
       setError(error.message || 'Network error - please try again')
     } finally {
       setLoading(false)
@@ -131,7 +131,7 @@ export default function SignIn() {
         )}
 
         <div className={styles.logsigLinks}>
-          <Link href="/auth/forgot-password">Forgot password?</Link>
+          <Link href="/forgot-password">Forgot password?</Link>
           <span> | </span>
           <Link href="/auth/signup">Create account</Link>
         </div>

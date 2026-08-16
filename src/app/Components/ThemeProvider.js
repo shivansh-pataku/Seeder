@@ -6,7 +6,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(null);
+  const [theme, setTheme] = useState('dark');
 
   useEffect(() => {
     const stored = localStorage.getItem('theme');
@@ -23,8 +23,6 @@ export function ThemeProvider({ children }) {
     // ✅ Change from body.className to data-theme attribute
     document.documentElement.setAttribute('data-theme', next);
   };
-
-  if (!theme) return null;
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>

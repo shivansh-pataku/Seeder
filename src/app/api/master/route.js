@@ -3,32 +3,6 @@ import { NextResponse } from "next/server";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-// GET method for sample analysis
-// export async function GET() {
-//   try {
-//     console.log("🤖 Getting sample analysis...");
-    
-//     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-//     const result = await model.generateContent("Read the text and structure and find what type of literature it belongs to then find the limitations in text and do : 1. list of limitations 2. suggestions for improvements 3. sources to refer to make it better, qualitative, more reliable, experienced from literature it belongs to. Optional : Current advancements and history on it. Text: Lensing is the method used in determining the mass and distance of celestial objects.");
-    
-//     const response = await result.response;
-//     const content = response.text();
-    
-//     return NextResponse.json({
-//       success: true,
-//       content: content, // Changed from Master_content to content
-//       timestamp: new Date().toISOString()
-//     });
-    
-//   } catch (error) {
-//     console.error("❌ GET Error:", error.message);
-//     return NextResponse.json({
-//       success: false,
-//       error: error.message
-//     }, { status: 500 });
-//   }
-// }
-
 // POST method for custom analysis
 export async function POST(request) {
   try {
@@ -48,13 +22,8 @@ export async function POST(request) {
 
     const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
     
-    // Use the received text, not hardcoded text
-    // const prompt = `Mostly you are not getting some professional text rather it would be text form or note of someone working on something you need to help them in enhancing their work, Read the text and structure and find what type of literature it belongs; if it appears fact or facts do verify its correctness; to then find the limitations in text and do : 1. list of limitations 2. suggestions for improvements 3. sources to refer to make it better, qualitative, more reliable, experienced from literature it belongs to. Optional : Current advancements and history on it. Provide the result appering natural not like you are answering prompt. Text: ${text}`;
-    // const prompt = await model.generateContent("Read the text and structure and find what type of literature it belongs to then find the limitations in text and do : 1. list of limitations 2. suggestions for improvements 3. sources to refer to make it better, qualitative, more reliable, experienced from literature it belongs to. Optional : Current advancements and history on it. Text: Lensing is the method used in determining the mass and distance of celestial objects.");
-const prompt = 
-
-`
-Before analyzing or improving any given text, first identify what kind of writing it is — not just by form, but by intention. It could be:
+    const prompt = 
+`Before analyzing or improving any given text, first identify what kind of writing it is — not just by form, but by intention. It could be:
 anything from a personal reflection, a technical explanation, a creative story, an academic argument, or a casual note, a blog, an internet post and so forth.
 
 Step 1: Context Identification
@@ -81,7 +50,7 @@ Suggestions for Improvement – how to refine expression, strengthen authenticit
 Focus well on - Sources or References – mention key readings, frameworks, or literary traditions to explore (e.g., creative nonfiction, stream-of-consciousness, academic essaying, etc.).
 Vision: History and Current Advancements – connect the text or its idea to broader movements or current discourse in the relevant field or genre.
 
-Step 4: Since you have analysed the text-type and confirmed its authenticity, help the writer to improve its writing in the related context. (eg: if it is a personal reflection, help them deepen their introspection; if it is a technical explanation, help them clarify and structure their points; if it is a creative story, help them enhance imagery and emotional impact; if it is an academic argument, help them strengthen logic and evidence; if it is a casual note or internet post, help them make it engaging and clear, if it blog help them to write better and so on  by telling what is missing).
+Step 4: Since you have analysed the text-type and confirmed its authenticity, help the writer to improve its writing in the related context. (eg: if it is a personal reflection, help them deepen their introspection; if it is a technical explanation, help them clarify and structure their points; if it is a creative story, help them enhance imagery and emotional impact; if it is an academic argument, help them strengthen logic and evidence; if it is a casual note or internet post, help them make it engaging and clear, if it blog help them to write better and so on by telling what is missing).
 Do find the grammar and spelling mistakes and correct them.
 
 Guidelines:
@@ -95,7 +64,7 @@ Text: ${text}`;
 
     return NextResponse.json({
       success: true,
-      content: content, // Changed from Master_content to content
+      content: content,
       originalText: text,
       timestamp: new Date().toISOString()
     });

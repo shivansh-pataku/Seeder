@@ -35,7 +35,12 @@ export default auth((req) => {
   ]
 
   // Check if route is public or static
-  const isPublicRoute = publicRoutes.some(route => pathname === route || pathname.startsWith(route))
+  const isPublicRoute = publicRoutes.some(route => {
+    if (route === '/') {
+      return pathname === '/'
+    }
+    return pathname === route || pathname.startsWith(route + '/')
+  })
   const isStaticRoute = staticRoutes.some(route => pathname.startsWith(route))
   
   if (isPublicRoute || isStaticRoute) {
