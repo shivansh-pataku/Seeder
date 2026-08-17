@@ -19,7 +19,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
       async authorize(credentials) {
         console.log('v5 Beta authorize called for:', credentials?.email)
-        
+
         if (!credentials?.email || !credentials?.password) {
           console.log('Missing credentials')
           return null
@@ -27,20 +27,20 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         try {
           // Step 1: Keep test user for fallback
-          if (credentials.email === 'test@test.com' && credentials.password === 'password') {
-            console.log('Test user authenticated (hardcoded)')
-            return {
-              id: '999',
-              email: 'test@test.com',
-              name: 'Test User',
-              username: 'testuser'
-            }
-          }
+          // if (credentials.email === 'test@test.com' && credentials.password === 'password') {
+          //   console.log('Test user authenticated (hardcoded)')
+          //   return {
+          //     id: '999',
+          //     email: 'test@test.com',
+          //     name: 'Test User',
+          //     username: 'testuser'
+          //   }
+          // }
 
           // Step 2: Check database for real users
           console.log('Checking database for user...')
           const user = await UserService.findByEmail(credentials.email)
-          
+
           if (!user) {
             console.log('User not found in database')
             return null
@@ -65,7 +65,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             name: user.username,
             username: user.username
           }
-          
+
         } catch (error) {
           console.error('Auth error:', error)
           return null

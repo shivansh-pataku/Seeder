@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import styles from '../Styles/profile.module.css'
-import { useParams } from 'next/navigation'
+import { useParams, notFound } from 'next/navigation'
 
 
 
@@ -23,10 +23,9 @@ export default function ProfilePage() {
   // Check if username is a reserved route
   useEffect(() => {
     if (username && RESERVED_ROUTES.includes(username.toLowerCase())) {
-      router.push('/404') // Redirect to 404 or handle appropriately
-      return
+      notFound()
     }
-  }, [username, router])
+  }, [username])
 
   // State management
   const [isOwnProfile, setIsOwnProfile] = useState(false)

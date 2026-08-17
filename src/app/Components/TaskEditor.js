@@ -77,21 +77,6 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false 
         class: styles.tiptapEditor,
       },
     },
-    onUpdate: ({ editor }) => {
-      // Store cursor position before handling change
-      if (editor.isFocused && !isSaving) {
-        cursorPositionRef.current = editor.state.selection;
-      }
-      
-      const content = editor.getHTML();
-      handleDescriptionChange(content);
-    },
-    onSelectionUpdate: ({ editor }) => {
-      // Update cursor position when user moves cursor
-      if (editor.isFocused && !isSaving) {
-        cursorPositionRef.current = editor.state.selection;
-      }
-    },
   });
 
   // Function to preserve and restore cursor position
@@ -225,6 +210,66 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false 
       }
     }
   }, [title, task, onSave, isSaving, getPlainText, hasContentChanged, preserveCursorPosition, performSave]);
+
+  // Dynamic listener binding to avoid stale closures in TipTap updates
+  useEffect(() => {
+    if (!editor) return;
+
+    const onUpdateHandler = ({ editor }) => {
+      // Store cursor position before handling change
+      if (editor.isFocused && !isSaving) {
+        cursorPositionRef.current = editor.state.selection;
+      }
+      
+      const content = editor.getHTML();
+      handleDescriptionChange(content);
+    };
+
+    const onSelectionUpdateHandler = ({ editor }) => {
+      // Update cursor position when user moves cursor
+      if (editor.isFocused && !isSaving) {
+        cursorPositionRef.current = editor.state.selection;
+      }
+    };
+
+    editor.on('update', onUpdateHandler);
+    editor.on('selectionUpdate', onSelectionUpdateHandler);
+
+    return () => {
+      editor.off('update', onUpdateHandler);
+      editor.off('selectionUpdate', onSelectionUpdateHandler);
+    };
+  }, [editor, handleDescriptionChange, isSaving]);
+
+  const prevTaskRef = useRef(task);
+
+  // Handle task switching and flushing unsaved edits for the previous task
+  useEffect(() => {
+    const prevTask = prevTaskRef.current;
+    
+    if (prevTask && task && prevTask.id !== task.id) {
+      // Clear any pending autosave timeout when changing tasks
+      if (autoSaveTimeoutRef.current) {
+        clearTimeout(autoSaveTimeoutRef.current);
+        setIsTyping(false);
+      }
+      
+      // If we have unsaved modifications for the previous task, save them now
+      if (editor && getPlainText() && hasContentChanged()) {
+        const dataToSave = {
+          ...prevTask,
+          title: title.trim() || 'Untitled',
+          description: editor.getHTML(),
+        };
+        
+        console.log('🔄 Task switch detected. Flushing unsaved changes for task:', prevTask.id);
+        performSave(dataToSave);
+      }
+    }
+    
+    // Update the ref to the current task
+    prevTaskRef.current = task;
+  }, [task, editor, title, getPlainText, hasContentChanged, performSave]);
 
   // Universal auto-save logic for title changes
   useEffect(() => {
