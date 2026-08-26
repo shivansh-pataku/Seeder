@@ -92,9 +92,14 @@ export default function TasksPage() {
       // Add the new task to the tasks array
       setTasks(prevTasks => [data.task, ...prevTasks]);
       
-      // Update selected task with the real ID from database
-      setSelectedTask(data.task);
-      setIsCreatingNew(false);
+      // Update selected task with the real ID from database ONLY if user hasn't switched away
+      setSelectedTask(currentSelectedTask => {
+        if (currentSelectedTask && currentSelectedTask.id === taskData.id) {
+          setIsCreatingNew(false);
+          return data.task;
+        }
+        return currentSelectedTask;
+      });
       setSaveStatus('saved');
       
       // Clear save status after 2 seconds
@@ -142,8 +147,13 @@ export default function TasksPage() {
         )
       );
       
-      // Update selected task
-      setSelectedTask(data.task);
+      // Update selected task ONLY if user hasn't switched away
+      setSelectedTask(currentSelectedTask => {
+        if (currentSelectedTask && currentSelectedTask.id === taskData.id) {
+          return data.task;
+        }
+        return currentSelectedTask;
+      });
       setSaveStatus('saved');
       
       // Clear save status after 2 seconds
@@ -157,7 +167,8 @@ export default function TasksPage() {
   };
 
   const handleTaskSave = (updatedTask) => {
-    if (isCreatingNew) {
+    const isTempId = typeof updatedTask.id === 'string' && updatedTask.id.startsWith('temp_');
+    if (isCreatingNew || isTempId) {
       // Handle new task creation with auto-save
       handleAutoSaveNew(updatedTask);
     } else {
