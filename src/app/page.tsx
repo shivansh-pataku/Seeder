@@ -1,5 +1,13 @@
-"use client"
+'use client'
+
 import { useRouter } from 'next/navigation';
+import { HugeiconsIcon } from '@hugeicons/react';
+import {
+  ArrowRight01Icon,
+  PencilEdit01Icon,
+  SparklesIcon,
+  Clock01Icon
+} from '@hugeicons/core-free-icons';
 
 export default function HomePage() {
   const router = useRouter();
@@ -9,41 +17,19 @@ export default function HomePage() {
   };
 
   return (
-  <><div className='Page-Home'>
-
-      <div className='Home-Container1'>
-
-        <div className='Welcome'>
-
-          <h1>Welcome to seeder</h1>
-          <p style={{ fontFamily: 'var(--font-kiteone)' }}>write like a pro</p>
-        </div>
-
-        <button className='BT_continue' onClick={handleContinue}>
-          Continue
+    <div className="Page-Home">
+      {/* Hero Section */}
+      <section className="hero-section">
+        <div className="hero-glow"></div>
+        <h2 className="hero-title">Your thoughts, structured by AI.</h2>
+        <p className="hero-subtitle">
+          The thoughts must be striked down properly to for a change.
+        </p>
+        <button className="hero-cta-btn" onClick={handleContinue}>
+          <span>Open Workspace</span>
+          <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
         </button>
-
-      </div>
-
+      </section>
     </div>
-    
-    
-    
-    <div className='Seeder-About'>
-        <div className='intro'>
-          <h2>Master AI</h2>
-          <p style={{ fontFamily: 'var(--font-dmsans)' }}>
-            Harness the power of Master AI to supercharge your productivity and streamline your workflow. AI guide to write your content whatever it is like blogs, articles, stories, poems, codes, etc. and finndinng limitations, suggestions, sources to refer, current advancements and background on it. And thus master your work by writing it like a pro.
-          </p>
-        </div>
-
-        <div className='intro'>
-          <h2>Seeder</h2>
-          <p style={{ fontFamily: 'var(--font-dmsans)' }}>
-            Seeder is an AI-powered text management application designed to help you organize, enhance, and optimize your written content. Whether you&apos;re a student, professional, or creative writer, Seeder provides tools to improve your writing quality and efficiency. It is purely made to curate your ideas and work in a master&apos;s way.
-          </p>
-        </div>
-
-      </div></>
-  )
+  );
 }

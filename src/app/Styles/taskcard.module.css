@@ -1,27 +1,27 @@
 /* src/app/Styles/taskcard.module.css */
-.suggestion_board{
+.suggestion_board {
   background-color: aqua;
   border-radius: 0.5rem;
 }
 
 .taskCard {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   gap: 0.1rem;
-  padding: 0.4rem 0.2rem 0.3rem 0.2rem;
+  padding: 0.4rem 0.4rem 0.3rem 0.4rem;
   border: var(--card-border) solid 1.8px;
   background-color: var(--card-bg);
   border-radius: 0.2rem;
   font-family: 'DM Sans';
   transition: all 0.2s ease-in-out;
   cursor: pointer;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 }
 
 /* Hover styles */
 .taskCard:hover {
   border-color: var(--card-border-hover);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.35);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.35);
 }
 
 .tcareaA {
@@ -39,19 +39,19 @@
   line-clamp: 1;
   font-weight: 550;
   white-space: nowrap;
-  overflow:hidden;
+  overflow: hidden;
   text-overflow: ellipsis;
   transition: color 0.3s ease;
 }
 
-.tcareaB{
+.tcareaB {
   display: flex;
   flex-direction: row;
   width: auto;
   position: relative;
 }
 
-.taskDescription{
+.taskDescription {
   flex-direction: row;
   width: 100%;
   margin: 0rem 0rem auto 0rem;
@@ -65,27 +65,27 @@
   line-height: 1.2;
   border-radius: 0.2rem;
   font-size: 0.7rem;
-  display: -webkit-box;          
-  -webkit-line-clamp: 4;         
-  -webkit-box-orient: vertical;  
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
   font-weight: 500;
-  white-space:unset;
-  overflow: hidden;           
-  text-overflow:unset;    
+  white-space: unset;
+  overflow: hidden;
+  text-overflow: unset;
   position: relative;
   z-index: 1;
   transition: all 0.3s ease;
 }
 
-.taskDate{
+.taskDate {
   padding: auto;
   margin-left: auto;
   margin-top: auto;
   color: var(--card-date-color);
   background-color: var(--card-date-bg);
-  font-family:Georgia, 'Times New Roman', Times, serif;
+  font-family: Georgia, 'Times New Roman', Times, serif;
   font-style: italic;
-  font-weight:lighter;
+  font-weight: lighter;
   font-size: 0.6rem;
   box-shadow: -3px -1px 4px 0px var(--card-date-bg);
   bottom: -0.9px;
@@ -131,14 +131,14 @@
   transition: all 0.3s ease;
 }
 
-.master_head > div:first-child {
+.master_head>div:first-child {
   font-size: 15px;
   color: var(--master-head-text);
   font-family: 'montserrat';
   font-weight: 600;
 }
 
-.master_analyse{
+.master_analyse {
   font-size: 12px;
   color: var(--master-analyze-text);
   border: 0.1rem solid var(--master-analyze-border);
@@ -168,7 +168,7 @@
   padding-bottom: 5px;
 }
 
-.master_head{
+.master_head {
   max-height: 400px;
   overflow-y: auto;
   padding: 7px 10px 7px 10px;
@@ -191,7 +191,7 @@
   color: var(--master-heading-color);
   margin-top: 20px;
   margin-bottom: 10px;
-}  
+}
 
 .markdown_content h3 {
   font-size: 1.1em;
@@ -207,7 +207,8 @@
   font-size: 1rem;
 }
 
-.markdown_content ul, .markdown_content ol {
+.markdown_content ul,
+.markdown_content ol {
   margin-bottom: 15px;
   padding-left: 20px;
 }
@@ -248,7 +249,7 @@
 /* Loading and Error States */
 .loading {
   padding: 13px;
-  font-size:0.8rem;
+  font-size: 0.8rem;
   text-align: center;
   color: var(--master-loading-text);
   background-color: var(--master-loading-bg);
@@ -259,7 +260,7 @@
 
 .error {
   padding: 13px;
-  font-size:0.8rem;
+  font-size: 0.8rem;
   background-color: var(--master-error-bg);
   color: var(--master-error-text);
   border-radius: 6px;
@@ -269,7 +270,7 @@
 
 .empty_state {
   padding: 13px;
-  font-size:0.8rem;
+  font-size: 0.8rem;
   text-align: center;
   color: var(--task-editor-text-muted);
   font-style: italic;
@@ -308,6 +309,14 @@
   background: var(--card-border-hover);
 }
 
-.master_advice h3, .master_advice h3, .markdown_content h1, .markdown_content h2, .markdown_content h3, .markdown_content p, .markdown_content code, .markdown_content li, .markdown_content blockquote {
+.master_advice h3,
+.master_advice h3,
+.markdown_content h1,
+.markdown_content h2,
+.markdown_content h3,
+.markdown_content p,
+.markdown_content code,
+.markdown_content li,
+.markdown_content blockquote {
   font-size: small;
 }

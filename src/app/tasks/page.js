@@ -13,8 +13,8 @@ export default function TasksPage() {
   const [selectedTask, setSelectedTask] = useState(null);
   const [isCreatingNew, setIsCreatingNew] = useState(false);
   const [saveStatus, setSaveStatus] = useState(''); // 'saving', 'saved', 'error'
-  // const { data: session, status } = useSession()
-    const { status } = useSession()
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const { status } = useSession()
 
   const router = useRouter()
 
@@ -54,10 +54,9 @@ export default function TasksPage() {
   // Show loading while checking session - AFTER all hooks are called
   if (status === 'loading' || loading) {
     return (
-      <div className={styles.profileContainer}>
-        {/* <div className={styles.loadingSpinner}>
-          <h2>Loading...</h2>
-        </div> */}
+      <div className="global-loader-container">
+        <div className="global-loader-spinner"></div>
+        <p className="global-loader-text">Loading Tasks</p>
       </div>
     )
   }
@@ -285,26 +284,11 @@ const handleDeleteTask = async (taskId) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   return (
     <div className={styles.tasksMajor}>
-      <div className={styles.tasks_list}>
+      <div className={`${styles.tasks_list} ${isSidebarCollapsed ? styles.collapsed : ''}`}>
         <div className={styles.tasks_bar}>
           <h2 className={styles.b1}>Seeds</h2> 
-
-          {/* {saveStatus && (
-          <div className={`${styles.saveStatus} ${styles[saveStatus]}`}>
-            {saveStatus === 'saving' && 'Auto-saving...'}
-            {saveStatus === 'saved' && 'Saved automatically!'}
-            {saveStatus === 'deleting' && 'Deleting...'}
-            {saveStatus === 'deleted' && 'Seed removed!'}
-            {saveStatus === 'pending' && 'Add description to auto-save'}
-            {saveStatus === 'error' && 'Failed'}
-          </div>
-        )} */}
-
           <h2 className={styles.b2} onClick={handleNewTask}>Sow One</h2>
         </div>
-        
-        {/* Auto-save Status Indicator */}
-
         
         {error && <p style={{ color: 'red' }}>{error}</p>}
         {loading && !error && <p>Loading tasks...</p>}
@@ -326,13 +310,15 @@ const handleDeleteTask = async (taskId) => {
         </div>
       </div>
       
-      <div className={styles.task_editor_box}>
+      <div className={`${styles.task_editor_box} ${isSidebarCollapsed ? styles.fullWidth : ''}`}>
         <TaskEditor 
           task={selectedTask} 
           onSave={handleTaskSave}
           onDelete={handleDeleteTask}
           isCreating={isCreatingNew}
           saveStatus={saveStatus}
+          isSidebarCollapsed={isSidebarCollapsed}
+          onToggleSidebar={() => setIsSidebarCollapsed(prev => !prev)}
         />
       </div>
     </div>

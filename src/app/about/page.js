@@ -1,4 +1,3 @@
-// src/app/about/page.js - CONVERTED TO JAVASCRIPT
 'use client'
 
 import { useState } from 'react';
@@ -6,6 +5,15 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import styles from '../Styles/about.module.css';
 import Link from 'next/link';
+import { HugeiconsIcon } from '@hugeicons/react';
+import { 
+  PencilEdit01Icon, 
+  SparklesIcon, 
+  Clock01Icon, 
+  MailSendIcon, 
+  MailIcon,
+  HelpCircleIcon
+} from '@hugeicons/core-free-icons';
 
 export default function AboutPage() {
   const { data: session, status } = useSession();
@@ -18,7 +26,6 @@ export default function AboutPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Check if user is authenticated
     if (status !== 'authenticated') {
       setError('Please sign in to submit feedback');
       router.push('/auth/signin');
@@ -34,8 +41,6 @@ export default function AboutPage() {
     setError('');
 
     try {
-      console.log('Submitting feedback...');
-      
       const res = await fetch('/api/about', {
         method: 'POST',
         headers: { 
@@ -48,17 +53,14 @@ export default function AboutPage() {
       });
 
       const data = await res.json();
-      console.log('Feedback response:', data);
 
       if (!res.ok) {
         throw new Error(data.message || 'Failed to submit feedback');
       }
 
-      console.log('Feedback submitted successfully');
       setSubmitted(true);
       setFeedback('');
       
-      // Reset after 3 seconds
       setTimeout(() => {
         setSubmitted(false);
       }, 3000);
@@ -72,191 +74,140 @@ export default function AboutPage() {
   };
 
   return (
-    <div className={styles.aboutMainRow}>
-      {/* Left: About */}
-<div className={styles.aboutLeft}>
-  <h2 className={styles.aboutTitle}>🌱 About Seeder</h2>
-  
-  {/* Hero Statement */}
-  <div className={styles.heroStatement}>
-    <p className={styles.aboutText}>
-      <strong>Your Ultimate Writing Companion - Cultivate Ideas, Craft Excellence</strong><br /><br />
-      <strong>Well curate your writings</strong> - notes, tasks, ideas, literature, documents, project work, daily tracks, blogs, research papers, creative writing, or anything that flows from your mind to the page.
-      <br /><br />
-      Seeder transforms the way you manage thoughts, tasks, and projects. Just like a gardener carefully tends to seeds, 
-      Seeder helps you nurture your ideas from conception to completion. Whether you&apos;re brainstorming the next big thing 
-      or organizing daily tasks, Seeder provides the perfect environment for your thoughts to flourish.
-      <br /><br />
-      This platform purely focuses on <strong>enhancing your writing experience</strong> and helping you <strong>interpret your ideas</strong> with precision and clarity.
-    </p>
-  </div>
+    <div className={styles.aboutContainer}>
+      {/* Intro Mission Header */}
+      <header className={styles.aboutHeader}>
+        <h2 className={styles.title}>Our Philosophy</h2>
+        <p className={styles.tagline}>A space designed for writing, thinking, and reasoning.</p>
+      </header>
 
-  {/* Development Notice */}
-  <div className={styles.developmentNotice}>
-    <p className={styles.aboutText}>
-      <em>Some advanced features are under active development and will be available soon! Until then, enjoy the core functionalities and stay tuned for exciting updates.</em>
-    </p>
-  </div>
-
-  <br />
-
-  {/* Core Features */}
-  <div className={styles.featuresSection}>
-    <h3 className={styles.sectionTitle}>✨ What Makes Seeder Special:</h3>
-    <ul className={styles.aboutList}>
-      
-      {/* AI Features */}
-      <li className={styles.featureItem}>
-        <strong>Master AI Assistant: </strong> 
-        Advanced AI that enhances, corrects, improves, and analyzes your writing. Get professional writing assistance by identifying limitations, discovering additional resources, and exploring deeper insights - regardless of your writing type (academic, creative, technical, or casual).
-      </li>
-      
-      {/* Editor Features */}
-      <li className={styles.featureItem}>
-        <strong>Advanced Rich Text Editor: </strong> 
-        Modern editor with comprehensive formatting options - from basic styling to tables, code blocks, task lists, links, and mathematical expressions. Everything you need for professional writing.
-      </li>
-      
-      
-      {/* Organization */}
-      <li className={styles.featureItem}>
-        <strong>Smart Organization: </strong> 
-        Create, edit, and organize your writings with intelligent auto-save, real-time updates, tagging system, and powerful search to find your content instantly.
-      </li>
-      
-      {/* Security */}
-      <li className={styles.featureItem}>
-        <strong>Seamless Authentication: </strong> 
-        Secure login with NextAuth v5 Beta - your data stays protected while remaining easily accessible across all your devices.
-      </li>
-      
-      {/* Design */}
-      <li className={styles.featureItem}>
-        <strong>Adaptive Interface: </strong> 
-        Beautiful dark/light themes that adapt to your working style and environment. Design and theme have been kept minimal and engaging for maintaining focus on productivity and reducing writing distractions.
-      </li>
-      
-      {/* Technical */}
-      <li className={styles.featureItem}>
-        <strong>Database-Powered: </strong> 
-        Robust MySQL backend ensures your writings are never lost, always synchronized, and backed up securely in the cloud.
-      </li>
-      
-      {/* Performance */}
-      <li className={styles.featureItem}>
-        <strong>Lightning Fast: </strong> 
-        Built with Next.js 15 for instant page loads, smooth interactions, and responsive editing experience that keeps up with your thoughts.
-      </li>
-    </ul>
-  </div>
-
-  <br />
-
-  {/* Inspirational Quote */}
-  <div className={styles.quoteSection}>
-    <blockquote className={styles.inspirationalQuote}>
-        <p className={styles.aboutText}>
-          <em>&quot;Every great achievement starts with a single seed of an idea. Seeder gives you the tools to plant, 
-          nurture, and harvest your potential.&quot;</em>
-        </p>
-    </blockquote>
-  </div>
-
-</div>
-
-      
-      
-      {/* Right: Feedback & Contact */}
-      <div className={styles.aboutRight}>
-        <div className={styles.feedbackSection}>
-          <h3>🌻 Help Seeder Grow!</h3>
+      {/* Main Philosophy Grid */}
+      <section className={styles.philosophyGrid}>
+        <div className={styles.philosophyCard}>
+          <h3>A Workspace for Every Writer</h3>
           <p>
-            Your feedback is the fertilizer that helps Seeder bloom. Found a bug? Have a brilliant feature idea? 
-            We&apos;d love to hear how we can make your productivity garden even more fruitful.
+            We believe that writing is the ultimate tool for structuring human thought. 
+            For those who already love to write, we provide a clean, distraction-free environment to let your ideas flow. 
+            For those who want to write but struggle to start, we offer a welcoming space designed to make drafting simple, 
+            intuitive, and rewarding.
           </p>
-          
-          {/* Show authentication status */}
-          {status === 'loading' && (
-            <p style={{ color: '#888', fontSize: '0.9rem' }}>Loading...</p>
-          )}
-          
+        </div>
+
+        <div className={styles.philosophyCard}>
+          <h3>Beyond the Facts with Master AI</h3>
+          <p>
+            Fact-checking is only the beginning. Master AI acts as your collaborative partner, 
+            helping you go beyond raw statistics and limits. It guides your content structure, 
+            captures context, maps thematic references, and provides editorial suggestions to ensure 
+            your arguments are clear, convincing, and well-organized.
+          </p>
+        </div>
+      </section>
+
+      {/* Feature Highlights Section */}
+      <section className={styles.featuresSection}>
+        <h3 className={styles.sectionHeading}>Workspace Features</h3>
+        <div className={styles.featuresGrid}>
+          <div className={styles.featureItem}>
+            <div className={styles.iconWrapper}>
+              <HugeiconsIcon icon={PencilEdit01Icon} size={18} />
+            </div>
+            <div>
+              <h4>Minimalist Editor</h4>
+              <p>Clean Markdown editing environment with formatting, headers, list nodes, tables, and live previews.</p>
+            </div>
+          </div>
+
+          <div className={styles.featureItem}>
+            <div className={styles.iconWrapper}>
+              <HugeiconsIcon icon={SparklesIcon} size={18} />
+            </div>
+            <div>
+              <h4>Master AI Insights</h4>
+              <p>On-demand structured advice, outlining suggestion pathways, and references tracking to master your work.</p>
+            </div>
+          </div>
+
+          <div className={styles.featureItem}>
+            <div className={styles.iconWrapper}>
+              <HugeiconsIcon icon={Clock01Icon} size={18} />
+            </div>
+            <div>
+              <h4>Instant Sync</h4>
+              <p>Auto-saving database integration that ensures your notes are backed up, synced, and secure in real time.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Bottom Row: Feedback & Contact (Clean, borderless layout) */}
+      <section className={styles.bottomSection}>
+        <div className={styles.feedbackContainer}>
+          <div className={styles.feedbackHeader}>
+            <HugeiconsIcon icon={HelpCircleIcon} size={16} className={styles.feedbackIcon} />
+            <h3>Share Your Thoughts</h3>
+          </div>
+          <p className={styles.feedbackIntro}>
+            Have an idea for a feature or found something that could be improved? 
+            Let us know how we can make your writing workflow even better.
+          </p>
+
           {status === 'unauthenticated' && (
-            <div style={{ 
-              background: 'rgba(239, 68, 68, 0.1)', 
-              color: '#f87171', 
-              padding: '0.8rem', 
-              borderRadius: '0.3rem',
-              margin: '0.5rem 0',
-              fontSize: '0.9rem'
-            }}>
-              Please <Link href="/auth/signin" style={{ color: '#9ab4ff' }}>sign in</Link> to submit feedback
+            <div className={styles.authAlert}>
+              Please <Link href="/auth/signin" className={styles.authLink}>sign in</Link> to submit feedback.
             </div>
           )}
 
-          {error && (
-            <div style={{ 
-              background: 'rgba(239, 68, 68, 0.1)', 
-              color: '#f87171', 
-              padding: '0.8rem', 
-              borderRadius: '0.3rem',
-              margin: '0.5rem 0',
-              fontSize: '0.9rem'
-            }}>
-              {error}
-            </div>
-          )}
+          {error && <div className={styles.errorAlert}>{error}</div>}
 
           {submitted ? (
-            <div style={{ 
-              background: 'rgba(34, 197, 94, 0.1)', 
-              color: '#4ade80', 
-              padding: '1rem', 
-              borderRadius: '0.3rem',
-              border: '1px solid rgba(34, 197, 94, 0.2)',
-              textAlign: 'center',
-              fontWeight: '500'
-            }}>
-              🌟 Thank you for helping Seeder grow! Your feedback has been planted and will help us bloom better features.
+            <div className={styles.successAlert}>
+              ✨ Thank you! Your feedback has been recorded successfully.
             </div>
           ) : (
             status === 'authenticated' && (
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} className={styles.feedbackForm}>
                 <textarea
                   className={styles.textBox}
                   value={feedback}
                   onChange={e => setFeedback(e.target.value)}
-                  placeholder="Plant your thoughts here... What would make Seeder even better?"
+                  placeholder="Tell us what you think..."
                   required
                   disabled={loading}
                   maxLength={1000}
                   rows={4}
                 />
-                <div style={{ fontSize: '0.8rem', color: '#888', marginBottom: '0.5rem' }}>
-                  Submitting as: {session?.user?.name || session?.user?.email} • {feedback.length}/1000 characters
+                <div className={styles.formMeta}>
+                  <span>Submitting as: {session?.user?.name || session?.user?.email}</span>
+                  <span>{feedback.length}/1000</span>
                 </div>
                 <button 
                   className={styles.feedbackButton} 
                   type="submit"
                   disabled={loading || !feedback.trim()}
                 >
-                  {loading ? 'Planting...' : 'Plant Feedback'}
+                  <HugeiconsIcon icon={MailSendIcon} size={13} style={{ marginRight: '6px' }} />
+                  {loading ? 'Sending...' : 'Send Feedback'}
                 </button>
               </form>
             )
           )}
         </div>
-        
-        <div className={styles.contactSection}>
-          <h3>🌿 Get in Touch</h3>
-          <p>
-            Ready to cultivate something amazing together?<br />
-            Email: <Link href="mailto:patakushivansh@gmail.com" className={styles.contactLink}>patakushivansh@gmail.com</Link>
+
+        <div className={styles.contactContainer}>
+          <h3>Get in Touch</h3>
+          <p className={styles.contactText}>
+            We&apos;d love to connect. Reach out to us via email:
           </p>
-          <p className={styles.aboutText}>
-            <small>Built with 💚 by Shivansh : Using Next.js, React, MySQL, and NextAuth v5 Beta</small>
-          </p>
+          <a href="mailto:patakushivansh@gmail.com" className={styles.emailLink}>
+            <HugeiconsIcon icon={MailIcon} size={14} style={{ marginRight: '6px', verticalAlign: 'middle' }} />
+            patakushivansh@gmail.com
+          </a>
+          <footer className={styles.footerNote}>
+            Built with care using Next.js, React, MySQL, and NextAuth.
+          </footer>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

@@ -164,6 +164,7 @@
   padding: 0rem;
   display: flex;
   flex-direction: row;
+  align-items: center;
   text-align: end;
 }
 
@@ -180,21 +181,23 @@
 }
 
 .saveButton,.deleteButton {
-  padding: 3px;
+  padding: 3px 10px;
   margin: 3px;
   background: var(--task-button-bg);
   color: var(--task-button-text);
   border: solid 1px var(--task-button-border);
-  border-radius: 3px;
+  border-radius: 4px;
   cursor: pointer;
-  width: 60px;
-  height: 25px;
-  font-size: smaller;
-  font-weight:300;
-  line-height: 1.2;
-  font-family: monospace;
-  background-color: none;
-  font-size: 13px;
+  width: auto;
+  min-width: 68px;
+  height: 28px;
+  font-size: 12px;
+  font-weight: 450;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-family: inherit;
   transition: all 0.3s ease;
 }
 
@@ -254,11 +257,17 @@
 /* TipTap Editor Toolbar */
 .editorToolbar {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
   gap: 8px;
   padding: 5px;
   align-items: center;
   transition: all 0.3s ease;
+  scrollbar-width: none; /* Hide scrollbar on Firefox */
+}
+
+.editorToolbar::-webkit-scrollbar {
+  display: none; /* Hide scrollbar on Chrome, Safari, and Opera */
 }
 
 .toolbarGroup {
@@ -269,6 +278,7 @@
   border: 1px solid var(--editor-toolbar-border);
   border-radius: 6px;
   transition: all 0.3s ease;
+  flex-shrink: 0; /* Prevent toolbar group from shrinking */
 }
 
 .toolbarGroup button {
@@ -277,6 +287,7 @@
   justify-content: center;
   width: 30px;
   height: 30px;
+  flex-shrink: 0; /* Prevent button from shrinking and merging with others */
   cursor: pointer;   
   font-family: monospace;
   font-weight: 500;
@@ -462,27 +473,20 @@
   font-size: 1rem;
 }
 
-.colorInput {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  width: 25px;
-  height: 25px;
-  background-color: transparent;
-  border: var(--editor-toolbar-border) solid 1px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.colorButton {
+  position: relative !important;
 }
 
-.colorInput::-webkit-color-swatch {
-  border-radius: 50%;
-  border: none;
-}
-
-.colorInput::-moz-color-swatch {
-  border-radius: 50%;
-  border: none;
+.colorIndicator {
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 3px;
+  border-radius: 1px;
+  box-shadow: 0 0 1px rgba(0,0,0,0.5);
+  pointer-events: none;
 }
 
 .tiptapEditor blockquote {
@@ -742,10 +746,10 @@
   }
   
   .toolbarGroup button {
-    padding: 6px 8px;
+    width: 28px;
+    height: 28px;
     font-size: 11px;
-    min-height: 28px;
-    min-width: 28px;
+    flex-shrink: 0; /* Prevent shrinking on mobile */
   }
   
   .headingSelect {

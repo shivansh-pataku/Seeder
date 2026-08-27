@@ -1,188 +1,340 @@
-.aboutMainRow {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 1rem;
-  margin: 1.5rem auto;
-  padding: 0.5rem;
-  max-width: 1300px;
+/* src/app/Styles/about.module.css */
+
+.aboutContainer {
+  max-width: 900px;
   width: 100%;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
   box-sizing: border-box;
-  padding: auto;
-  font-size:x-small;
+  font-family: 'Montserrat', sans-serif;
+  color: var(--foreground);
+}
+
+.aboutHeader {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.aboutHeader .title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+  background: linear-gradient(135deg, #ffffff 30%, #a3b4ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-theme="light"] .aboutHeader .title {
+  background: linear-gradient(135deg, #1a202c 30%, #4a5568 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.tagline {
+  font-size: 0.95rem;
+  color: var(--task-editor-text-muted);
+  margin: 0;
+}
+
+/* Philosophy Section Grid */
+.philosophyGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  margin-bottom: 4.5rem;
+}
+
+.philosophyCard {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.philosophyCard h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--editor-heading-color);
+}
+
+.philosophyCard p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--task-editor-text-light);
   text-align: justify;
 }
 
-.aboutLeft, .aboutRight {
-  display: flex;
-  flex-direction: column;
-  /* background: #19191f; */
-  background: #19191f32;
-  /* border: 1px solid #333; */
-  border-radius: 0.3rem;
-  padding: 1rem;
-  min-width: 320px;
-  max-width: 700px;
-  width: 100%;
-  margin: 0 auto;
-  box-sizing: border-box;
-  /* color: #eee; */
-  color: #656565;
-  box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.166);
-}
-/* FIXED: Proper list styling */
-.aboutList {
-  margin: 0.5rem 0;
-  padding-left: 1.2rem;
- 
+/* Feature Showcase */
+.featuresSection {
+  margin-bottom: 5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.aboutList li {
-  padding: 0.1rem 0; /* FIXED: Changed from 5.5rem to 0.4rem */
-  margin: 0.1rem 0;
-  line-height: 1.4;
-  list-style-type: disc;
-  color: #715b5b;
+[data-theme="light"] .featuresSection {
+  border-top-color: rgba(0, 0, 0, 0.06);
 }
 
-.aboutList li strong {
-  color: #425180;
+.sectionHeading {
+  font-size: 1.15rem;
   font-weight: 600;
+  margin: 0 0 2rem 0;
+  color: var(--foreground);
 }
 
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
 
-.feedbackSection, .contactSection {
-  height: 100%;
-  width: 100%;
+.featureItem {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(74, 144, 226, 0.08);
+  color: var(--editor-accent);
+  flex-shrink: 0;
+}
+
+.featureItem h4 {
+  margin: 0 0 6px 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.featureItem p {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--task-editor-text-muted);
+}
+
+/* Bottom Row (Feedback / Contact) */
+.bottomSection {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 3.5rem;
+  padding-top: 3rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="light"] .bottomSection {
+  border-top-color: rgba(0, 0, 0, 0.06);
+}
+
+.feedbackContainer {
   display: flex;
   flex-direction: column;
-  /* background: #1f1f25; */
-  background: #19191f1c;
-  padding: 1rem;
-  border-radius: 0.3rem;
-  /* border: 1px solid #333; */
-  margin-bottom: 1rem;
-  box-sizing: border-box;
+  gap: 1rem;
 }
 
-.contactSection {
-  /* background: #23232b; */
-  background: #19191f1c;
-
-  color: #bbb;
+.feedbackHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--editor-accent);
 }
 
-.contactLink {
-  color: #3472ab;
-  text-decoration: none;
-  font-weight: 500;
+.feedbackHeader h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.feedbackIcon {
+  color: inherit;
+}
+
+.feedbackIntro {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--task-editor-text-muted);
+}
+
+.feedbackForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .textBox {
   width: 100%;
-  min-height: 90px;
-  border-radius: 0.3rem;
-  border: 1px solid #444;
-  padding: 0.6rem;
-  font-size: 0.95rem;
-  /* background: #23232b; */
-  background: #19191f1c;
-
-  color: #eee;
+  padding: 0.75rem 1rem;
+  font-size: 0.88rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  color: #ffffff;
   resize: vertical;
-  margin-bottom: 0.8rem;
-  transition: border 0.2s;
+  min-height: 100px;
+  font-family: inherit;
   box-sizing: border-box;
+  transition: all 0.25s ease;
+}
+
+[data-theme="light"] .textBox {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #1a202c;
 }
 
 .textBox:focus {
-  border: 1px solid #888;
   outline: none;
+  border-color: var(--editor-accent);
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+[data-theme="light"] .textBox:focus {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.formMeta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--task-editor-text-muted);
 }
 
 .feedbackButton {
-  background: #333;
-  color: #eee;
-  border: 1px solid #555;
-  border-radius: 0.3rem;
-  padding: 0.5rem 1.2rem;
-  font-size: 0.9rem;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  background: #2b4b6e;
+  border: 1px solid rgb(163, 163, 163);
+  color: #ffffff;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 0.8rem;
   font-weight: 500;
   cursor: pointer;
+  font-family: inherit;
   transition: all 0.2s ease;
 }
 
 .feedbackButton:hover {
-  background: #555;
-  border-color: #777;
-}
-
-@media (max-width: 900px) {
-  .aboutMainRow {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.5rem;
-  }
-
-  .aboutLeft, .aboutRight {
-    min-width: 220px;
-    max-width: 95vw;
-    padding: 0.8rem;
-  }
-}
-
-.aboutText {
-  line-height: 1.3;
-  /* color: #715b5b !important; */
-}
-
-
-/* src/app/Styles/about.module.css - ADD THESE CLASSES */
-
-.aboutTitle {
-  color: #89a6fb;
-   /* color: #715b5b; */
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-
-.aboutText {
-  line-height: 1.3;
-  margin-bottom: 0.8rem;
-  color: #715b5b !important;
-}
-
-.contactSection p {
-  color: #4b4141;
-}
-
-.aboutText strong {
-  color: #425180;
-  font-weight: 600;
-}
-
-.aboutText em {
-  color: #5c5353;
-  font-style: italic;
-  font-size: 0.7rem;
-}
-
-.feedbackSection h3, .contactSection h3 {
-  color: #3d5cbb;
-  font-size: 1.2rem;
-  margin-bottom: 0.8rem;
-  font-weight: 600;
-}
-
-.textBox::placeholder {
-  color: #888;
+  background: #ffffff;
+  color: #1e1e1e;
 }
 
 .feedbackButton:disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
+.authAlert, .errorAlert, .successAlert {
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+.authAlert {
+  background: rgba(74, 144, 226, 0.08);
+  color: var(--editor-accent);
+}
+
+.authLink {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.errorAlert {
+  background: rgba(239, 68, 68, 0.08);
+  color: #f87171;
+}
+
+.successAlert {
+  background: rgba(34, 197, 94, 0.08);
+  color: #4ade80;
+}
+
+/* Contact Box */
+.contactContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contactContainer h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.contactText {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--task-editor-text-muted);
+}
+
+.emailLink {
+  display: inline-flex;
+  align-items: center;
+  color: var(--editor-accent);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+}
+
+.emailLink:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.footerNote {
+  margin-top: auto;
+  font-size: 0.72rem;
+  color: var(--task-editor-text-muted);
+  line-height: 1.5;
+  padding-top: 2rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .aboutContainer {
+    margin: 2rem auto;
+  }
+
+  .aboutHeader {
+    margin-bottom: 2.5rem;
+  }
+
+  .aboutHeader .title {
+    font-size: 1.8rem;
+  }
+
+  .philosophyGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .bottomSection {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .footerNote {
+    padding-top: 1rem;
+  }
+}

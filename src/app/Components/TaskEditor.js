@@ -16,17 +16,41 @@ import { Table } from '@tiptap/extension-table';
 import { TableRow } from '@tiptap/extension-table-row';
 import { TableHeader } from '@tiptap/extension-table-header';
 import { TableCell } from '@tiptap/extension-table-cell';
+import { HugeiconsIcon } from '@hugeicons/react';
+import {
+  TextBoldIcon,
+  TextItalicIcon,
+  TextUnderlineIcon,
+  TextStrikethroughIcon,
+  HighlighterIcon,
+  Heading01Icon,
+  Heading02Icon,
+  Heading03Icon,
+  ListIcon,
+  ListOrderedIcon,
+  ListTodoIcon,
+  QuoteIcon,
+  CodeIcon,
+  MinusIcon,
+  LinkIcon,
+  UndoIcon,
+  RedoIcon,
+  Delete01Icon,
+  SaveIcon,
+  TextColorIcon,
+  PanelLeftCloseIcon,
+  PanelLeftOpenIcon
+} from '@hugeicons/core-free-icons';
 import styles from '../Styles/taskeditor.module.css';
-// export default function TaskEditor({ task, onSave, onDelete, isCreating = false, saveStatus = '' }) {
-export default function TaskEditor({ task, onSave, onDelete, isCreating = false }) {
+
+export default function TaskEditor({ task, onSave, onDelete, isCreating = false, isSidebarCollapsed = false, onToggleSidebar }) {
   const [title, setTitle] = useState('');
-  // const [isTyping, setIsTyping] = useState(false); // Track if user is currently typing
-    const [ ,setIsTyping] = useState(false); // Track if user is currently typing
+  const [isTyping, setIsTyping] = useState(false);
   const [lastSavedData, setLastSavedData] = useState({ title: '', description: '' });
-  const [isSaving, setIsSaving] = useState(false); // Track saving state
+  const [isSaving, setIsSaving] = useState(false);
   const titleRef = useRef(null);
   const autoSaveTimeoutRef = useRef(null);
-  const cursorPositionRef = useRef(null); // Store cursor position
+  const colorInputRef = useRef(null);
 
   // TipTap Editor with Full Features
   const editor = useEditor({
@@ -79,32 +103,6 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false 
     },
   });
 
-  // Function to preserve and restore cursor position
-  const preserveCursorPosition = useCallback((callback) => {
-    if (!editor) return;
-
-    const currentSelection = cursorPositionRef.current || editor.state.selection;
-    
-    // Execute the callback
-    callback();
-
-    // Restore cursor position after a small delay
-    setTimeout(() => {
-      if (editor && currentSelection && !editor.isDestroyed) {
-        try {
-          // Create a new transaction with the preserved selection
-          const tr = editor.state.tr.setSelection(currentSelection);
-          editor.view.dispatch(tr);
-          editor.commands.focus();
-        } catch (error) {
-          // If restoring exact position fails, just focus the editor
-          console.log('Could not restore exact cursor position , error:', error);
-          editor.commands.focus();
-        }
-      }
-    }, 10);
-  }, [editor]);
-  
   // Auto-resize textarea function
   const autoResizeTextarea = (textarea) => {
     if (textarea) {
@@ -113,209 +111,216 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false 
     }
   };
 
-  // Load initial task data
-  useEffect(() => {
-    if (task && editor) {
-      const initialTitle = task.title || '';
-      const initialDescription = task.description || '';
-      
-      setTitle(initialTitle);
-      
-      // Set content without triggering cursor movement
-      if (initialDescription !== editor.getHTML()) {
-        editor.commands.setContent(initialDescription, false); // false = don't emit update
-      }
-      
-      setLastSavedData({ 
-        title: initialTitle, 
-        description: initialDescription 
-      });
-      
-      setTimeout(() => {
-        autoResizeTextarea(titleRef.current);
-      }, 0);
+  const getPlainText = useCallback(() => {
+    return editor ? editor.getText().trim() : '';
+  }, [editor]);
 
-      if (isCreating) {
-        setTimeout(() => {
-          editor.commands.focus();
-        }, 100);
-      }
-    }
-  }, [task, isCreating, editor]);
-
-  // Check if current content is different from last saved
   const hasContentChanged = useCallback(() => {
     const currentTitle = title.trim();
     const currentDescription = editor ? editor.getHTML().trim() : '';
     const lastTitle = lastSavedData.title.trim();
     const lastDescription = lastSavedData.description.trim();
-    
+
     return currentTitle !== lastTitle || currentDescription !== lastDescription;
   }, [title, editor, lastSavedData]);
 
-  // Get plain text from editor for validation
-  const getPlainText = useCallback(() => {
-    return editor ? editor.getText().trim() : '';
-  }, [editor]);
+  // Keep track of latest unsaved changes to avoid stale closure race conditions
+  const latestDataRef = useRef({ title: '', description: '' });
+  useEffect(() => {
+    latestDataRef.current = {
+      title: title,
+      description: editor ? editor.getHTML() : ''
+    };
+  }, [title, editor]);
 
-  // Enhanced save function that preserves cursor
-  const performSave = useCallback(async (dataToSave) => {
-    if (!onSave) return;
+  const isSavingRef = useRef(false);
 
+  // Thread-safe trigger save function
+  const triggerSave = useCallback(async () => {
+    if (!onSave || !task) return;
+
+    const currentTitle = latestDataRef.current.title.trim();
+    const currentDescription = latestDataRef.current.description.trim();
+    const lastTitle = lastSavedData.title.trim();
+    const lastDescription = lastSavedData.description.trim();
+
+    const hasChanged = currentTitle !== lastTitle || currentDescription !== lastDescription;
+    const isNotEmpty = currentTitle || (editor && editor.getText().trim());
+
+    if (!hasChanged || !isNotEmpty) {
+      return;
+    }
+
+    if (isSavingRef.current) {
+      // Already saving, queue another save after it finishes
+      return;
+    }
+
+    isSavingRef.current = true;
     setIsSaving(true);
-    
+
+    const dataToSave = {
+      ...task,
+      title: currentTitle || 'Untitled',
+      description: currentDescription,
+    };
+
     try {
       await onSave(dataToSave);
-      
-      // Update last saved data after successful save
       setLastSavedData({
         title: dataToSave.title,
-        description: dataToSave.description
+        description: dataToSave.description,
       });
-      
     } catch (error) {
-      console.error('Save failed:', error);
+      console.error('Auto-save failed:', error);
     } finally {
+      isSavingRef.current = false;
       setIsSaving(false);
-    }
-  }, [onSave]);
 
-  // Handle description change from editor
-  const handleDescriptionChange = useCallback((content) => {
-    if (onSave && task && !isSaving) {
-      if (autoSaveTimeoutRef.current) {
-        clearTimeout(autoSaveTimeoutRef.current);
-      }
+      // Check if user made further edits while the save request was in-flight
+      const nextTitle = latestDataRef.current.title.trim();
+      const nextDescription = latestDataRef.current.description.trim();
+      const savedTitle = dataToSave.title.trim();
+      const savedDescription = dataToSave.description.trim();
 
-      if ((title.trim() || getPlainText()) && hasContentChanged()) {
-        setIsTyping(true);
-        
-        autoSaveTimeoutRef.current = setTimeout(() => {
-          if (getPlainText() && hasContentChanged()) {
-            const dataToSave = {
-              ...task,
-              title: title.trim() || 'Untitled',
-              description: content,
-            };
-
-            // Use preserveCursorPosition wrapper for auto-save
-            preserveCursorPosition(() => {
-              performSave(dataToSave);
-            });
-          }
-          setIsTyping(false);
-        }, 3000);
-      } else {
-        setIsTyping(false);
-      }
-    }
-  }, [title, task, onSave, isSaving, getPlainText, hasContentChanged, preserveCursorPosition, performSave]);
-
-  // Dynamic listener binding to avoid stale closures in TipTap updates
-  useEffect(() => {
-    if (!editor) return;
-
-    const onUpdateHandler = ({ editor }) => {
-      // Store cursor position before handling change
-      if (editor.isFocused && !isSaving) {
-        cursorPositionRef.current = editor.state.selection;
-      }
-      
-      const content = editor.getHTML();
-      handleDescriptionChange(content);
-    };
-
-    const onSelectionUpdateHandler = ({ editor }) => {
-      // Update cursor position when user moves cursor
-      if (editor.isFocused && !isSaving) {
-        cursorPositionRef.current = editor.state.selection;
-      }
-    };
-
-    editor.on('update', onUpdateHandler);
-    editor.on('selectionUpdate', onSelectionUpdateHandler);
-
-    return () => {
-      editor.off('update', onUpdateHandler);
-      editor.off('selectionUpdate', onSelectionUpdateHandler);
-    };
-  }, [editor, handleDescriptionChange, isSaving]);
-
-  const prevTaskRef = useRef(task);
-
-  // Handle task switching and flushing unsaved edits for the previous task
-  useEffect(() => {
-    const prevTask = prevTaskRef.current;
-    
-    if (prevTask && task && prevTask.id !== task.id) {
-      // Clear any pending autosave timeout when changing tasks
-      if (autoSaveTimeoutRef.current) {
-        clearTimeout(autoSaveTimeoutRef.current);
-        setIsTyping(false);
-      }
-      
-      // If we have unsaved modifications for the previous task, save them now
-      if (editor && getPlainText() && hasContentChanged()) {
-        const dataToSave = {
-          ...prevTask,
-          title: title.trim() || 'Untitled',
-          description: editor.getHTML(),
-        };
-        
-        console.log('🔄 Task switch detected. Flushing unsaved changes for task:', prevTask.id);
-        performSave(dataToSave);
-      }
-    }
-    
-    // Update the ref to the current task
-    prevTaskRef.current = task;
-  }, [task, editor, title, getPlainText, hasContentChanged, performSave]);
-
-  // Universal auto-save logic for title changes
-  useEffect(() => {
-    if (onSave && task && editor && !isSaving) {
-      if (autoSaveTimeoutRef.current) {
-        clearTimeout(autoSaveTimeoutRef.current);
-      }
-
-      if ((title.trim() || getPlainText()) && hasContentChanged()) {
-        setIsTyping(true);
-        
-        autoSaveTimeoutRef.current = setTimeout(() => {
-          if (getPlainText() && hasContentChanged()) {
-            const dataToSave = {
-              ...task,
-              title: title.trim() || 'Untitled',
-              description: editor.getHTML(),
-            };
-
-            // Use preserveCursorPosition wrapper for auto-save
-            preserveCursorPosition(() => {
-              performSave(dataToSave);
-            });
-          }
-          setIsTyping(false);
-        }, 3000);
-      } else {
-        setIsTyping(false);
-      }
-
-      return () => {
+      if (nextTitle !== savedTitle || nextDescription !== savedDescription) {
         if (autoSaveTimeoutRef.current) {
           clearTimeout(autoSaveTimeoutRef.current);
         }
-      };
+        autoSaveTimeoutRef.current = setTimeout(() => {
+          triggerSave();
+        }, 3000);
+      }
     }
-  }, [getPlainText, hasContentChanged, performSave, preserveCursorPosition, title, task, onSave, editor, isSaving]);
+  }, [task, onSave, lastSavedData, editor]);
 
-  // Handle title change
+  // Synchronize loading and task switching
+  const lastTaskIdRef = useRef(null);
+  const prevTaskRef = useRef(task);
+
+  useEffect(() => {
+    if (task && editor) {
+      const initialTitle = task.title || '';
+      const initialDescription = task.description || '';
+
+      const taskIdChanged = lastTaskIdRef.current !== task.id;
+      const isTransitioningFromTemp = lastTaskIdRef.current &&
+        String(lastTaskIdRef.current).startsWith('temp_') &&
+        !String(task.id).startsWith('temp_');
+
+      if (taskIdChanged) {
+        if (isTransitioningFromTemp) {
+          // It's the same task transitioning from temporary ID to database ID.
+          // Just update the reference ID and saved data, do not overwrite the editor's contents.
+          lastTaskIdRef.current = task.id;
+          setLastSavedData({
+            title: initialTitle,
+            description: initialDescription
+          });
+        } else {
+          // User switched to a completely different task:
+          // 1. Flush any unsaved changes for the previous task first
+          const prevTask = prevTaskRef.current;
+          if (prevTask && prevTask.id === lastTaskIdRef.current) {
+            const currentTitle = title.trim();
+            const currentDescription = editor.getHTML().trim();
+            const lastTitle = lastSavedData.title.trim();
+            const lastDescription = lastSavedData.description.trim();
+            const hasChanged = currentTitle !== lastTitle || currentDescription !== lastDescription;
+
+            if (hasChanged && (currentTitle || editor.getText().trim())) {
+              const dataToSave = {
+                ...prevTask,
+                title: currentTitle || 'Untitled',
+                description: currentDescription,
+              };
+              console.log('🔄 Flushing unsaved changes for task:', prevTask.id);
+              onSave(dataToSave);
+            }
+          }
+
+          // 2. Clear any pending timeouts
+          if (autoSaveTimeoutRef.current) {
+            clearTimeout(autoSaveTimeoutRef.current);
+          }
+          setIsTyping(false);
+
+          // 3. Load the new task content
+          setTitle(initialTitle);
+          editor.commands.setContent(initialDescription, false);
+          setLastSavedData({
+            title: initialTitle,
+            description: initialDescription
+          });
+
+          lastTaskIdRef.current = task.id;
+          prevTaskRef.current = task;
+
+          setTimeout(() => {
+            autoResizeTextarea(titleRef.current);
+          }, 0);
+
+          if (isCreating) {
+            setTimeout(() => {
+              editor.commands.focus();
+            }, 100);
+          }
+        }
+      }
+    } else if (!task) {
+      lastTaskIdRef.current = null;
+      prevTaskRef.current = null;
+    }
+  }, [task, isCreating, editor, onSave, lastSavedData, title]);
+
+  // Debounced auto-save triggers for typing/edits
+  const handleDescriptionChange = useCallback(() => {
+    if (onSave && task) {
+      if (autoSaveTimeoutRef.current) {
+        clearTimeout(autoSaveTimeoutRef.current);
+      }
+
+      setIsTyping(true);
+
+      autoSaveTimeoutRef.current = setTimeout(() => {
+        triggerSave();
+        setIsTyping(false);
+      }, 3000);
+    }
+  }, [task, onSave, triggerSave]);
+
   const handleTitleChange = (e) => {
     const newTitle = e.target.value;
     setTitle(newTitle);
     autoResizeTextarea(e.target);
+
+    if (onSave && task) {
+      if (autoSaveTimeoutRef.current) {
+        clearTimeout(autoSaveTimeoutRef.current);
+      }
+      setIsTyping(true);
+      autoSaveTimeoutRef.current = setTimeout(() => {
+        triggerSave();
+        setIsTyping(false);
+      }, 3000);
+    }
   };
 
-  // Handle Enter key in title
+  // Bind change listeners to TipTap editor updates
+  useEffect(() => {
+    if (!editor) return;
+
+    const onUpdateHandler = () => {
+      handleDescriptionChange();
+    };
+
+    editor.on('update', onUpdateHandler);
+
+    return () => {
+      editor.off('update', onUpdateHandler);
+    };
+  }, [editor, handleDescriptionChange]);
+
   const handleTitleKeyDown = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -325,29 +330,20 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false 
     }
   };
 
-  // Manual save function
   const handleManualSave = () => {
-    if (editor && getPlainText() && hasContentChanged() && onSave) {
-      const dataToSave = {
-        ...task,
-        title: title.trim() || 'Untitled',
-        description: editor.getHTML(),
-      };
-
-      // Manual save doesn't need cursor preservation since it's user-initiated
-      performSave(dataToSave);
-      setIsTyping(false);
+    if (autoSaveTimeoutRef.current) {
+      clearTimeout(autoSaveTimeoutRef.current);
     }
+    triggerSave();
+    setIsTyping(false);
   };
 
-  // Handle delete
   const handleDelete = () => {
     if (task && onDelete && !isCreating) {
       onDelete(task.id);
     }
   };
 
-  // Set Link function
   const setLink = () => {
     const previousUrl = editor.getAttributes('link').href;
     const url = window.prompt('URL', previousUrl);
@@ -364,11 +360,6 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false 
     editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
   };
 
-  // Add Table function
-  // const addTable = () => {
-  //   editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
-  // };
-
   if (!task) {
     return (
       <div className={styles.editorContainer}>
@@ -384,11 +375,19 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false 
     <div className={styles.editorContainer}>
       {/* Header */}
       <div className={styles.createHeader}>
-        <h3 className={styles.statusS1}>
-          {/* Status indicators can be re-enabled if needed */}
-        </h3>
-
         <div className={styles.editorToolbar}>
+          {/* Layout Controls */}
+          {onToggleSidebar && (
+            <div className={styles.toolbarGroup}>
+              <button
+                onClick={onToggleSidebar}
+                title={isSidebarCollapsed ? "Show list" : "Hide list"}
+              >
+                <HugeiconsIcon icon={isSidebarCollapsed ? PanelLeftOpenIcon : PanelLeftCloseIcon} size={15} />
+              </button>
+            </div>
+          )}
+
           {/* Text Formatting */}
           <div className={styles.toolbarGroup}>
             <button
@@ -396,35 +395,35 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false 
               className={editor.isActive('bold') ? styles.active : ''}
               title="Bold (Ctrl+B)"
             >
-              <strong>B</strong>
+              <HugeiconsIcon icon={TextBoldIcon} size={15} />
             </button>
             <button
               onClick={() => editor.chain().focus().toggleItalic().run()}
               className={editor.isActive('italic') ? styles.active : ''}
               title="Italic (Ctrl+I)"
             >
-              <em>I</em>
+              <HugeiconsIcon icon={TextItalicIcon} size={15} />
             </button>
             <button
               onClick={() => editor.chain().focus().toggleUnderline().run()}
               className={editor.isActive('underline') ? styles.active : ''}
               title="Underline (Ctrl+U)"
             >
-              <u>U</u>
+              <HugeiconsIcon icon={TextUnderlineIcon} size={15} />
             </button>
             <button
               onClick={() => editor.chain().focus().toggleStrike().run()}
               className={editor.isActive('strike') ? styles.active : ''}
               title="Strikethrough"
             >
-              <s>S</s>
+              <HugeiconsIcon icon={TextStrikethroughIcon} size={15} />
             </button>
             <button
               onClick={() => editor.chain().focus().toggleHighlight().run()}
               className={editor.isActive('highlight') ? styles.active : ''}
               title="Highlight"
             >
-              Hi
+              <HugeiconsIcon icon={HighlighterIcon} size={15} />
             </button>
           </div>
 
@@ -435,21 +434,21 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false 
               className={editor.isActive('heading', { level: 1 }) ? styles.active : ''}
               title="Heading 1"
             >
-              H1
+              <HugeiconsIcon icon={Heading01Icon} size={15} />
             </button>
             <button
               onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
               className={editor.isActive('heading', { level: 2 }) ? styles.active : ''}
               title="Heading 2"
             >
-              H2
+              <HugeiconsIcon icon={Heading02Icon} size={15} />
             </button>
             <button
               onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
               className={editor.isActive('heading', { level: 3 }) ? styles.active : ''}
               title="Heading 3"
             >
-              H3
+              <HugeiconsIcon icon={Heading03Icon} size={15} />
             </button>
           </div>
 
@@ -460,21 +459,21 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false 
               className={editor.isActive('bulletList') ? styles.active : ''}
               title="Bullet List"
             >
-              • 
+              <HugeiconsIcon icon={ListIcon} size={15} />
             </button>
             <button
               onClick={() => editor.chain().focus().toggleOrderedList().run()}
               className={editor.isActive('orderedList') ? styles.active : ''}
               title="Numbered List"
             >
-              1.
+              <HugeiconsIcon icon={ListOrderedIcon} size={15} />
             </button>
             <button
               onClick={() => editor.chain().focus().toggleTaskList().run()}
               className={editor.isActive('taskList') ? styles.active : ''}
               title="Task List"
             >
-              M
+              <HugeiconsIcon icon={ListTodoIcon} size={15} />
             </button>
           </div>
 
@@ -485,20 +484,20 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false 
               className={editor.isActive('blockquote') ? styles.active : ''}
               title="Quote"
             >
-              &quot; 
+              <HugeiconsIcon icon={QuoteIcon} size={15} />
             </button>
             <button
               onClick={() => editor.chain().focus().toggleCodeBlock().run()}
               className={editor.isActive('codeBlock') ? styles.active : ''}
               title="Code Block"
             >
-              {'</>'}
+              <HugeiconsIcon icon={CodeIcon} size={15} />
             </button>
             <button
               onClick={() => editor.chain().focus().setHorizontalRule().run()}
               title="Horizontal Rule"
             >
-              Br
+              <HugeiconsIcon icon={MinusIcon} size={15} />
             </button>
           </div>
 
@@ -509,14 +508,25 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false 
               className={editor.isActive('link') ? styles.active : ''}
               title="Add Link"
             >
-              L
+              <HugeiconsIcon icon={LinkIcon} size={15} />
+            </button>
+            <button
+              onClick={() => colorInputRef.current?.click()}
+              title="Text Color"
+              className={styles.colorButton}
+            >
+              <HugeiconsIcon icon={TextColorIcon} size={15} />
+              <span
+                className={styles.colorIndicator}
+                style={{ backgroundColor: editor.getAttributes('textStyle').color || '#000000' }}
+              />
             </button>
             <input
+              ref={colorInputRef}
               type="color"
               onInput={(e) => editor.chain().focus().setColor(e.target.value).run()}
               value={editor.getAttributes('textStyle').color || '#000000'}
-              title="Text Color"
-              className={styles.colorInput}
+              style={{ display: 'none' }}
             />
           </div>
 
@@ -527,14 +537,14 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false 
               disabled={!editor.can().undo()}
               title="Undo (Ctrl+Z)"
             >
-              ↶
+              <HugeiconsIcon icon={UndoIcon} size={15} />
             </button>
             <button
               onClick={() => editor.chain().focus().redo().run()}
               disabled={!editor.can().redo()}
               title="Redo (Ctrl+Y)"
             >
-              ↷
+              <HugeiconsIcon icon={RedoIcon} size={15} />
             </button>
           </div>
 
@@ -546,11 +556,12 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false 
           )}
         </div>
 
+        {/* Save/Delete controls */}
         <div className={styles.statusContainer}>
           <div className={styles.autoSaveStatus}>
-            {/* {isSaving && 'Saving...'}
-            {isTyping && !isSaving && canSave && hasChanges && 'Auto-save in 3s...'}
-            {!hasChanges && !isCreating && canSave && !isSaving && 'Saved'} */}
+            {isSaving ? 'Saving...' :
+             isTyping && hasChanges ? 'Typing...' :
+             !hasChanges && !isCreating && canSave ? 'Saved' : ''}
           </div>
 
           <div className={styles.buttonGroup}>
@@ -559,10 +570,11 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false 
               onClick={handleManualSave}
               disabled={!canSave || !hasChanges || isSaving}
             >
+              <HugeiconsIcon icon={SaveIcon} size={13} style={{ marginRight: '4px' }} />
               {isSaving ? 'Saving...' :
                 !hasChanges ? 'Saved' :
-                canSave ? (isCreating ? 'Sow Now' : 'Save') :
-                  'Empty'}
+                  canSave ? (isCreating ? 'Sow Now' : 'Save') :
+                    'Empty'}
             </button>
 
             {!isCreating && (
@@ -572,6 +584,7 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false 
                 title="Delete this seed"
                 disabled={isSaving}
               >
+                <HugeiconsIcon icon={Delete01Icon} size={13} style={{ marginRight: '4px' }} />
                 Remove
               </button>
             )}

@@ -1,123 +1,104 @@
 'use client'
+
 import styles from '../Styles/Navbar.module.css';
 import ThemeToggle from './Button-ThemeToggle'
 import { useState } from 'react';
 import { useSession, signOut } from 'next-auth/react'
 import Link from "next/link";
-//This is Pages Router syntax
-// import Router, { useRouter } from 'next/router'
-//App Router syntax
 import { useRouter } from 'next/navigation'
+import { HugeiconsIcon } from '@hugeicons/react';
+import { 
+  Folder01Icon, 
+  InformationCircleIcon, 
+  Task01Icon, 
+  UserIcon, 
+  Settings01Icon, 
+  Logout01Icon, 
+  Login01Icon 
+} from '@hugeicons/core-free-icons';
 
 export default function Navbar() {
-  const { data: session } = useSession()
-    // const { data: session, status } = useSession()
-
-  const [showMenu, setShowMenu] = useState(false); //useState helps to hide/show menu
+  const { data: session, status } = useSession()
+  const [showMenu, setShowMenu] = useState(false);
   const handleMenuToggle = () => setShowMenu(prev => !prev);
   const router = useRouter()
 
-      const handleLogout = () => {
-        signOut({ callbackUrl: '/' })
-        setShowMenu(false)
-      }
+  const handleLogout = () => {
+    signOut({ callbackUrl: '/' })
+    setShowMenu(false)
+  }
 
-      const handleProfile = () => {
-        setShowMenu(false)
-        if(!session) // session is recieved from 
-        {
-         router.push('/auth/signin')
-        }else{
-          router.push(`/${session.user.username}`) //username is from database (in profile table)
-        }
-      }
-      const handleSettings = () => {
-        setShowMenu(false)
-        if(session)
-        {
-          router.push('/settings')
-        }else{
-          router.push('/auth/signin')
-        }
-      }
+  const handleProfile = () => {
+    setShowMenu(false)
+    if (!session) {
+      router.push('/auth/signin')
+    } else {
+      router.push(`/${session.user.username}`)
+    }
+  }
 
-      // Show loading state - not needed for now
-      // if (status === 'loading') {
-      //   return <nav className={styles.navbar}>Loading...</nav>
-      // }
+  const handleSettings = () => {
+    setShowMenu(false)
+    if (session) {
+      router.push('/settings')
+    } else {
+      router.push('/auth/signin')
+    }
+  }
 
   return (
     <nav className={styles.navbar}>
-      <h1 className={styles.title} onClick={() => router.push('/')}>Seeder</h1>
+      <div className={styles.brand} onClick={() => router.push('/')}>
+        <HugeiconsIcon icon={Folder01Icon} size={18} className={styles.brandIcon} />
+        <h1 className={styles.title}>Workspace</h1>
+      </div>
+      
       <div className={styles.links}>
         <ThemeToggle />
-        <Link href='/about' className={styles.link}>About</Link>
+        
+        <Link href='/about' className={styles.link}>
+          <HugeiconsIcon icon={InformationCircleIcon} size={14} className={styles.linkIcon} />
+          <span>About</span>
+        </Link>
+        
+        {session?.user && (
+          <Link href='/tasks' className={styles.link}>
+            <HugeiconsIcon icon={Task01Icon} size={14} className={styles.linkIcon} />
+            <span>Tasks</span>
+          </Link>
+        )}
+
         {session?.user ? (
           <div style={{ position: "relative" }}>
             <div onClick={handleMenuToggle} className={styles.username}>
-              {"u/" + (session.user.username || session.user.name)}
+              <HugeiconsIcon icon={UserIcon} size={14} className={styles.userIcon} />
+              <span>{"u/" + (session.user.username || session.user.name)}</span>
             </div>
             {showMenu && (
               <div className={styles.menu}>
-                <div className={styles.menuLink} onClick={handleProfile}>  Profile</div>
-                <div className={styles.menuLink} onClick={handleSettings}> Settings</div>
-                <div className={styles.menuLink} onClick={handleLogout}>   Logout</div>
+                <div className={styles.menuLink} onClick={handleProfile}>
+                  <HugeiconsIcon icon={UserIcon} size={14} className={styles.dropdownIcon} />
+                  <span>Profile</span>
+                </div>
+                <div className={styles.menuLink} onClick={handleSettings}>
+                  <HugeiconsIcon icon={Settings01Icon} size={14} className={styles.dropdownIcon} />
+                  <span>Settings</span>
+                </div>
+                <div className={styles.menuLink} onClick={handleLogout}>
+                  <HugeiconsIcon icon={Logout01Icon} size={14} className={styles.dropdownIcon} />
+                  <span>Logout</span>
+                </div>
               </div>
             )}
           </div>
         ) : (
-          <Link href='/auth/signin' className={styles.logsig}>Login or Signup</Link>
+          <Link href='/auth/signin' className={styles.logsig}>
+            <HugeiconsIcon icon={Login01Icon} size={14} className={styles.linkIcon} />
+            <span>Login or Signup</span>
+          </Link>
         )}
       </div>
-      <div className={styles.loadingbar}></div>
+      <div className={`${styles.loadingbar} ${status === 'loading' ? styles.active : ''}`}></div>
     </nav>
   );
 }
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////
-
-// //1. session in navbar comes form :Line 5 in Navbar.js
-
-// //form :Line 5 in Navbar.js
-// import { useSession, signOut } from 'next-auth/react'
-// //form :Line 13 in Navbar.js
-  
-// const { data: session, status } = useSession()
-// //^^^^^^^ This is where session comes from
-
-// //2. Session Provider Setup (Root Level) which allows children having session data
-// import { SessionProvider } from 'next-auth/react'
-
-// export default function RootLayout({ children }) {
-//   return (
-//     <html>
-//       <body>
-//         <SessionProvider>  {/* ← Session context starts here */}
-//           {children}
-//         </SessionProvider>
-//       </body>
-//     </html>
-//   )
-// }
-
-// //3. In  Navbar.js
-// const { data: session, status } = useSession()
-// //     ↑              ↑
-// //     │              └── 'loading' | 'authenticated' | 'unauthenticated'
-// //     └── User session data or null
-
-
-// //4. When user is logged in:
-// session = {
-//   user: {
-//     id: '1',
-//     email: 'test@test.com', 
-//     name: 'Test User',
-//     username: 'testuser'  // if available
-//   },
-//   expires: '2024-12-09T...'
-// }
-
-// // When user is not logged in:
-// session = null

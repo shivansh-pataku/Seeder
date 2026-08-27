@@ -77,7 +77,23 @@
   overflow-x: hidden;
   scrollbar-width: thin;
   scrollbar-color: var(--fetch-scrollbar-thumb) transparent;
-  transition: all 0.3s ease;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              min-width 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              padding 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              opacity 0.2s ease, 
+              border-width 0.3s ease;
+}
+
+.tasks_list.collapsed {
+  width: 0;
+  min-width: 0;
+  max-width: 0;
+  padding: 0;
+  margin: 0;
+  border-width: 0;
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* Scrollbar styling for .tasks_list */
@@ -113,7 +129,11 @@
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--fetch-scrollbar-thumb) transparent;
-  transition: all 0.3s ease;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.task_editor_box.fullWidth {
+  width: 100%;
 }
 
 /* Scrollbar styling for .task_editor_box */
@@ -140,6 +160,15 @@
     width: 100%;
     min-width: unset;
     max-width: unset;
+  }
+
+  .tasks_list.collapsed {
+    height: 0;
+    min-height: 0;
+    padding: 0;
+    margin: 0;
+    border-width: 0;
+    opacity: 0;
   }
 
   .task_editor_box {
