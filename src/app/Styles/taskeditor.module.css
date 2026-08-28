@@ -186,19 +186,18 @@
   background: var(--task-button-bg);
   color: var(--task-button-text);
   border: solid 1px var(--task-button-border);
-  border-radius: 4px;
+  border-radius: 0px;
   cursor: pointer;
   width: auto;
   min-width: 68px;
   height: 28px;
   font-size: 12px;
-  font-weight: 450;
+  font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
   font-family: inherit;
-  transition: all 0.3s ease;
 }
 
 .saveButton.disabled,.deleteButton.disabled  {
@@ -272,13 +271,12 @@
 
 .toolbarGroup {
   display: flex;
-  gap: 6px;
+  gap: 2px;
   padding: 2px;
   background: var(--editor-toolbar-bg);
   border: 1px solid var(--editor-toolbar-border);
-  border-radius: 6px;
-  transition: all 0.3s ease;
-  flex-shrink: 0; /* Prevent toolbar group from shrinking */
+  border-radius: 0px;
+  flex-shrink: 0;
 }
 
 .toolbarGroup button {
@@ -287,25 +285,21 @@
   justify-content: center;
   width: 30px;
   height: 30px;
-  flex-shrink: 0; /* Prevent button from shrinking and merging with others */
+  flex-shrink: 0;
   cursor: pointer;   
   font-family: monospace;
   font-weight: 500;
   border: none;
-  border-radius: 4px;
+  border-radius: 0px;
   background: transparent;
   color: var(--editor-content-text);
   font-size: 15px;
-  transition: all 0.3s ease;
+  transition: all 0.1s ease;
 }
 
 .toolbarGroup button:hover:not(:disabled) {
   background: var(--task-desc-hover-bg);
   color: var(--task-editor-text);
-}
-
-.toolbarGroup button:active {
-  transform: scale(0.95);
 }
 
 .toolbarGroup button.active {
@@ -322,13 +316,12 @@
 .headingSelect {
   padding: 8px 12px;
   border: 1px solid var(--editor-toolbar-border);
-  border-radius: 6px;
+  border-radius: 0px;
   background: var(--editor-toolbar-bg);
   color: var(--editor-content-text);
   cursor: pointer;
   font-size: 12px;
   min-width: 120px;
-  transition: all 0.3s ease;
 }
 
 .headingSelect:hover {
@@ -341,10 +334,9 @@
   width: 32px;
   height: 32px;
   border: 1px solid var(--editor-toolbar-border);
-  border-radius: 6px;
+  border-radius: 0px;
   cursor: pointer;
   background: var(--editor-toolbar-bg);
-  transition: all 0.3s ease;
 }
 
 .characterCount {
@@ -358,10 +350,9 @@
 /* Simple Editor Wrapper */
 .simpleEditorWrapper {
   border: 1px solid var(--editor-toolbar-border);
-  border-radius: 0 0 8px 8px;
+  border-radius: 0px;
   min-height: 300px;
   background: var(--editor-content-bg);
-  transition: all 0.3s ease;
 }
 
 .simpleEditorWrapper.highlighted {

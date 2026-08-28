@@ -25,14 +25,12 @@
   max-width: 800px;
   background: #19191f;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
+  border-radius: 0px;
   padding: 2rem;
   color: #e4e4e7;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
   max-height: 90vh;
   overflow-y: auto;
-  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes slideUp {
@@ -291,11 +289,10 @@
 .profile_Aa {
   background-color: #19191f;
   border: 1px solid #333333;
-  border-radius: 12px;
+  border-radius: 0px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .profile_cover {
@@ -317,9 +314,9 @@
 .dp {
   height: 100px;
   width: 100px;
-  border-radius: 50%;
+  border-radius: 0px;
   background: #1e2228;
-  border: 4px solid #111217;
+  border: 2px solid #111217;
   position: absolute;
   bottom: 25px;
   left: 1.5rem;
@@ -327,7 +324,6 @@
   align-items: center;
   justify-content: center;
   color: #a1a1aa;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   overflow: hidden;
 }
 
@@ -343,11 +339,10 @@
 .profile_card {
   background-color: #19191f;
   border: 1px solid #333;
-  border-radius: 12px;
+  border-radius: 0px;
   padding: 1.5rem;
   color: #e4e4e7;
   box-sizing: border-box;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -394,8 +389,7 @@
   padding: 1rem;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
-  transition: all 0.2s ease;
+  border-radius: 0px;
 }
 
 .contributionItem:hover {
@@ -411,7 +405,7 @@
   height: 32px;
   background: rgba(74, 144, 226, 0.08);
   color: #4a90e2;
-  border-radius: 8px;
+  border-radius: 0px;
 }
 
 .contributionMeta {
@@ -435,11 +429,10 @@
 .introcard {
   background-color: #19191f;
   border: 1px solid #333;
-  border-radius: 12px;
+  border-radius: 0px;
   padding: 1.5rem;
   color: #e4e4e7;
   box-sizing: border-box;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
@@ -478,8 +471,7 @@
   padding: 0.75rem 1rem;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
-  transition: all 0.2s ease;
+  border-radius: 0px;
 }
 
 .profile_item:hover {

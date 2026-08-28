@@ -13,24 +13,24 @@
   --foreground: #eee;
   --card-bg: #1e1e1e;
   --card-border: #333;
-  --card-shadow: rgba(0, 0, 0, 0.166);
-  --card-shadow-light: rgba(0, 0, 0, 0.06);
+  --card-shadow: none;
+  --card-shadow-light: none;
   
   /* Welcome section */
-  --welcome-bg: rgba(43, 43, 43, 0.699);
-  --welcome-border: rgba(0, 0, 0, 0.1);
+  --welcome-bg: #1e1e1e;
+  --welcome-border: #333;
   
   /* Buttons */
-  --button-bg: rgba(43, 43, 43, 0.493);
-  --button-bg-hover: rgba(255, 255, 255, 0.546);
+  --button-bg: #2a2a2a;
+  --button-bg-hover: #eeeeee;
   --button-text: white;
   --button-text-hover: black;
   
   /* Scrollbar */
-  --scrollbar-track: #2a2a2a;
-  --scrollbar-thumb: #555;
-  --scrollbar-thumb-hover: #666;
-  --min-borders: #444; /* New variable for minimal borders */
+  --scrollbar-track: #121212;
+  --scrollbar-thumb: #333;
+  --scrollbar-thumb-hover: #444;
+  --min-borders: #333; /* New variable for minimal borders */
 
 
 
@@ -190,29 +190,29 @@
 
 /* ============================== HOMEPAGE DEFAULT THEME VARIABLES (LIGHT) ======================= */
 
-  --background: #f5f7fa; /* Slightly blue-tinted instead of pure gray */
-  --foreground: #2d3748; /* Darker, more readable text */
+  --background: #fdfdfd;
+  --foreground: #111111;
   --card-bg: #ffffff;
-  --card-border: #cbd5e0; /* More visible borders */
-  --card-shadow: rgba(0, 0, 0, 0.15); /* Stronger shadows */
-  --card-shadow-light: rgba(0, 0, 0, 0.08);
+  --card-border: #cccccc;
+  --card-shadow: none;
+  --card-shadow-light: none;
   
   /* Welcome section */
-  --welcome-bg: rgba(255, 255, 255, 0.95); /* Slightly more opaque */
-  --welcome-border: rgba(0, 0, 0, 0.15); /* More visible border */
+  --welcome-bg: #ffffff;
+  --welcome-border: #cccccc;
   
   /* Buttons */
-  --button-bg: #e2e8f0; /* Light gray background */
-  --button-bg-hover: #2d3748; /* Dark hover like dark theme */
-  --button-text: #4a5568; /* Dark text */
-  --button-text-hover: #ffffff; /* White text on dark hover */
+  --button-bg: #f3f4f6;
+  --button-bg-hover: #111111;
+  --button-text: #111111;
+  --button-text-hover: #ffffff;
   
   /* Scrollbar */
-  --scrollbar-track: #edf2f7;
-  --scrollbar-thumb: #a0aec0;
-  --scrollbar-thumb-hover: #718096;
+  --scrollbar-track: #fdfdfd;
+  --scrollbar-thumb: #cccccc;
+  --scrollbar-thumb-hover: #999999;
 
-  --min-borders: #d5d5d5; /* New variable for minimal borders */
+  --min-borders: #cccccc;
 
 
 
@@ -533,14 +533,12 @@ body {
 }
 
 .global-loader-spinner {
-  width: 50px;
-  height: 50px;
-  border: 3px solid rgba(74, 144, 226, 0.1);
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--min-borders);
   border-radius: 50%;
   border-top-color: var(--editor-accent);
-  border-right-color: #764ba2;
-  animation: spinLoader 1s infinite cubic-bezier(0.55, 0.15, 0.45, 0.85);
-  box-shadow: 0 0 15px rgba(118, 75, 162, 0.1);
+  animation: spinLoader 0.8s infinite linear;
 }
 
 .global-loader-text {
@@ -575,16 +573,7 @@ body {
 }
 
 .hero-glow {
-  position: absolute;
-  top: -150px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(118, 75, 162, 0.15) 0%, rgba(74, 144, 226, 0.05) 50%, transparent 100%);
-  filter: blur(80px);
-  pointer-events: none;
-  z-index: 0;
+  display: none;
 }
 
 .hero-title {
@@ -621,52 +610,38 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #2b4b6e;
-  border: 1px solid rgb(163, 163, 163);
-  color: #ffffff;
+  background: transparent;
+  border: 1.5px solid var(--foreground);
+  color: var(--foreground);
   padding: 0.8rem 2rem;
-  border-radius: 12px;
+  border-radius: 0px;
   font-size: 0.95rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.15s ease;
   font-family: 'Montserrat', sans-serif;
   z-index: 1;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .hero-cta-btn:hover {
-  background: #ffffff;
-  color: #1e1e1e;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.1);
-}
-
-[data-theme="light"] .hero-cta-btn {
-  background: #3182ce;
-  border-color: #3182ce;
-}
-[data-theme="light"] .hero-cta-btn:hover {
-  background: #2b6cb0;
-  color: #ffffff;
+  background: var(--foreground);
+  color: var(--background);
 }
 
 .mockup-container {
   width: 100%;
   max-width: 850px;
   margin: 2rem auto 5rem auto;
-  border-radius: 14px;
+  border-radius: 0px;
   border: 1px solid var(--card-border);
-  background: #1e2228;
+  background: #19191f;
   padding: 0.5rem;
-  box-shadow: 0 30px 60px -15px rgba(0,0,0,0.6);
   z-index: 1;
   position: relative;
 }
 
 [data-theme="light"] .mockup-container {
-  background: #edf2f7;
-  box-shadow: 0 20px 40px -15px rgba(0,0,0,0.1);
+  background: #ffffff;
 }
 
 .mockup-header {
@@ -684,9 +659,9 @@ body {
 }
 
 .mockup-editor {
-  border-radius: 8px;
+  border-radius: 0px;
   background: #19191f;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--card-border);
   min-height: 200px;
   padding: 1.5rem;
   text-align: left;
@@ -694,7 +669,7 @@ body {
 
 [data-theme="light"] .mockup-editor {
   background: #ffffff;
-  border-color: #cbd5e0;
+  border-color: #cccccc;
 }
 
 .features-section {
@@ -712,9 +687,9 @@ body {
 .feature-card {
   background: var(--card-bg);
   border: 1px solid var(--card-border);
-  border-radius: 16px;
+  border-radius: 0px;
   padding: 2rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.15s ease;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -722,9 +697,7 @@ body {
 }
 
 .feature-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--card-border-hover);
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+  border-color: var(--foreground);
 }
 
 .feature-icon-wrapper {
@@ -733,9 +706,14 @@ body {
   justify-content: center;
   width: 42px;
   height: 42px;
-  border-radius: 10px;
-  background: rgba(74, 144, 226, 0.08);
+  border-radius: 0px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--card-border);
   color: var(--editor-accent);
+}
+
+[data-theme="light"] .feature-icon-wrapper {
+  background: rgba(0, 0, 0, 0.02);
 }
 
 .feature-card h3 {
