@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { useSession, signOut } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import styles from '../Styles/settings.module.css';
 import { getGenderAvatar } from '../lib/avatar';
@@ -36,7 +35,6 @@ const PLATFORMS = {
 export default function SettingsPage() {
   const { data: session, status, update } = useSession();
   const { startLoading, stopLoading } = useLoading();
-  const router = useRouter();
 
   // Active section tab in sidebar ('profile' | 'account')
   const [activeTab, setActiveTab] = useState('profile');

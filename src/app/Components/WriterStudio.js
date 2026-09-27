@@ -33,7 +33,7 @@ export default function WriterStudio({ initialId }) {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [zenMode, setZenMode] = useState(false);
   const [outline, setOutline] = useState([]);
-  const [stats, setStats] = useState({ words: 0, characters: 0, readTime: 1 });
+  const [, setStats] = useState({ words: 0, characters: 0, readTime: 1 });
   const [loadingStory, setLoadingStory] = useState(true);
 
   const editorInstanceRef = useRef(null);
@@ -503,7 +503,7 @@ export default function WriterStudio({ initialId }) {
         <DeskSidebar
           stories={stories}
           activeStoryId={activeId}
-          isCollapsed={isSidebarCollapsed || zenMode}
+          isCollapsed={isSidebarCollapsed}
           onSelectStory={handleSelectStory}
           onNewStory={handleNewStory}
           outline={outline}

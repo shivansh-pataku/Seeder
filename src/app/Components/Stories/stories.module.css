@@ -1,0 +1,411 @@
+/* src/app/Components/Stories/stories.module.css */
+
+/* ==============================================================================
+   1. FEED CARD (Reader Perspective on Home Feed)
+   ============================================================================== */
+
+.feedCard {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--min-borders, #cccccc);
+  border-radius: 0px;
+  padding: 1.25rem 1.25rem 1rem 1.25rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+  box-sizing: border-box;
+  height: 100%;
+  min-height: 225px;
+  box-shadow: none;
+  font-family: var(--font-primary);
+  text-align: left;
+}
+
+.feedCard:hover {
+  border-color: var(--foreground, #111111);
+}
+
+.feedCard:hover .feedCardTitle {
+  color: var(--logsig-button-bg, #b80000);
+}
+
+/* Top metadata row: Story type on left, Date & read time on right */
+.feedCardTopRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  margin-top: -0.3rem;
+  /* font-size: 0.05rem; */
+  /* letter-spacing: 0.02em; */
+}
+
+.storyTypeBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.5rem;
+  background: transparent;
+  border: 1px solid var(--min-borders, #cccccc);
+  color: var(--foreground, #111111);
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-radius: 0px;
+}
+
+.topMetaRight {
+  color: var(--task-editor-text-muted, #71717a);
+  font-size: 0.65rem;
+  white-space: nowrap;
+}
+
+.feedCardBody {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Max 2 lines title with justified text */
+.feedCardTitle {
+  font-family: var(--font-reading), 'Fauna One', Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--foreground, #111111);
+  margin: 0 0 0.45rem 0;
+  /* letter-spacing: -0.015em; */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* text-align: justify; */
+  /* text-justify: inter-word; */
+  transition: color 0.15s ease;
+}
+
+/* Max 3 lines snippet with justified text */
+.feedCardSnippet {
+  font-size: 0.82rem;
+  /* line-height: 1.45; */
+  color: var(--task-editor-text-light, #555555);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* text-align: justify;
+  text-justify: inter-word; */
+}
+
+.feedCardDivider {
+  width: 100%;
+  height: 0.5px;
+  background: var(--min-borders, #cccccc);
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  flex-shrink: 0;
+}
+
+.feedCardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.authorInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  text-decoration: none;
+  color: inherit;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.authorAvatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 0px;
+  background: var(--background, #ffffff);
+  border: 1px solid var(--min-borders, #cccccc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--foreground, #111111);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.authorName {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--foreground, #111111);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.authorName:hover {
+  opacity: 0.75;
+}
+
+.cardActionButtons {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+.cardActionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--task-editor-text-muted, #71717a);
+  cursor: pointer;
+  border-radius: 0px;
+  transition: all 0.15s ease;
+  padding: 0;
+}
+
+.cardActionBtn:hover {
+  border-color: var(--min-borders, #cccccc);
+  color: var(--foreground, #111111);
+  background: var(--button-bg, #f3f4f6);
+}
+
+.cardActionBtn.active {
+  color: var(--logsig-button-bg, #b80000);
+}
+
+
+/* ==============================================================================
+   2. DESK CARD (Author Perspective on /desk)
+   ============================================================================== */
+
+.deskCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--min-borders, #cccccc);
+  border-radius: 0px;
+  padding: 1.25rem 1.25rem 0.8rem 1.25rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+  box-sizing: border-box;
+  font-family: var(--font-primary);
+  text-align: left;
+}
+
+.deskCard:hover {
+  border-color: var(--foreground, #111111);
+}
+
+.deskHeaderRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.65rem;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--min-borders, #cccccc);
+  border-radius: 0px;
+}
+
+.statusBadge.published {
+  background: var(--foreground, #111111);
+  color: var(--background, #ffffff);
+  border-color: var(--foreground, #111111);
+}
+
+.statusBadge.draft {
+  background: transparent;
+  color: var(--task-editor-text-muted, #71717a);
+}
+
+.deskReadTime {
+  font-size: 0.72rem;
+  color: var(--task-editor-text-muted, #71717a);
+}
+
+.deskTitle {
+  font-family: var(--font-reading), 'Fauna One', Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  /* line-height: 1.3; */
+  color: var(--foreground, #111111);
+  margin: 0 0 0.45rem 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* text-align: justify;
+  text-justify: inter-word; */
+}
+
+.deskSnippet {
+  font-size: 0.82rem;
+  /* line-height: 1.45; */
+  color: var(--task-editor-text-light, #555555);
+  margin: 0 0 1rem 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* text-align: justify;
+  text-justify: inter-word; */
+}
+
+.deskFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--min-borders, #cccccc);
+  padding-top: 0.4rem;
+  /* margin-top: 0.5rem; */
+}
+
+.deskDate {
+  font-size: 0.72rem;
+  color: var(--task-editor-text-muted, #71717a);
+}
+
+.deskActions {
+  display: flex;
+  align-items: center;
+  /* gap: 0.35rem; */
+}
+
+.deskActionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--task-editor-text-muted, #71717a);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.deskActionBtn:hover {
+  border-color: var(--min-borders, #cccccc);
+  color: var(--foreground, #111111);
+  background: var(--button-bg, #f3f4f6);
+}
+
+.deskActionBtn.publishedActive {
+  color: #16a34a;
+}
+
+.deskActionBtn.deleteBtn:hover {
+  border-color: var(--logsig-button-bg, #b80000);
+  color: var(--logsig-button-bg, #b80000);
+}
+
+
+/* ==============================================================================
+   3. PROFILE CARD (Visitor Perspective on /[username] - Minimal Long & Slim)
+   ============================================================================== */
+
+.profileCard {
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--min-borders, #cccccc);
+  border-radius: 0px;
+  padding: 0.8rem 1rem 0.8rem 1rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+  box-sizing: border-box;
+  font-family: var(--font-primary);
+  text-align: left;
+  margin-bottom: 0.85rem;
+  width: 100%;
+}
+
+.profileCard:hover {
+  border-color: var(--foreground, #111111);
+}
+
+.profileCard:hover .profileTitle {
+  color: var(--logsig-button-bg, #b80000);
+}
+
+/* Row 1: Title */
+.profileTitle {
+  font-family: var(--font-reading), 'Fauna One', Georgia, serif;
+  /* font-size: 1.15rem; */
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--foreground, #111111);
+  margin: 0 0 0.35rem 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.15s ease;
+}
+
+/* Row 2: Metadata (Story type, date, reading time) */
+.profileMetaRow {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.72rem;
+  color: var(--task-editor-text-muted, #71717a);
+  margin-bottom: 0.5rem;
+}
+
+.profileTypeBadge {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.1rem 0.4rem;
+  border: 1px solid var(--min-borders, #cccccc);
+  color: var(--foreground, #111111);
+}
+
+.profileMetaDot {
+  opacity: 0.5;
+}
+
+/* Row 3: Description Snippet (1-2 lines, tag-free) */
+.profileSnippet {
+  font-size: 0.82rem;
+  /* line-height: 1.45; */
+  color: var(--task-editor-text-light, #555555);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* text-align: justify;
+  text-justify: inter-word; */
+}

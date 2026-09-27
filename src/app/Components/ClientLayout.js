@@ -4,6 +4,7 @@
 import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider } from './ThemeProvider'
 import { LoadingProvider } from './LoadingContext'
+import { InkWellProvider } from './InkWell'
 import Navbar from "./Navbar"
 
 export default function ClientLayout({ children, session }) {
@@ -14,11 +15,13 @@ export default function ClientLayout({ children, session }) {
       refetchOnWindowFocus={false}
     >
       <ThemeProvider>
-        <LoadingProvider>
-          <Navbar />
-          {children}
-        </LoadingProvider>
+        <InkWellProvider>
+          <LoadingProvider>
+            <Navbar />
+            {children}
+          </LoadingProvider>
+        </InkWellProvider>
       </ThemeProvider>
     </SessionProvider>
   )
-}
+}

@@ -8,6 +8,7 @@ import styles from '../Styles/profile.module.css'
 import { useParams, notFound } from 'next/navigation'
 import { useLoading } from '../Components/LoadingContext'
 import { getGenderAvatar } from '../lib/avatar'
+import { StoryProfileCard } from '../Components/Stories'
 import { 
   User, 
   Calendar, 
@@ -90,12 +91,14 @@ export default function ProfilePage() {
   useEffect(() => {
     if (session?.user && username) {
       // Generate current user's username from session
-      const currentUserUsername = session.user.name?.toLowerCase().replace(/\s+/g, '') ||
-        session.user.email?.split('@')[0]?.toLowerCase()
+      const currentUserUsername = 
+        session.user.username?.toLowerCase() ||
+        session.user.name?.toLowerCase().replace(/\s+/g, '') ||
+        session.user.email?.split('@')[0]?.toLowerCase();
 
-      setIsOwnProfile(currentUserUsername === username.toLowerCase())
+      setIsOwnProfile(currentUserUsername === username.toLowerCase());
     }
-  }, [session, username])
+  }, [session, username]);
 
   // Fetch profile data
   useEffect(() => {
@@ -112,6 +115,10 @@ export default function ProfilePage() {
         if (response.ok) {
           const data = await response.json();
           console.log('API Response data:', data);
+
+          if (data.profile?.isOwner !== undefined) {
+            setIsOwnProfile(Boolean(data.profile.isOwner));
+          }
 
           setProfileData({
             name: data.profile.name ?? '',
@@ -313,75 +320,10 @@ export default function ProfilePage() {
             </div>
 
               {profiledata.publishedStories && profiledata.publishedStories.length > 0 ? (
-              <div className={styles.storiesGrid}>
-                {profiledata.publishedStories.map((story) => {
-                  const plainText = (story.description || '')
-                    .replace(/<[^>]+>/g, ' ')
-                    .replace(/\s+/g, ' ')
-                    .trim();
-                  const words = plainText ? plainText.split(/\s+/).filter(Boolean).length : 0;
-                  const readTimeMin = Math.max(1, Math.ceil(words / 200));
-
-                  return (
-                    <div
-                      key={story.id}
-                      className={`${styles.profileStoryCard} ${isOwnProfile ? styles.editable : ''}`}
-                      onClick={() => {
-                        if (isOwnProfile) {
-                          router.push(`/desk/${story.id}`);
-                        } else {
-                          router.push(`/read/${story.id}`);
-                        }
-                      }}
-                      title={isOwnProfile ? "Click to edit in Desk" : "Click to read story"}
-                    >
-                      {/* Top Banner Row: Story Tag on Left, Date on Right */}
-                      <div className={styles.storyCardHeaderRow}>
-                        <span className={styles.storyBadge}>Story</span>
-                        <span className={styles.storyDate}>
-                          {story.created_at
-                            ? new Date(story.created_at).toLocaleDateString(undefined, {
-                                month: 'short',
-                                day: 'numeric',
-                                year: 'numeric',
-                              })
-                            : 'Published'}
-                        </span>
-                      </div>
-
-                      {/* Main Banner Content */}
-                      <div className={styles.storyCardTop}>
-                        <h4 className={styles.storyCardTitle}>
-                          {story.title?.trim() || 'Untitled Story'}
-                        </h4>
-                        <p className={styles.storyCardSnippet}>
-                          {plainText || 'No description provided.'}
-                        </p>
-                      </div>
-
-                      {/* Banner Footer Bar */}
-                      <div className={styles.storyCardFooter}>
-                        <div className={styles.storyMeta}>
-                          <span>{words > 0 ? `${words} words` : 'Short read'}</span>
-                          <span className={styles.metaDot}>•</span>
-                          <span>{readTimeMin} min read</span>
-                        </div>
-
-                        <div>
-                          {isOwnProfile ? (
-                            <span className={styles.editBadge}>
-                              Edit in Desk →
-                            </span>
-                          ) : (
-                            <span className={styles.readBadge}>
-                              Read story →
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
+              <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+                {profiledata.publishedStories.map((story) => (
+                  <StoryProfileCard key={story.id} story={story} />
+                ))}
               </div>
             ) : (
               <p className={styles.emptyStoriesText}>

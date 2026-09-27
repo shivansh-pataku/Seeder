@@ -35,10 +35,32 @@ export async function GET(request, { params }) {
     // Fetch published writings (status = 1) for this user
     try {
       const [stories] = await db.execute(
-        'SELECT id, title, description, created_at FROM TASKS WHERE userid = ? AND status = 1 ORDER BY created_at DESC',
+        `SELECT 
+          id, 
+          title, 
+          description, 
+          COALESCE(snippet, '') as snippet, 
+          COALESCE(story_type, 'Article') as story_type, 
+          COALESCE(reading_time_minutes, 1) as reading_time_minutes, 
+          COALESCE(word_count, 0) as word_count, 
+          COALESCE(likes_count, 0) as likes_count,
+          created_at 
+         FROM stories 
+         WHERE userid = ? AND status = 1 
+         ORDER BY created_at DESC`,
         [profileData.userid]
       );
-      profileData.publishedStories = stories || [];
+      profileData.publishedStories = (stories || []).map((s) => ({
+        ...s,
+        snippet:
+          s.snippet ||
+          s.description
+            ?.replace(/<[^>]+>/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim()
+            .slice(0, 200) ||
+          'No preview available.',
+      }));
     } catch (storiesError) {
       console.error('Error fetching published stories for profile:', storiesError);
       profileData.publishedStories = [];

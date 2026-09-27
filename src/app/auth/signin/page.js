@@ -76,8 +76,8 @@ export default function SignIn() {
       <div className={styles.formSide}>
         <div className={styles.formTopMobileLogo}>
           <Link href="/" className={styles.brandLogoMark}>
-            <span>✦</span>
-            <span>Project</span>
+            {/* <span>✦</span> */}
+            <span>Meridian</span>
           </Link>
         </div>
 

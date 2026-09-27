@@ -13,7 +13,6 @@ import {
   Copy,
   Check,
   Lightbulb,
-  Clock,
   Article,
   ArrowRight,
 } from '@phosphor-icons/react';

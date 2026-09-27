@@ -21,11 +21,11 @@ export async function DELETE() {
       console.warn('Feedback delete notice:', e.message);
     }
 
-    // 2. Delete associated stories/tasks
+    // 2. Delete associated stories
     try {
-      await dbConfig.execute('DELETE FROM TASKS WHERE userid = ?', [userId]);
+      await dbConfig.execute('DELETE FROM stories WHERE userid = ?', [userId]);
     } catch (e) {
-      console.warn('Tasks delete notice:', e.message);
+      console.warn('Stories delete notice:', e.message);
     }
 
     // 3. Delete password reset tokens

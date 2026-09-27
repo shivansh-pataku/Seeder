@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import ArticleFeedCard from './Components/ArticleFeedCard';
+import { StoryFeedCard, StoryFeedItem } from './Components/Stories';
 import styles from './Styles/home.module.css';
 import {
   PencilSimple,
@@ -12,19 +12,7 @@ import {
   BookmarkSimple,
 } from '@phosphor-icons/react';
 
-interface Article {
-  id: number | string;
-  title?: string;
-  snippet?: string;
-  createdAt?: string;
-  author?: {
-    userid?: number;
-    username?: string;
-    name?: string;
-    bio?: string;
-    gender?: string;
-  };
-}
+type Article = StoryFeedItem;
 
 export default function HomePage() {
   const { status } = useSession();
@@ -199,7 +187,7 @@ export default function HomePage() {
         ) : filteredArticles.length > 0 ? (
           <div className={styles.feedGrid}>
             {filteredArticles.map((article) => (
-              <ArticleFeedCard key={article.id} article={article} />
+              <StoryFeedCard key={article.id} story={article} />
             ))}
           </div>
         ) : (

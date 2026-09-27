@@ -1,5 +1,5 @@
 /* src/app/Styles/taskeditor.module.css */
-.editor_title .editor_field{
+.editor_title .editor_field {
   margin-bottom: 12px;
   background-color: rgba(138, 5, 5, 0);
   border: 1px solid rgba(174, 5, 5, 0.5);
@@ -7,9 +7,10 @@
 }
 
 /* text area and input styles */
-.editor_textarea, .editor_input {
+.editor_textarea,
+.editor_input {
   width: 100%;
-  height:auto;
+  height: auto;
   padding: 8px;
   box-sizing: border-box;
   background-color: transparent;
@@ -18,7 +19,7 @@
 }
 
 /* Updated titleBlock for auto-resizing textarea */
-.titleBlock{
+.titleBlock {
   font-family: var(--font-reading);
   font-size: 3rem;
   font-weight: 650;
@@ -38,7 +39,7 @@
   transition: all 0.3s ease;
 }
 
-.descriptionBlock{
+.descriptionBlock {
   font-size: 1rem;
   margin-top: 1rem;
   border: none;
@@ -59,9 +60,10 @@
   transition: all 0.3s ease;
 }
 
-.titleBlock, .descriptionBlock {
- height: auto;
- padding: 8px;
+.titleBlock,
+.descriptionBlock {
+  height: auto;
+  padding: 8px;
 }
 
 /* Empty state styling */
@@ -142,11 +144,14 @@
   transition: all 0.3s ease;
 }
 
-.statusS1, .saveControls, .autoSaveStatus, .statusContainer{
+.statusS1,
+.saveControls,
+.autoSaveStatus,
+.statusContainer {
   margin: 0rem;
   padding: 0rem;
   font-size: smaller;
-  font-weight:100;
+  font-weight: 100;
   line-height: 1.2;
   font-family: var(--font-code);
   background-color: none;
@@ -158,7 +163,8 @@
   color: var(--task-header-text);
 }
 
-.autoSaveStatus, .statusContainer{
+.autoSaveStatus,
+.statusContainer {
   margin: 0rem;
   padding: 0rem;
   display: flex;
@@ -173,13 +179,14 @@
   gap: 1rem;
 }
 
-.buttonGroup{
+.buttonGroup {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.saveButton,.deleteButton {
+.saveButton,
+.deleteButton {
   padding: 3px 10px;
   margin: 3px;
   background: var(--task-button-bg);
@@ -199,7 +206,8 @@
   font-family: inherit;
 }
 
-.saveButton.disabled,.deleteButton.disabled  {
+.saveButton.disabled,
+.deleteButton.disabled {
   background: var(--task-button-disabled);
   cursor: not-allowed;
 }
@@ -211,7 +219,7 @@
   transition: all 0.5s ease-in-out;
 }
 
-.deleteButton:hover{
+.deleteButton:hover {
   background: var(--task-button-hover-bg);
   color: var(--task-delete-hover-text);
   cursor: pointer;
@@ -261,11 +269,13 @@
   padding: 5px;
   align-items: center;
   transition: all 0.3s ease;
-  scrollbar-width: none; /* Hide scrollbar on Firefox */
+  scrollbar-width: none;
+  /* Hide scrollbar on Firefox */
 }
 
 .editorToolbar::-webkit-scrollbar {
-  display: none; /* Hide scrollbar on Chrome, Safari, and Opera */
+  display: none;
+  /* Hide scrollbar on Chrome, Safari, and Opera */
 }
 
 .toolbarGroup {
@@ -285,7 +295,7 @@
   width: 30px;
   height: 30px;
   flex-shrink: 0;
-  cursor: pointer;   
+  cursor: pointer;
   font-family: var(--font-primary);
   font-weight: 500;
   border: none;
@@ -412,7 +422,8 @@
   color: var(--editor-content-text);
 }
 
-.tiptapEditor ul, .tiptapEditor ol {
+.tiptapEditor ul,
+.tiptapEditor ol {
   margin: 1em 0;
   padding-left: 2em;
   color: var(--editor-content-text);
@@ -476,7 +487,7 @@
   width: 14px;
   height: 3px;
   border-radius: 1px;
-  box-shadow: 0 0 1px rgba(0,0,0,0.5);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
   pointer-events: none;
 }
 
@@ -597,7 +608,8 @@
   border-radius: 0px;
 }
 
-.tiptapEditor td, .tiptapEditor th {
+.tiptapEditor td,
+.tiptapEditor th {
   min-width: 1em;
   border: 1px solid var(--editor-table-border);
   padding: 8px 12px;
@@ -618,7 +630,10 @@
   z-index: 2;
   position: absolute;
   content: "";
-  left: 0; right: 0; top: 0; bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
   background: var(--task-desc-hover-bg);
   pointer-events: none;
 }
@@ -673,9 +688,9 @@
 }
 
 /* Task item text content */
-.tiptapEditor li[data-type="taskItem"] > label,
-.tiptapEditor li[data-type="taskItem"] > div,
-.tiptapEditor li[data-type="taskItem"] > p {
+.tiptapEditor li[data-type="taskItem"]>label,
+.tiptapEditor li[data-type="taskItem"]>div,
+.tiptapEditor li[data-type="taskItem"]>p {
   flex: 1 !important;
   line-height: 1.6 !important;
   color: var(--editor-content-text) !important;
@@ -688,12 +703,12 @@
 }
 
 /* Completed task styling */
-.tiptapEditor li[data-type="taskItem"][data-checked="true"] > label,
-.tiptapEditor li[data-type="taskItem"][data-checked="true"] > div,
-.tiptapEditor li[data-type="taskItem"][data-checked="true"] > p,
-.tiptapEditor li[data-type="taskItem"]:has(input:checked) > label,
-.tiptapEditor li[data-type="taskItem"]:has(input:checked) > div,
-.tiptapEditor li[data-type="taskItem"]:has(input:checked) > p {
+.tiptapEditor li[data-type="taskItem"][data-checked="true"]>label,
+.tiptapEditor li[data-type="taskItem"][data-checked="true"]>div,
+.tiptapEditor li[data-type="taskItem"][data-checked="true"]>p,
+.tiptapEditor li[data-type="taskItem"]:has(input:checked)>label,
+.tiptapEditor li[data-type="taskItem"]:has(input:checked)>div,
+.tiptapEditor li[data-type="taskItem"]:has(input:checked)>p {
   text-decoration: line-through !important;
   opacity: 0.6 !important;
   color: var(--task-editor-text-muted) !important;
@@ -709,7 +724,7 @@
   line-height: 1.6 !important;
   align-items: flex-start !important;
 }
- 
+
 .tiptapEditor ul:not([data-type="taskList"]) li p,
 .tiptapEditor ol li p {
   display: inline !important;
@@ -730,28 +745,29 @@
     padding: 8px;
     gap: 4px;
   }
-  
+
   .toolbarGroup {
     gap: 2px;
     padding-right: 8px;
   }
-  
+
   .toolbarGroup button {
     width: 28px;
     height: 28px;
     font-size: 11px;
-    flex-shrink: 0; /* Prevent shrinking on mobile */
+    flex-shrink: 0;
+    /* Prevent shrinking on mobile */
   }
-  
+
   .headingSelect {
     min-width: 90px;
     font-size: 11px;
   }
-  
+
   .characterCount {
     font-size: 11px;
   }
-  
+
   .tiptapEditor {
     padding: 16px;
     font-size: 14px;

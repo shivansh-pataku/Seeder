@@ -255,7 +255,7 @@
    MOBILE RESPONSIVENESS
    ========================================================================== */
 
-@media (max-width: 768px) {
+@media (max-width: 640px) {
   .navbar {
     padding: 0 0.75rem;
     height: 3rem;
@@ -263,6 +263,14 @@
 
   .title {
     font-size: 0.95rem;
+  }
+
+  .ourStoryLink {
+    display: none;
+  }
+
+  .usernameText {
+    display: none;
   }
 
   .links {
@@ -274,5 +282,10 @@
   .username {
     padding: 0.3rem 0.45rem;
     font-size: 0.7rem;
+  }
+
+  .newStoryBtn {
+    padding: 0.3rem 0.55rem;
+    font-size: 0.72rem;
   }
 }

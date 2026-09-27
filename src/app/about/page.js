@@ -11,7 +11,6 @@ import {
   Clock,
   Question,
   PaperPlaneTilt,
-  EnvelopeSimple,
 } from '@phosphor-icons/react';
 
 export default function AboutPage() {

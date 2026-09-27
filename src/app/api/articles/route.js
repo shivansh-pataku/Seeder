@@ -1,67 +1,30 @@
-import dbConfig from '@/app/lib/db';
+// src/app/api/articles/route.js
+// Backward-compatible delegating route for published articles
+import { StoryController } from '../(modules)/stories/story.controller';
 import { NextResponse } from 'next/server';
 
-export async function GET() {
-  try {
-    console.log('GET /api/articles - Fetching published articles...');
+export async function GET(request) {
+  const response = await StoryController.list(request);
+  const data = await response.json();
 
-    const [rows] = await dbConfig.execute(`
-      SELECT 
-        t.id, 
-        t.title, 
-        t.description, 
-        t.created_at, 
-        t.status, 
-        t.userid,
-        u.username, 
-        u.name,
-        u.bio,
-        u.gender,
-        u.is_private
-      FROM TASKS t
-      LEFT JOIN users u ON t.userid = u.userid
-      WHERE t.status = 1
-      ORDER BY t.created_at DESC
-    `);
-
-    const articles = (rows || []).map((row) => {
-      // Create clean plain text snippet from description HTML
-      const rawHtml = row.description || '';
-      const plainText = rawHtml
-        .replace(/<[^>]+>/g, ' ')
-        .replace(/\s+/g, ' ')
-        .trim();
-
-      const words = plainText ? plainText.split(/\s+/).filter(Boolean).length : 0;
-      const readTimeMinutes = Math.max(1, Math.ceil(words / 200));
-      const isPrivate = row.is_private === 1;
-
-      return {
-        id: row.id,
-        title: row.title?.trim() || 'Untitled Article',
-        snippet: plainText.slice(0, 240) + (plainText.length > 240 ? '...' : ''),
-        createdAt: row.created_at,
-        wordCount: words,
-        readTimeMinutes,
-        author: {
-          userid: isPrivate ? null : row.userid,
-          username: isPrivate ? 'unknown' : (row.username || 'unknown'),
-          name: isPrivate ? 'Unknown' : (row.name || row.username || 'Author'),
-          bio: isPrivate ? '' : (row.bio || ''),
-          gender: isPrivate ? '' : (row.gender || ''),
-          isPrivate,
-        },
-      };
-    });
-
-    console.log(`Fetched ${articles.length} published articles`);
-
-    return NextResponse.json({ articles }, { status: 200 });
-  } catch (error) {
-    console.error('Error fetching articles:', error);
-    return NextResponse.json(
-      { message: 'Failed to fetch articles', error: error.message },
-      { status: 500 }
-    );
+  if (!data.success) {
+    return NextResponse.json({ message: data.error?.message || 'Error' }, { status: response.status });
   }
+
+  // Preserve legacy response shape: { articles: [...] }
+  const stories = data.data.stories || [];
+  const articles = stories.map((s) => ({
+    id: s.id,
+    title: s.title,
+    snippet: s.snippet,
+    description: s.description,
+    story_type: s.story_type,
+    createdAt: s.created_at,
+    wordCount: s.word_count,
+    readTimeMinutes: s.reading_time_minutes,
+    likesCount: s.likes_count,
+    author: s.author,
+  }));
+
+  return NextResponse.json({ articles }, { status: 200 });
 }

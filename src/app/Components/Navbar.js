@@ -112,7 +112,7 @@ export default function Navbar() {
 
       <div className={styles.links}>
         {/* Changed 'About' to 'Our Story' without box borders */}
-        <Link href="/about" className={styles.link}>
+        <Link href="/about" className={`${styles.link} ${styles.ourStoryLink}`}>
           <span>Our Story</span>
         </Link>
 
@@ -126,7 +126,7 @@ export default function Navbar() {
         {session?.user && (
           <Link href="/desk/new" className={styles.newStoryBtn}>
             <PencilSimple size={14} weight="regular" />
-            <span>Write  </span>
+            <span>Write</span>
           </Link>
         )}
 
@@ -144,7 +144,7 @@ export default function Navbar() {
               ) : (
                 <User size={14} weight="regular" className={styles.userIcon} />
               )}
-              <span>{'u/' + (session.user.username || session.user.name)}</span>
+              <span className={styles.usernameText}>{'u/' + (session.user.username || session.user.name)}</span>
             </div>
 
             {showMenu && (

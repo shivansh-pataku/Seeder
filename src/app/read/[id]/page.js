@@ -57,7 +57,12 @@ export default function ArticleReadPage() {
     const items = [];
     let headingCounter = 0;
 
-    const modified = article.content.replace(
+    // Neutralize hardcoded text colors and backgrounds from pasted/saved rich text so dark mode is pristine
+    const cleanContent = article.content
+      .replace(/color\s*:\s*(?:rgb\(\s*0\s*,\s*0\s*,\s*0\s*\)|#000(?:000)?|black|#111(?:111)?|#222(?:222)?)[;]?/gi, '')
+      .replace(/background-color\s*:\s*(?:rgb\(\s*(?:2[3-5]\d)\s*,\s*(?:2[3-5]\d)\s*,\s*(?:2[3-5]\d)\s*\)|#fff(?:fff)?|white)[;]?/gi, '');
+
+    const modified = cleanContent.replace(
       /<(h[1-3])\b([^>]*)>(.*?)<\/\1>/gi,
       (match, tag, attrs, text) => {
         const id = `heading-section-${headingCounter++}`;
@@ -168,42 +173,46 @@ export default function ArticleReadPage() {
             LEFT SIDEBAR: TABLE OF CONTENTS (PAGE OUTLINE)
             ================================================================== */}
         <aside className={styles.tocSidebar}>
-          <div className={styles.tocHeader}>
-            <BookmarkSimple size={14} weight="regular" />
-            <span>Contents</span>
-          </div>
 
-          {tocItems.length > 0 ? (
-            <ul className={styles.tocList}>
-              {tocItems.map((item) => (
-                <li key={item.id}>
-                  <span
-                    onClick={() => scrollToHeading(item.id)}
-                    className={`${styles.tocItem} ${item.level === 'h2'
+          <Link href="/" className={styles.backLink}>
+            <ArrowLeft size={15} weight="regular" />
+            <span>Back to Stories</span>
+          </Link>
+
+          <div>
+            <div className={styles.tocHeader}>
+              <BookmarkSimple size={14} weight="regular" />
+              <span>Contents</span>
+            </div>
+
+            {tocItems.length > 0 ? (
+              <ul className={styles.tocList}>
+                {tocItems.map((item) => (
+                  <li key={item.id}>
+                    <span
+                      onClick={() => scrollToHeading(item.id)}
+                      className={`${styles.tocItem} ${item.level === 'h2'
                         ? styles.tocH2
                         : item.level === 'h3'
                           ? styles.tocH3
                           : ''
-                      } ${activeHeadingId === item.id ? styles.active : ''}`}
-                  >
-                    {item.text}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <div className={styles.tocEmpty}>No subheadings in this story</div>
-          )}
+                        } ${activeHeadingId === item.id ? styles.active : ''}`}
+                    >
+                      {item.text}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div className={styles.tocEmpty}>No subheadings in this story</div>
+            )}
+          </div>
         </aside>
 
         {/* ==================================================================
             CENTER COLUMN: NARROW READING CANVAS (50-75 CHARS, 18PX, 1.7 LINE HEIGHT)
             ================================================================== */}
         <main className={styles.readingColumn}>
-          <Link href="/" className={styles.backLink}>
-            <ArrowLeft size={15} weight="regular" />
-            <span>Back to Stories</span>
-          </Link>
 
           <header>
             <h1 className={styles.articleTitle}>{article.title}</h1>
@@ -259,9 +268,9 @@ export default function ArticleReadPage() {
               </div>
             </div>
 
-            {!isAnonymous && article.author?.bio && (
+            {/* {!isAnonymous && article.author?.bio && (
               <p className={styles.authorBio}>{article.author.bio}</p>
-            )}
+            )} */}
 
             {!isAnonymous ? (
               <Link
@@ -278,10 +287,21 @@ export default function ArticleReadPage() {
                 Anonymous Author
               </div>
             )}
+
+            {isAuthor && (
+              <button
+                onClick={() => router.push(`/desk/${article.id}`)}
+                className={styles.editDeskBtn}
+              >
+                <PencilSimple size={15} weight="regular" />
+                <span>Edit in Desk &rarr;</span>
+              </button>
+            )}
+
           </div>
 
           {/* Author Edit Card (Only visible if viewer is the author) */}
-          {isAuthor && (
+          {/* {isAuthor && (
             <div className={styles.editDeskCard}>
               <span className={styles.editDeskBadge}>Author Controls</span>
               <div className={styles.editDeskTitle}>You own this story</div>
@@ -293,7 +313,7 @@ export default function ArticleReadPage() {
                 <span>Edit in Desk &rarr;</span>
               </button>
             </div>
-          )}
+          )} */}
 
           {/* Story Metadata Box */}
           <div className={styles.metadataBox}>

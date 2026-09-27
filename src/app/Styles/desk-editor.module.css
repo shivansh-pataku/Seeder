@@ -174,8 +174,8 @@
 
 /* Collapsible Sidebar with Lean Slide Animation */
 .sidebar {
-  width: 320px;
-  min-width: 320px;
+  width: 365px;
+  min-width: 365px;
   border-right: 1px solid var(--min-borders);
   background-color: var(--background);
   display: flex;
@@ -193,7 +193,7 @@
 .sidebar.collapsed {
   width: 0;
   min-width: 0;
-  margin-left: -320px;
+  margin-left: -365px;
   opacity: 0;
   pointer-events: none;
   border-right: 1px solid transparent;
@@ -1540,11 +1540,16 @@
 /* Mobile responsive */
 @media (max-width: 768px) {
   .studioHeader {
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0.75rem;
+    height: auto;
+    min-height: 2.5rem;
     flex-wrap: wrap;
+    gap: 0.5rem;
   }
 
   .sidebar {
+    width: min(340px, 85vw);
+    min-width: 0;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -1553,12 +1558,20 @@
     box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
   }
 
+  .sidebar.collapsed {
+    width: 0;
+    min-width: 0;
+    margin-left: calc(-1 * min(340px, 85vw));
+    opacity: 0;
+    pointer-events: none;
+  }
+
   .canvasWrapper {
-    padding: 1.5rem 1rem 4rem 1rem;
+    padding: 1.25rem 0.75rem 3.5rem 0.75rem;
   }
 
   .titleTextarea {
-    font-size: 1.8rem;
+    font-size: 1.65rem;
   }
 }
 

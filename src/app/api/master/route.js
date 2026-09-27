@@ -20,50 +20,58 @@ export async function POST(request) {
       }, { status: 400 });
     }
 
-    let model;
-    try {
-      model = genAI.getGenerativeModel({ model: "gemini-3.6-flash" });
-    } catch {
-      model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
-    }
-    
-    const prompt = 
-`Before analyzing or improving any given text, first identify what kind of writing it is — not just by form, but by intention. It could be:
-anything from a personal reflection, a technical explanation, a creative story, an academic argument, or a casual note, a blog, an internet post and so forth.
+    let result;
+    const candidateModels = ["gemini-3.8-flash", "gemini-3.6-flash"];
+    let lastError = null;
 
-Step 1: Context Identification
+    const prompt = `You are "Master AI", an elite literary editor, essayist, and writing mentor for independent authors, essayists, and creative thinkers.
 
-Determine the belonging or literary/creative context of the text.
-Ask:
-What is the writer trying to do or express?
-Is the tone exploratory, analytical, emotional, experimental, or practical?
-Does it connect to any existing form of literature, theory, expression, or genre, and if so, which one?
+Your mission is to read the writer's draft and deliver high-octane, insightful, and profoundly constructive editorial feedback. Never sound like a generic chatbot, a schoolteacher grading an essay, or a stale Wikipedia article. Speak with the warmth, candor, and perceptive eye of a seasoned editor at The Atlantic, The Paris Review, or FSG.
 
--- dont reflect the above in response --
+Analyze the draft and structure your response with the following crisp, beautiful Markdown sections:
 
-Step 2: Authenticity & Correctness Check
-Before evaluation, verify the possibility, correctness, and authenticity of the content.
-Is the idea logically or emotionally consistent?
-Does it reflect genuine experience, imagination, or research, or is it derivative or superficial?
-Is it reliable in its claims, or intentionally speculative?
-If the text contains factual claims, verify their accuracy using trusted sources. If verification is not possible, note this in your evaluation.
+### 1. The Core Pulse & Intention
+In 2-3 vivid sentences, capture the beating heart of this piece: What is the writer truly trying to express or discover? What is its genre, emotional temperature, and narrative ambition?
 
-Step 3: Evaluation Framework
-After confirming authenticity, provide:
-List of Limitations – what constrains or weakens the text (clarity, coherence, depth, tone, structure, factual gaps).
-Suggestions for Improvement – how to refine expression, strengthen authenticity, or align better with its intended form or audience.
-Focus well on - Sources or References – mention key readings, frameworks, or literary traditions to explore (e.g., creative nonfiction, stream-of-consciousness, academic essaying, etc.).
-Vision: History and Current Advancements – connect the text or its idea to broader movements or current discourse in the relevant field or genre.
+### 2. What Grips & What Drags
+• **What Soars**: Highlight the strongest phrases, genuine ideas, or resonant imagery that immediately work.
+• **What Stagnates**: Candidly pinpoint what dulls the piece—clichés, vague abstractions, pacing slumps, passive voice, or disjointed transitions.
 
-Step 4: Since you have analysed the text-type and confirmed its authenticity, help the writer to improve its writing in the related context. (eg: if it is a personal reflection, help them deepen their introspection; if it is a technical explanation, help them clarify and structure their points; if it is a creative story, help them enhance imagery and emotional impact; if it is an academic argument, help them strengthen logic and evidence; if it is a casual note or internet post, help them make it engaging and clear, if it blog help them to write better and so on by telling what is missing).
-Do find the grammar and spelling mistakes and correct them.
+### 3. Craft & Structural Polish
+Provide 2-3 specific, actionable techniques to take this piece from good to unforgettable:
+- Pacing & Cadence: How can the sentence rhythm be sharpened?
+- Specificity & Sensory Depth: Where can vague ideas be anchored in tangible details?
+- Thematic Cohesion: What question or motif should be pushed deeper?
+
+### 4. The Master's Polish (Inspired Rewrite)
+Take a key paragraph or sentence from the draft that has potential, and provide a masterfully rewritten version that showcases rhythm, clarity, and voice. Briefly explain why these editorial choices make it sing.
+
+### 5. Literary Touchstones
+Recommend 1-2 authors, essays, or specific works whose style or narrative approach the writer can study for this specific piece.
 
 Guidelines:
-Keep the response natural, interpretive, and humane — as though engaging with a living idea, not grading an assignment. Avoid robotic evaluation or rigid correctness. Dont include the steps and guidelines in the response. Just provide the analysis and improvement suggestions. Only give your improvised version in case of grammatical, structural improvement otherwise agitate writer to rewrite better.
+- Keep the critique alive, engaging, and inspiring.
+- Respect the writer's authentic voice; never flatten it into corporate or academic monotony.
+- If there are glaring grammatical or spelling errors, fix them effortlessly within your rewrite and critique.
 
-Text: ${text}`;
+Writer's Text:
+${text}`;
 
-    const result = await model.generateContent(prompt);
+    for (const modelName of candidateModels) {
+      try {
+        const model = genAI.getGenerativeModel({ model: modelName });
+        result = await model.generateContent(prompt);
+        break;
+      } catch (err) {
+        lastError = err;
+        console.warn(`Model ${modelName} failed, trying fallback...`, err.message);
+      }
+    }
+
+    if (!result) {
+      throw lastError || new Error("Failed to generate AI analysis");
+    }
+
     const response = await result.response;
     const content = response.text();
 

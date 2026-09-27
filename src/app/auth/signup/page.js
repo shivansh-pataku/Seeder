@@ -248,8 +248,8 @@ export default function SignupPage() {
       <div className={styles.formSide}>
         <div className={styles.formTopMobileLogo}>
           <Link href="/" className={styles.brandLogoMark}>
-            <span>✦</span>
-            <span>Project</span>
+            {/* <span>✦</span> */}
+            <span>Meridian</span>
           </Link>
         </div>
 
@@ -447,20 +447,19 @@ export default function SignupPage() {
                 />
                 {usernameStatus && (
                   <div
-                    className={`${styles.usernameBadge} ${
-                      usernameStatus.checking
+                    className={`${styles.usernameBadge} ${usernameStatus.checking
                         ? styles.badgeChecking
                         : usernameStatus.available
-                        ? styles.badgeSuccess
-                        : styles.badgeError
-                    }`}
+                          ? styles.badgeSuccess
+                          : styles.badgeError
+                      }`}
                   >
                     <span>
                       {usernameStatus.checking
                         ? '• '
                         : usernameStatus.available
-                        ? '✓ '
-                        : '✗ '}
+                          ? '✓ '
+                          : '✗ '}
                     </span>
                     <span>{usernameStatus.message}</span>
                   </div>
@@ -504,24 +503,20 @@ export default function SignupPage() {
                   <div className={styles.strengthContainer}>
                     <div className={styles.strengthBars}>
                       <div
-                        className={`${styles.strengthBar} ${
-                          strengthScore >= 1 ? (strengthScore <= 2 ? styles.strengthWeak : strengthScore === 3 ? styles.strengthMedium : styles.strengthStrong) : ''
-                        }`}
+                        className={`${styles.strengthBar} ${strengthScore >= 1 ? (strengthScore <= 2 ? styles.strengthWeak : strengthScore === 3 ? styles.strengthMedium : styles.strengthStrong) : ''
+                          }`}
                       />
                       <div
-                        className={`${styles.strengthBar} ${
-                          strengthScore >= 2 ? (strengthScore <= 2 ? styles.strengthWeak : strengthScore === 3 ? styles.strengthMedium : styles.strengthStrong) : ''
-                        }`}
+                        className={`${styles.strengthBar} ${strengthScore >= 2 ? (strengthScore <= 2 ? styles.strengthWeak : strengthScore === 3 ? styles.strengthMedium : styles.strengthStrong) : ''
+                          }`}
                       />
                       <div
-                        className={`${styles.strengthBar} ${
-                          strengthScore >= 3 ? (strengthScore === 3 ? styles.strengthMedium : styles.strengthStrong) : ''
-                        }`}
+                        className={`${styles.strengthBar} ${strengthScore >= 3 ? (strengthScore === 3 ? styles.strengthMedium : styles.strengthStrong) : ''
+                          }`}
                       />
                       <div
-                        className={`${styles.strengthBar} ${
-                          strengthScore === 4 ? styles.strengthStrong : ''
-                        }`}
+                        className={`${styles.strengthBar} ${strengthScore === 4 ? styles.strengthStrong : ''
+                          }`}
                       />
                     </div>
                     <div className={styles.strengthText}>
@@ -531,10 +526,10 @@ export default function SignupPage() {
                           {strengthScore <= 1
                             ? 'Too weak'
                             : strengthScore === 2
-                            ? 'Weak'
-                            : strengthScore === 3
-                            ? 'Medium'
-                            : 'Strong'}
+                              ? 'Weak'
+                              : strengthScore === 3
+                                ? 'Medium'
+                                : 'Strong'}
                         </strong>
                       </span>
                       <span style={{ fontSize: '0.7rem' }}>
