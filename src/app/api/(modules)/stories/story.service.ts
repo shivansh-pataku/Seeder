@@ -15,7 +15,8 @@ async function getStoryTableName(): Promise<string> {
     );
 
     if (rows && rows.length > 0) {
-      resolvedTableName = rows[0].table_name || 'stories';
+      const row = rows[0] as RowDataPacket & { TABLE_NAME?: string; table_name?: string };
+      resolvedTableName = row.TABLE_NAME || row.table_name || 'stories';
     } else {
       resolvedTableName = 'stories';
     }
@@ -249,6 +250,19 @@ export class StoryService {
     const readTime = row.reading_time_minutes || calculateReadingTime(words);
     const isPrivate = row.is_private === 1 && !isOwner;
 
+    let isLiked = false;
+    if (currentUserId) {
+      try {
+        const [likeRows] = await pool.execute<RowDataPacket[]>(
+          "SELECT 1 FROM likes WHERE user_id = ? AND entity_id = ? AND entity_type IN ('story', 'task') LIMIT 1",
+          [currentUserId, storyId]
+        );
+        isLiked = Boolean(likeRows && likeRows.length > 0);
+      } catch {
+        // Ignore if error querying likes
+      }
+    }
+
     return {
       id: row.id,
       title: row.title?.trim() || 'Untitled Story',
@@ -259,6 +273,7 @@ export class StoryService {
       word_count: words,
       reading_time_minutes: readTime,
       likes_count: Number(row.likes_count || 0),
+      is_liked: isLiked,
       created_at: row.created_at,
       author: {
         id: isPrivate ? null : row.userid,

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styles from './stories.module.css';
-import { Globe, PencilSimple, Trash } from '@phosphor-icons/react';
+import { Globe, PencilSimple, Trash, Heart } from '@phosphor-icons/react';
 import { useInkWell } from '@/app/Components/InkWell';
 
 export interface StoryDeskItem {
@@ -15,6 +15,8 @@ export interface StoryDeskItem {
   created_at?: string;
   word_count?: number;
   reading_time_minutes?: number;
+  likes_count?: number;
+  likesCount?: number;
 }
 
 interface StoryDeskCardProps {
@@ -37,6 +39,7 @@ export default function StoryDeskCard({
 
   const words = story.word_count || 0;
   const readTimeMin = story.reading_time_minutes || 1;
+  const likes = Number(story.likes_count ?? story.likesCount ?? 0);
 
   const formattedDate = story.created_at
     ? new Date(story.created_at).toLocaleDateString(undefined, {
@@ -91,9 +94,15 @@ export default function StoryDeskCard({
         <p className={styles.deskSnippet}>{displaySnippet}</p>
       </div>
 
-      {/* Footer Bar: Date on Left, Action buttons on Right */}
+      {/* Footer Bar: Date & Likes on Left, Action buttons on Right */}
       <div className={styles.deskFooter}>
-        <span className={styles.deskDate}>{formattedDate}</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+          <span className={styles.deskDate}>{formattedDate}</span>
+          <span className={styles.metaLikesBadge} title={`${likes} likes`}>
+            <Heart size={13} weight={likes > 0 ? 'fill' : 'regular'} color={likes > 0 ? '#e11d48' : 'currentColor'} />
+            <span>{likes}</span>
+          </span>
+        </div>
 
         <div className={styles.deskActions}>
           <button

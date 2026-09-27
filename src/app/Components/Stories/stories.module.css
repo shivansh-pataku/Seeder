@@ -189,6 +189,55 @@
   color: var(--logsig-button-bg, #b80000);
 }
 
+.likeActionBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+  padding: 0 6px;
+  min-width: 28px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--task-editor-text-muted, #71717a);
+  cursor: pointer;
+  border-radius: 0px;
+  transition: all 0.15s ease;
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+  box-sizing: border-box;
+}
+
+.likeActionBtn:hover {
+  border-color: var(--min-borders, #cccccc);
+  color: var(--foreground, #111111);
+  background: var(--button-bg, #f3f4f6);
+}
+
+.likeActionBtn.liked {
+  color: #e11d48;
+}
+
+.likeActionBtn.liked:hover {
+  color: #be123c;
+}
+
+.likeCount {
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1;
+  font-family: var(--font-primary);
+}
+
+.metaLikesBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.7rem;
+  color: var(--task-editor-text-muted, #71717a);
+  font-weight: 500;
+}
+
 
 /* ==============================================================================
    2. DESK CARD (Author Perspective on /desk)

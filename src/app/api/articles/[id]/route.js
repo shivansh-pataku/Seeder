@@ -24,6 +24,7 @@ export async function GET(request, { params }) {
     wordCount: s.word_count,
     readTimeMinutes: s.reading_time_minutes,
     likesCount: s.likes_count,
+    isLiked: Boolean(s.is_liked),
     author: s.author,
   };
 

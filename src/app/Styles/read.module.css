@@ -145,9 +145,8 @@
   gap: 0.65rem;
   font-size: 0.8rem;
   color: var(--task-editor-text-muted, #71717a);
-  padding-bottom: 1.25rem;
-  margin-bottom: 2rem;
-  border-bottom: 1px solid var(--min-borders);
+  padding-bottom: 0.65rem;
+  margin-bottom: 0.75rem;
   flex-wrap: wrap;
 }
 
@@ -165,6 +164,114 @@
 
 .bylineDot {
   opacity: 0.4;
+}
+
+/* ==========================================================================
+   READING PAGE ENGAGEMENT ACTION BAR (Like, Live Count, Share, Save)
+   ========================================================================== */
+
+.readActionBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0;
+  margin: 0.5rem 0 2rem 0;
+  border-top: 1px solid var(--min-borders);
+  border-bottom: 1px solid var(--min-borders);
+  gap: 0.75rem;
+  box-sizing: border-box;
+}
+
+.readActionBarBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  margin: 3rem 0 1.5rem 0;
+  border-top: 1px solid var(--min-borders);
+  border-bottom: 1px solid var(--min-borders);
+  gap: 0.75rem;
+  box-sizing: border-box;
+}
+
+.readActionLeft,
+.readActionRight {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.readLikeBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 0.85rem;
+  background: transparent;
+  border: 1px solid var(--min-borders);
+  color: var(--task-editor-text-muted, #71717a);
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: inherit;
+  transition: all 0.15s ease;
+  border-radius: 0px;
+  box-sizing: border-box;
+}
+
+.readLikeBtn:hover {
+  border-color: var(--foreground);
+  color: var(--foreground);
+  background: var(--button-bg, rgba(255, 255, 255, 0.05));
+}
+
+.readLikeBtn.liked {
+  color: #e11d48;
+  border-color: #e11d48;
+  background: rgba(225, 29, 72, 0.06);
+}
+
+.readLikeBtn.liked:hover {
+  border-color: #be123c;
+  color: #be123c;
+  background: rgba(225, 29, 72, 0.1);
+}
+
+.readLikeCount {
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-family: var(--font-primary);
+}
+
+.readActionBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 0.75rem;
+  background: transparent;
+  border: 1px solid var(--min-borders);
+  color: var(--task-editor-text-muted, #71717a);
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: inherit;
+  transition: all 0.15s ease;
+  border-radius: 0px;
+  box-sizing: border-box;
+}
+
+.readActionBtn:hover {
+  border-color: var(--foreground);
+  color: var(--foreground);
+  background: var(--button-bg, rgba(255, 255, 255, 0.05));
+}
+
+.readActionBtn.active {
+  color: var(--logsig-button-bg, #b80000);
+  border-color: var(--logsig-button-bg, #b80000);
+  background: rgba(184, 0, 0, 0.06);
 }
 
 /* HIGH CONTRAST READABLE BODY (1.15rem, 1.85 line height for longform reading) */

@@ -1,23 +1,37 @@
 'use client';
 
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from '../../Styles/read.module.css';
 import { getGenderAvatar } from '../../lib/avatar';
-import { ArrowLeft, PencilSimple, BookmarkSimple } from '@phosphor-icons/react';
+import { ArrowLeft, PencilSimple, BookmarkSimple, Heart, ShareFat } from '@phosphor-icons/react';
+import { useInkWell } from '../../Components/InkWell';
+import SaveToFolderPopover from '../../Components/SaveToFolderPopover';
+import { folderCache } from '../../lib/folderCache';
+import { likeCache } from '../../lib/likeCache';
 
 export default function ArticleReadPage() {
   const params = useParams();
   const router = useRouter();
   const { data: session } = useSession();
+  const inkWell = useInkWell();
 
   const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeHeadingId, setActiveHeadingId] = useState('');
+
+  const [isSaved, setIsSaved] = useState(false);
+  const [showSavePopoverTop, setShowSavePopoverTop] = useState(false);
+  const [showSavePopoverBottom, setShowSavePopoverBottom] = useState(false);
+  const saveBtnTopRef = useRef(null);
+  const saveBtnBottomRef = useRef(null);
+
+  const [likesCount, setLikesCount] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
 
   const articleId = params?.id;
 
@@ -47,6 +61,118 @@ export default function ArticleReadPage() {
 
     fetchArticle();
   }, [articleId]);
+
+  // Synchronize bookmark and like state with global caches
+  useEffect(() => {
+    if (!article) return;
+    const initialLikes = article.likesCount ?? 0;
+    const initialLiked = Boolean(article.isLiked);
+
+    if (initialLiked) {
+      likeCache.setStoryLiked(article.id, true);
+    }
+    likeCache.setLikesCount(article.id, initialLikes);
+
+    setIsSaved(folderCache.isStorySaved(article.id));
+    setIsLiked(likeCache.isStoryLiked(article.id) || initialLiked);
+    setLikesCount(likeCache.getLikesCount(article.id, initialLikes));
+
+    // Ensure caches are populated
+    likeCache.getOrFetchLikedStories();
+    folderCache.getOrFetchFolders();
+    folderCache.getOrFetchSavedState(article.id);
+
+    const unsubFolder = folderCache.subscribe(() => {
+      setIsSaved(folderCache.isStorySaved(article.id));
+    });
+
+    const unsubLike = likeCache.subscribe(() => {
+      setIsLiked(likeCache.isStoryLiked(article.id));
+      setLikesCount(likeCache.getLikesCount(article.id, initialLikes));
+    });
+
+    return () => {
+      unsubFolder();
+      unsubLike();
+    };
+  }, [article]);
+
+  const handleLike = async () => {
+    if (!article) return;
+    try {
+      await likeCache.toggleLike(article.id, likesCount);
+    } catch (err) {
+      inkWell.toast({
+        message: err.message || 'Please sign in to like this story.',
+        type: 'info',
+      });
+    }
+  };
+
+  const handleShare = async () => {
+    if (!article) return;
+    const url = typeof window !== 'undefined' ? window.location.href : '';
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: article.title || 'Story',
+          text: article.snippet || '',
+          url,
+        });
+        return;
+      } catch {
+        // Fallback to clipboard
+      }
+    }
+
+    try {
+      await navigator.clipboard.writeText(url);
+      inkWell.toast({
+        message: 'Story link copied to clipboard!',
+        type: 'success',
+      });
+    } catch {
+      inkWell.toast({
+        message: 'Failed to copy story link.',
+        type: 'error',
+      });
+    }
+  };
+
+  const handleSaveClickTop = async (e) => {
+    e.stopPropagation();
+    if (showSavePopoverTop) {
+      setShowSavePopoverTop(false);
+      return;
+    }
+    if (!folderCache.getCachedFolders()) {
+      await Promise.all([
+        folderCache.getOrFetchFolders(),
+        folderCache.getOrFetchSavedState(article.id),
+      ]);
+    } else {
+      await folderCache.getOrFetchSavedState(article.id);
+    }
+    setShowSavePopoverTop(true);
+  };
+
+  const handleSaveClickBottom = async (e) => {
+    e.stopPropagation();
+    if (showSavePopoverBottom) {
+      setShowSavePopoverBottom(false);
+      return;
+    }
+    if (!folderCache.getCachedFolders()) {
+      await Promise.all([
+        folderCache.getOrFetchFolders(),
+        folderCache.getOrFetchSavedState(article.id),
+      ]);
+    } else {
+      await folderCache.getOrFetchSavedState(article.id);
+    }
+    setShowSavePopoverBottom(true);
+  };
 
   // Extract headings (H1, H2, H3) and inject IDs into the HTML for smooth click-to-scroll TOC
   const { processedHtml, tocItems } = useMemo(() => {
@@ -217,27 +343,142 @@ export default function ArticleReadPage() {
           <header>
             <h1 className={styles.articleTitle}>{article.title}</h1>
 
-            {/* <div className={styles.bylineRow}>
+            <div className={styles.bylineRow}>
               <span>By</span>
-              <Link
-                href={`/${article.author?.username}`}
-                className={styles.bylineAuthor}
-              >
-                {authorName}
-              </Link>
-              <span className={styles.bylineDot}>•</span>
-              <time dateTime={article.createdAt}>{formattedDate}</time>
-              <span className={styles.bylineDot}>•</span>
-              <span>{article.readTimeMinutes} min read</span>
-              <span className={styles.bylineDot}>•</span>
-              <span>{article.wordCount} words</span>
-            </div> */}
+              {!isAnonymous ? (
+                <Link
+                  href={`/${article.author?.username}`}
+                  className={styles.bylineAuthor}
+                >
+                  {authorName}
+                </Link>
+              ) : (
+                <span className={styles.bylineAuthor}>{authorName}</span>
+              )}
+              {formattedDate && (
+                <>
+                  <span className={styles.bylineDot}>•</span>
+                  <time dateTime={article.createdAt}>{formattedDate}</time>
+                </>
+              )}
+              {article.readTimeMinutes && (
+                <>
+                  <span className={styles.bylineDot}>•</span>
+                  <span>{article.readTimeMinutes} min read</span>
+                </>
+              )}
+            </div>
+
+            {/* Top Engagement Action Bar */}
+            <div className={styles.readActionBar}>
+              <div className={styles.readActionLeft}>
+                <button
+                  type="button"
+                  className={`${styles.readLikeBtn} ${isLiked ? styles.liked : ''}`}
+                  onClick={handleLike}
+                  title={isLiked ? 'Unlike story' : 'Like story'}
+                  aria-label="Like story"
+                >
+                  <Heart size={18} weight={isLiked ? 'fill' : 'regular'} />
+                  <span className={styles.readLikeCount}>{likesCount}</span>
+                </button>
+              </div>
+
+              <div className={styles.readActionRight}>
+                <button
+                  type="button"
+                  className={styles.readActionBtn}
+                  onClick={handleShare}
+                  title="Share story link"
+                  aria-label="Share story"
+                >
+                  <ShareFat size={16} weight="regular" />
+                  <span>Share</span>
+                </button>
+
+                <div style={{ position: 'relative' }}>
+                  <button
+                    ref={saveBtnTopRef}
+                    type="button"
+                    className={`${styles.readActionBtn} ${isSaved ? styles.active : ''}`}
+                    onClick={handleSaveClickTop}
+                    title={isSaved ? 'Saved to folder' : 'Save story'}
+                    aria-label="Save story"
+                  >
+                    <BookmarkSimple size={16} weight={isSaved ? 'fill' : 'regular'} />
+                    <span>{isSaved ? 'Saved' : 'Save'}</span>
+                  </button>
+
+                  <SaveToFolderPopover
+                    storyId={article.id}
+                    storyTitle={article.title}
+                    isOpen={showSavePopoverTop}
+                    onClose={() => setShowSavePopoverTop(false)}
+                    onSavedChange={(saved) => setIsSaved(saved)}
+                    triggerRef={saveBtnTopRef}
+                  />
+                </div>
+              </div>
+            </div>
           </header>
 
           <article
             className={styles.articleBody}
             dangerouslySetInnerHTML={{ __html: processedHtml }}
           />
+
+          {/* Bottom Engagement Action Bar */}
+          <div className={styles.readActionBarBottom}>
+            <div className={styles.readActionLeft}>
+              <button
+                type="button"
+                className={`${styles.readLikeBtn} ${isLiked ? styles.liked : ''}`}
+                onClick={handleLike}
+                title={isLiked ? 'Unlike story' : 'Like story'}
+                aria-label="Like story"
+              >
+                <Heart size={18} weight={isLiked ? 'fill' : 'regular'} />
+                <span className={styles.readLikeCount}>{likesCount}</span>
+                <span>{likesCount === 1 ? 'Like' : 'Likes'}</span>
+              </button>
+            </div>
+
+            <div className={styles.readActionRight}>
+              <button
+                type="button"
+                className={styles.readActionBtn}
+                onClick={handleShare}
+                title="Share story link"
+                aria-label="Share story"
+              >
+                <ShareFat size={16} weight="regular" />
+                <span>Share</span>
+              </button>
+
+              <div style={{ position: 'relative' }}>
+                <button
+                  ref={saveBtnBottomRef}
+                  type="button"
+                  className={`${styles.readActionBtn} ${isSaved ? styles.active : ''}`}
+                  onClick={handleSaveClickBottom}
+                  title={isSaved ? 'Saved to folder' : 'Save story'}
+                  aria-label="Save story"
+                >
+                  <BookmarkSimple size={16} weight={isSaved ? 'fill' : 'regular'} />
+                  <span>{isSaved ? 'Saved' : 'Save'}</span>
+                </button>
+
+                <SaveToFolderPopover
+                  storyId={article.id}
+                  storyTitle={article.title}
+                  isOpen={showSavePopoverBottom}
+                  onClose={() => setShowSavePopoverBottom(false)}
+                  onSavedChange={(saved) => setIsSaved(saved)}
+                  triggerRef={saveBtnBottomRef}
+                />
+              </div>
+            </div>
+          </div>
         </main>
 
         {/* ==================================================================
@@ -268,10 +509,6 @@ export default function ArticleReadPage() {
               </div>
             </div>
 
-            {/* {!isAnonymous && article.author?.bio && (
-              <p className={styles.authorBio}>{article.author.bio}</p>
-            )} */}
-
             {!isAnonymous ? (
               <Link
                 href={`/${article.author?.username}`}
@@ -297,23 +534,7 @@ export default function ArticleReadPage() {
                 <span>Edit in Desk &rarr;</span>
               </button>
             )}
-
           </div>
-
-          {/* Author Edit Card (Only visible if viewer is the author) */}
-          {/* {isAuthor && (
-            <div className={styles.editDeskCard}>
-              <span className={styles.editDeskBadge}>Author Controls</span>
-              <div className={styles.editDeskTitle}>You own this story</div>
-              <button
-                onClick={() => router.push(`/desk/${article.id}`)}
-                className={styles.editDeskBtn}
-              >
-                <PencilSimple size={15} weight="regular" />
-                <span>Edit in Desk &rarr;</span>
-              </button>
-            </div>
-          )} */}
 
           {/* Story Metadata Box */}
           <div className={styles.metadataBox}>
@@ -328,6 +549,13 @@ export default function ArticleReadPage() {
             <div className={styles.metaRow}>
               <span className={styles.metaLabel}>Word Count</span>
               <span className={styles.metaValue}>{article.wordCount} words</span>
+            </div>
+            <div className={styles.metaRow}>
+              <span className={styles.metaLabel}>Likes</span>
+              <span className={styles.metaValue} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <Heart size={13} weight={likesCount > 0 ? 'fill' : 'regular'} color={likesCount > 0 ? '#e11d48' : 'currentColor'} />
+                <span>{likesCount}</span>
+              </span>
             </div>
           </div>
         </aside>

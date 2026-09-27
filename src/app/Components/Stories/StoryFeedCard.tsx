@@ -5,10 +5,11 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import styles from './stories.module.css';
 import { getGenderAvatar } from '@/app/lib/avatar';
-import { ShareFat, BookmarkSimple } from '@phosphor-icons/react';
+import { ShareFat, BookmarkSimple, Heart } from '@phosphor-icons/react';
 import { useInkWell } from '@/app/Components/InkWell';
 import SaveToFolderPopover from '../SaveToFolderPopover';
 import { folderCache } from '@/app/lib/folderCache';
+import { likeCache } from '@/app/lib/likeCache';
 
 export interface StoryAuthor {
   id?: number | null;
@@ -32,6 +33,8 @@ export interface StoryFeedItem {
   wordCount?: number;
   likes_count?: number;
   likesCount?: number;
+  is_liked?: boolean;
+  isLiked?: boolean;
   author?: StoryAuthor;
 }
 
@@ -48,16 +51,38 @@ export default function StoryFeedCard({ story, article }: StoryFeedCardProps) {
   const [showSavePopover, setShowSavePopover] = useState(false);
   const bookmarkBtnRef = useRef<HTMLButtonElement>(null);
 
-  // Synchronize bookmark state with global folderCache
+  const initialLikesCount = currentStory?.likes_count ?? currentStory?.likesCount ?? 0;
+  const [likesCount, setLikesCount] = useState(() =>
+    currentStory ? likeCache.getLikesCount(currentStory.id, initialLikesCount) : initialLikesCount
+  );
+  const [isLiked, setIsLiked] = useState(() =>
+    currentStory ? (likeCache.isStoryLiked(currentStory.id) || Boolean(currentStory.is_liked || currentStory.isLiked)) : false
+  );
+
+  // Synchronize bookmark and like state with global caches
   useEffect(() => {
     if (!currentStory) return;
     setIsSaved(folderCache.isStorySaved(currentStory.id));
+    setIsLiked(likeCache.isStoryLiked(currentStory.id) || Boolean(currentStory.is_liked || currentStory.isLiked));
+    setLikesCount(likeCache.getLikesCount(currentStory.id, initialLikesCount));
 
-    const unsubscribe = folderCache.subscribe(() => {
+    // Ensure user likes are populated in cache
+    likeCache.getOrFetchLikedStories();
+
+    const unsubscribeFolder = folderCache.subscribe(() => {
       setIsSaved(folderCache.isStorySaved(currentStory.id));
     });
-    return () => unsubscribe();
-  }, [currentStory]);
+
+    const unsubscribeLike = likeCache.subscribe(() => {
+      setIsLiked(likeCache.isStoryLiked(currentStory.id));
+      setLikesCount(likeCache.getLikesCount(currentStory.id, initialLikesCount));
+    });
+
+    return () => {
+      unsubscribeFolder();
+      unsubscribeLike();
+    };
+  }, [currentStory, initialLikesCount]);
 
   if (!currentStory) return null;
 
@@ -105,6 +130,18 @@ export default function StoryFeedCard({ story, article }: StoryFeedCardProps) {
     }
   };
 
+  const handleLikeClick = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    try {
+      await likeCache.toggleLike(currentStory.id, likesCount);
+    } catch (err: unknown) {
+      inkWell.toast({
+        message: (err as Error).message || 'Please sign in to like stories.',
+        type: 'info',
+      });
+    }
+  };
+
   // Pre-fetch folder list & saved status before showing dialog box so there are no loading hiccups
   const handleSaveClick = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -133,6 +170,7 @@ export default function StoryFeedCard({ story, article }: StoryFeedCardProps) {
   const prewarmCache = () => {
     folderCache.getOrFetchFolders();
     folderCache.getOrFetchSavedState(currentStory.id);
+    likeCache.getOrFetchLikedStories();
   };
 
   // Date formatting: "2 Jun, 2024"
@@ -205,6 +243,19 @@ export default function StoryFeedCard({ story, article }: StoryFeedCardProps) {
           style={{ position: 'relative' }}
           onMouseEnter={prewarmCache}
         >
+          {/* Like Button with Count */}
+          <button
+            type="button"
+            className={`${styles.likeActionBtn} ${isLiked ? styles.liked : ''}`}
+            onClick={handleLikeClick}
+            title={isLiked ? 'Unlike story' : 'Like story'}
+            aria-label={isLiked ? 'Unlike story' : 'Like story'}
+          >
+            <Heart size={16} weight={isLiked ? 'fill' : 'regular'} />
+            <span className={styles.likeCount}>{likesCount}</span>
+          </button>
+
+          {/* Share Button */}
           <button
             type="button"
             className={styles.cardActionBtn}
@@ -215,6 +266,7 @@ export default function StoryFeedCard({ story, article }: StoryFeedCardProps) {
             <ShareFat size={16} weight="regular" />
           </button>
 
+          {/* Bookmark Button */}
           <button
             ref={bookmarkBtnRef}
             type="button"

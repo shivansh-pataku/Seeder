@@ -63,6 +63,7 @@ export interface StoryDTO {
   word_count: number;
   reading_time_minutes: number;
   likes_count: number;
+  is_liked?: boolean;
   created_at: string;
   updated_at?: string;
   author?: StoryAuthor;

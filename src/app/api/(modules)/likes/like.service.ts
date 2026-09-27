@@ -7,7 +7,11 @@ async function getStoryTableName(): Promise<string> {
     const [rows] = await pool.execute<RowDataPacket[]>(
       "SELECT table_name FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name IN ('stories', 'TASKS') ORDER BY (table_name = 'stories') DESC LIMIT 1"
     );
-    return rows && rows.length > 0 ? rows[0].table_name : 'stories';
+    if (rows && rows.length > 0) {
+      const row = rows[0] as RowDataPacket & { TABLE_NAME?: string; table_name?: string };
+      return row.TABLE_NAME || row.table_name || 'stories';
+    }
+    return 'stories';
   } catch {
     return 'stories';
   }
