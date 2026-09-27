@@ -19,7 +19,7 @@
 
 /* Updated titleBlock for auto-resizing textarea */
 .titleBlock{
-  font-family: 'Golos Text', sans-serif;
+  font-family: var(--font-reading);
   font-size: 3rem;
   font-weight: 650;
   border: none;
@@ -48,15 +48,14 @@
   resize: none;
   word-wrap: break-word;
   white-space: pre-wrap;
-  font-family: inherit;
   padding: 8px 0;
   overflow: hidden;
   box-sizing: border-box;
   outline: none;
-  line-height: 0.8;
-  text-align:justify;
-  font-family: 'Golos Text', sans-serif;
-  font-weight: 100;
+  line-height: 1.4;
+  text-align: justify;
+  font-family: var(--font-reading);
+  font-weight: 400;
   transition: all 0.3s ease;
 }
 
@@ -149,7 +148,7 @@
   font-size: smaller;
   font-weight:100;
   line-height: 1.2;
-  font-family: monospace;
+  font-family: var(--font-code);
   background-color: none;
   margin: 0rem;
   padding: 0rem;
@@ -287,7 +286,7 @@
   height: 30px;
   flex-shrink: 0;
   cursor: pointer;   
-  font-family: monospace;
+  font-family: var(--font-primary);
   font-weight: 500;
   border: none;
   border-radius: 0px;
@@ -344,7 +343,7 @@
   color: var(--task-editor-text-muted);
   padding: 0 8px;
   white-space: nowrap;
-  font-family: monospace;
+  font-family: var(--font-code);
 }
 
 /* Simple Editor Wrapper */
@@ -353,6 +352,7 @@
   border-radius: 0px;
   min-height: 300px;
   background: var(--editor-content-bg);
+  font-family: var(--font-reading);
 }
 
 .simpleEditorWrapper.highlighted {
@@ -369,7 +369,7 @@
   padding: 20px;
   outline: none;
   min-height: 300px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-reading);
   line-height: 1.7;
   font-size: 15px;
   color: var(--editor-content-text);
@@ -487,9 +487,8 @@
   color: var(--task-editor-text-light);
   font-style: italic;
   background: var(--editor-code-bg);
-  border-radius: 0 8px 8px 0;
+  border-radius: 0px;
   position: relative;
-  transition: all 0.3s ease;
 }
 
 .tiptapEditor blockquote::before {
@@ -499,29 +498,28 @@
   position: absolute;
   top: -0.2em;
   left: 0.2em;
-  font-family: Georgia, serif;
+  font-family: var(--font-reading);
 }
 
 .tiptapEditor pre {
   background: var(--editor-code-bg);
   color: var(--editor-content-text);
   border: 1px solid var(--editor-toolbar-border);
-  border-radius: 8px;
+  border-radius: 0px;
   padding: 1.5em;
   overflow-x: auto;
-  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  font-family: var(--font-code);
   font-size: 0.9em;
   line-height: 1.5;
   margin: 1.5em 0;
-  transition: all 0.3s ease;
 }
 
 .tiptapEditor code {
   background: var(--editor-code-bg);
   color: var(--editor-code-color);
   padding: 0.3em 0.5em;
-  border-radius: 2px;
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode';
+  border-radius: 0px;
+  font-family: var(--font-code);
   font-size: 0.9em;
   font-weight: 500;
   border: 1px solid var(--editor-toolbar-border);
@@ -539,7 +537,7 @@
   background: var(--editor-highlight-bg);
   color: var(--task-editor-text);
   padding: 0.2em 0.3em;
-  border-radius: 3px;
+  border-radius: 0px;
 }
 
 .tiptapEditor hr {
@@ -596,8 +594,7 @@
   margin: 1em 0;
   overflow: hidden;
   background: var(--editor-table-bg);
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  border-radius: 0px;
 }
 
 .tiptapEditor td, .tiptapEditor th {
@@ -646,11 +643,10 @@
   padding: 0 !important;
   background: transparent !important;
   border: 2px solid var(--task-editor-text-muted) !important;
-  border-radius: 3px !important;
+  border-radius: 0px !important;
   cursor: pointer !important;
   flex-shrink: 0 !important;
   position: relative !important;
-  transition: all 0.2s ease !important;
 }
 
 /* Checkmark styling */
@@ -726,6 +722,10 @@
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
+  .sidebarToggleButton {
+    display: none !important;
+  }
+
   .editorToolbar {
     padding: 8px;
     gap: 4px;

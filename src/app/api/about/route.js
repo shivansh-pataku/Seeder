@@ -1,6 +1,6 @@
-// src/app/api/feedback/route.js - CREATE THIS FILE
 import dbConfig from '../../lib/db.js'
 import { getCurrentUser } from '../../lib/getCurrentUser.js'
+import { sendFeedbackNotificationEmail } from '../../lib/mail.js'
 
 export async function POST(request) {
   try {
@@ -60,6 +60,17 @@ export async function POST(request) {
     )
 
     console.log('Feedback saved successfully with ID:', result.insertId)
+
+    // Send email notification to admin with user info & reply-to header (non-blocking)
+    try {
+      await sendFeedbackNotificationEmail({
+        user: currentUser,
+        feedbackText: feedback_text.trim(),
+        feedbackId: result.insertId,
+      })
+    } catch (mailErr) {
+      console.error('Failed to send feedback notification email:', mailErr.message)
+    }
 
     return new Response(JSON.stringify({ 
       message: 'Feedback saved successfully',

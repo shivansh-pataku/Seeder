@@ -1,20 +1,36 @@
 // src/app/layout.tsx
 import "./globals.css";
 import ClientLayout from "./Components/ClientLayout.js";
-import { Kite_One, DM_Sans, Readex_Pro } from "next/font/google";
+import { Red_Hat_Text, Fauna_One } from "next/font/google";
 
-const readexPro = Readex_Pro({ subsets: ["latin"], variable: "--font-readexpro", weight: "400" });
-const kiteOne = Kite_One({
-  subsets: ["latin"], variable: "--font-kiteone",
-  weight: "400"
+import { auth } from "./lib/auth.js";
+
+const redHatText = Red_Hat_Text({ // for website UI , buttons, body text, form etc
+  subsets: ["latin"],
+  variable: "--font-redHatText",
+  display: "swap",
 });
-const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-dmsans" });
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+const faunaOne = Fauna_One({ // for feed and artice reading purpose
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal"],
+  variable: "--font-faunaOne",
+  display: "swap",
+});
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const session = await auth();
+
   return (
-    <html lang="en">
-      <body className={`${readexPro.variable} ${kiteOne.variable} ${dmSans.variable}`}>
-        <ClientLayout>
+    <html
+      lang="en"
+      data-theme="light"
+      className={`${redHatText.variable} ${faunaOne.variable}`}
+      suppressHydrationWarning
+    >
+      <body className={redHatText.className}>
+        <ClientLayout session={session}>
           {children}
         </ClientLayout>
       </body>

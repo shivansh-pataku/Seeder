@@ -3,28 +3,28 @@
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import styles from '../Styles/profile.module.css'
 import { useParams, notFound } from 'next/navigation'
-import { HugeiconsIcon } from '@hugeicons/react';
+import { useLoading } from '../Components/LoadingContext'
+import { getGenderAvatar } from '../lib/avatar'
 import { 
-  UserIcon, 
-  Calendar01Icon, 
-  Location01Icon, 
-  PencilEdit01Icon, 
-  LinkIcon, 
-  GithubIcon, 
-  LinkedinIcon, 
-  NewTwitterIcon, 
-  InstagramIcon, 
-  RedditIcon, 
-  BehanceIcon, 
-  PinterestIcon,
-  MailIcon,
-  Calendar02Icon,
-  CircleIcon,
-  Cancel01Icon,
-  SaveIcon
-} from '@hugeicons/core-free-icons';
+  User, 
+  Calendar, 
+  MapPin, 
+  PencilSimple, 
+  LinkSimple, 
+  GithubLogo, 
+  LinkedinLogo, 
+  XLogo, 
+  InstagramLogo, 
+  RedditLogo, 
+  BehanceLogo, 
+  PinterestLogo,
+  EnvelopeSimple,
+  X,
+  FloppyDisk
+} from '@phosphor-icons/react';
 
 // Reserved routes that should NOT be treated as usernames
 const RESERVED_ROUTES = [
@@ -34,7 +34,8 @@ const RESERVED_ROUTES = [
 ]
 
 export default function ProfilePage() {
-  const { data: session, status } = useSession()
+  const { data: session, status, update } = useSession()
+  const { startLoading, stopLoading } = useLoading()
   const router = useRouter()
   const { username } = useParams()
 
@@ -51,10 +52,20 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(true)
   const [isEditing, setIsEditing] = useState(false)
 
+  // Synchronize loading with top linear progress indicator
+  useEffect(() => {
+    if (status === 'loading' || loading) {
+      startLoading()
+    } else {
+      stopLoading()
+    }
+  }, [status, loading, startLoading, stopLoading])
+
   // Profile state
   const [profiledata, setProfileData] = useState({
     name: '',
     dob: '',
+    gender: '',
     location: '',
     bio: '',
     email: '',
@@ -63,14 +74,14 @@ export default function ProfilePage() {
 
   // Social platforms configuration
   const platforms = {
-    github: { name: 'GitHub', url: 'https://github.com/', icon: GithubIcon },
-    linkedin: { name: 'LinkedIn', url: 'https://linkedin.com/in/', icon: LinkedinIcon },
-    twitter: { name: 'Twitter', url: 'https://twitter.com/', icon: NewTwitterIcon },
-    instagram: { name: 'Instagram', url: 'https://instagram.com/', icon: InstagramIcon },
-    reddit: { name: 'Reddit', url: 'https://reddit.com/u/', icon: RedditIcon },
-    behance: { name: 'Behance', url: 'https://behance.net/', icon: BehanceIcon },
-    pinterest: { name: 'Pinterest', url: 'https://pinterest.com/', icon: PinterestIcon },
-    artstation: { name: 'ArtStation', url: 'https://artstation.com/', icon: LinkIcon }
+    github: { name: 'GitHub', url: 'https://github.com/', icon: GithubLogo },
+    linkedin: { name: 'LinkedIn', url: 'https://linkedin.com/in/', icon: LinkedinLogo },
+    twitter: { name: 'Twitter', url: 'https://twitter.com/', icon: XLogo },
+    instagram: { name: 'Instagram', url: 'https://instagram.com/', icon: InstagramLogo },
+    reddit: { name: 'Reddit', url: 'https://reddit.com/u/', icon: RedditLogo },
+    behance: { name: 'Behance', url: 'https://behance.net/', icon: BehanceLogo },
+    pinterest: { name: 'Pinterest', url: 'https://pinterest.com/', icon: PinterestLogo },
+    artstation: { name: 'ArtStation', url: 'https://artstation.com/', icon: LinkSimple }
   }
 
   const [profiles, setProfiles] = useState([{ platform: "github", username: "" }])
@@ -104,11 +115,16 @@ export default function ProfilePage() {
 
           setProfileData({
             name: data.profile.name ?? '',
+            username: data.profile.username ?? username,
             dob: data.profile.dob ?? '',
+            gender: data.profile.gender ?? '',
             location: data.profile.location ?? '',
             bio: data.profile.bio ?? '',
             email: data.profile.email ?? '',
-            created_at: data.profile.created_at ?? ''
+            created_at: data.profile.created_at ?? '',
+            is_private: data.profile.is_private ?? 0,
+            isAnonymous: Boolean(data.profile.isAnonymous),
+            publishedStories: data.profile.publishedStories || []
           });
 
           // Handle profiles properly
@@ -181,6 +197,13 @@ export default function ProfilePage() {
       })
 
       if (response.ok) {
+        if (typeof update === 'function' && isOwnProfile) {
+          try {
+            await update({ gender: dataToSave.gender });
+          } catch (updateErr) {
+            console.warn('Session update failed:', updateErr);
+          }
+        }
         alert('Profile updated successfully!')
         setIsEditing(false)
       } else {
@@ -193,27 +216,45 @@ export default function ProfilePage() {
   }
 
   if (status === 'loading' || loading) {
-    return (
-      <div className="global-loader-container">
-        <div className="global-loader-spinner"></div>
-        <p className="global-loader-text">Loading Profile</p>
-      </div>
-    )
+    return null;
   }
 
   // Profile not found
   if (profileNotFound) {
     return (
-      <div className={styles.profileContainer}>
-        <div className={styles.notFound}>
-          <h2>Profile Not Found</h2>
-          <p>The profile &quot;@{username}&quot; doesn&apos;t exist.</p>
-          <button onClick={() => router.push('/')} className={styles.goHomeButton}>
-            Go Home
-          </button>
+      <div className={styles.notFoundContainer}>
+        <div className={styles.notFoundCard}>
+          <div className={styles.notFoundIconBadge}>
+            <User size={36} weight="regular" className={styles.notFoundIcon} />
+          </div>
+
+          <div className={styles.notFoundText}>
+            <span className={styles.notFoundTag}>404 — User Not Found</span>
+            <h2 className={styles.notFoundTitle}>Profile Not Found</h2>
+            <p className={styles.notFoundDescription}>
+              The profile <span className={styles.notFoundUsername}>@{username}</span> could not be found. The user might have changed their username or the account doesn&apos;t exist.
+            </p>
+          </div>
+
+          <div className={styles.notFoundActions}>
+            <button
+              type="button"
+              onClick={() => router.push('/desk')}
+              className={styles.notFoundPrimaryBtn}
+            >
+              Go to Desk
+            </button>
+            <button
+              type="button"
+              onClick={() => router.back()}
+              className={styles.notFoundSecondaryBtn}
+            >
+              Go Back
+            </button>
+          </div>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -224,22 +265,37 @@ export default function ProfilePage() {
           <div className={styles.profile_cover}></div>
           <div className={styles.profile_bar}>
             <div className={styles.dp}>
-              <HugeiconsIcon icon={UserIcon} size={48} className={styles.avatarPlaceholderIcon} />
+              {!profiledata.isAnonymous && getGenderAvatar(profiledata.gender) ? (
+                <Image
+                  src={getGenderAvatar(profiledata.gender)}
+                  alt={`${profiledata.isAnonymous ? 'Unknown' : (profiledata.name || username)}'s avatar`}
+                  width={92}
+                  height={92}
+                  className={styles.avatarImg}
+                  priority
+                />
+              ) : (
+                <User size={48} weight="regular" className={styles.avatarPlaceholderIcon} />
+              )}
             </div>
             <div className={styles.profileHeader}>
               <div className={styles.identity}>
-                <p className={styles.displayName}>{profiledata.name || username}</p>
-                <p className={styles.username}>@{username}</p>
+                <p className={styles.displayName}>
+                  {profiledata.isAnonymous ? 'Unknown' : (profiledata.name || username)}
+                </p>
+                <p className={styles.username}>
+                  @{profiledata.isAnonymous ? 'unknown' : (profiledata.username || username)}
+                </p>
               </div>
 
               {isOwnProfile && (
                 <div className={styles.profileActions}>
                   <button
                     className={styles.editToggleButton}
-                    onClick={() => setIsEditing(true)}
-                    title="Edit Profile"
+                    onClick={() => router.push('/settings')}
+                    title="Edit Profile in Settings"
                   >
-                    <HugeiconsIcon icon={PencilEdit01Icon} size={14} style={{ marginRight: '6px' }} />
+                    <PencilSimple size={14} weight="regular" style={{ marginRight: '6px' }} />
                     Edit Profile
                   </button>
                 </div>
@@ -248,27 +304,92 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Profile Activity Feed */}
+        {/* Published Stories Section */}
         <div className={styles.profile_Ab}>
           <div className={styles.profile_card}>
             <div className={styles.cardHeader}>
-              <HugeiconsIcon icon={CircleIcon} size={12} className={styles.liveIndicatorIcon} />
-              <h3>Activity & Contributions</h3>
+              <PencilSimple size={15} weight="regular" className={styles.headerIcon} />
+              <h3>Published Stories ({profiledata.publishedStories?.length || 0})</h3>
             </div>
-            
-            <div className={styles.contributionsFeed}>
-              <div className={styles.contributionItem}>
-                <div className={styles.contributionIcon}>
-                  <HugeiconsIcon icon={Calendar02Icon} size={16} />
-                </div>
-                <div className={styles.contributionMeta}>
-                  <p className={styles.contributionText}>Profile created successfully</p>
-                  <span className={styles.contributionDate}>
-                    {profiledata.created_at ? new Date(profiledata.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) : 'Recently'}
-                  </span>
-                </div>
+
+              {profiledata.publishedStories && profiledata.publishedStories.length > 0 ? (
+              <div className={styles.storiesGrid}>
+                {profiledata.publishedStories.map((story) => {
+                  const plainText = (story.description || '')
+                    .replace(/<[^>]+>/g, ' ')
+                    .replace(/\s+/g, ' ')
+                    .trim();
+                  const words = plainText ? plainText.split(/\s+/).filter(Boolean).length : 0;
+                  const readTimeMin = Math.max(1, Math.ceil(words / 200));
+
+                  return (
+                    <div
+                      key={story.id}
+                      className={`${styles.profileStoryCard} ${isOwnProfile ? styles.editable : ''}`}
+                      onClick={() => {
+                        if (isOwnProfile) {
+                          router.push(`/desk/${story.id}`);
+                        } else {
+                          router.push(`/read/${story.id}`);
+                        }
+                      }}
+                      title={isOwnProfile ? "Click to edit in Desk" : "Click to read story"}
+                    >
+                      {/* Top Banner Row: Story Tag on Left, Date on Right */}
+                      <div className={styles.storyCardHeaderRow}>
+                        <span className={styles.storyBadge}>Story</span>
+                        <span className={styles.storyDate}>
+                          {story.created_at
+                            ? new Date(story.created_at).toLocaleDateString(undefined, {
+                                month: 'short',
+                                day: 'numeric',
+                                year: 'numeric',
+                              })
+                            : 'Published'}
+                        </span>
+                      </div>
+
+                      {/* Main Banner Content */}
+                      <div className={styles.storyCardTop}>
+                        <h4 className={styles.storyCardTitle}>
+                          {story.title?.trim() || 'Untitled Story'}
+                        </h4>
+                        <p className={styles.storyCardSnippet}>
+                          {plainText || 'No description provided.'}
+                        </p>
+                      </div>
+
+                      {/* Banner Footer Bar */}
+                      <div className={styles.storyCardFooter}>
+                        <div className={styles.storyMeta}>
+                          <span>{words > 0 ? `${words} words` : 'Short read'}</span>
+                          <span className={styles.metaDot}>•</span>
+                          <span>{readTimeMin} min read</span>
+                        </div>
+
+                        <div>
+                          {isOwnProfile ? (
+                            <span className={styles.editBadge}>
+                              Edit in Desk →
+                            </span>
+                          ) : (
+                            <span className={styles.readBadge}>
+                              Read story →
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-            </div>
+            ) : (
+              <p className={styles.emptyStoriesText}>
+                {isOwnProfile
+                  ? 'You have not published any stories yet. Go to your Desk to publish one!'
+                  : 'No published stories yet.'}
+              </p>
+            )}
           </div>
         </div>
       </div>
@@ -280,60 +401,81 @@ export default function ProfilePage() {
           
           <div className={styles.bioSection}>
             <p className={styles.bioText}>
-              {profiledata.bio || 'No bio provided yet.'}
+              {profiledata.isAnonymous ? 'Unknown' : (profiledata.bio || 'No bio provided yet.')}
             </p>
           </div>
 
-          <div className={styles.detailsSection}>
-            {profiledata.dob && (
-              <div className={styles.profile_item}>
-                <HugeiconsIcon icon={Calendar01Icon} size={16} className={styles.detailIcon} />
-                <div className={styles.detailContent}>
-                  <span className={styles.detailLabel}>Born On</span>
-                  <span className={styles.detailValue}>{profiledata.dob}</span>
+          {!profiledata.isAnonymous && (
+            <div className={styles.detailsSection}>
+              {profiledata.dob && (
+                <div className={styles.profile_item}>
+                  <Calendar size={16} weight="regular" className={styles.detailIcon} />
+                  <div className={styles.detailContent}>
+                    <span className={styles.detailLabel}>Born On</span>
+                    <span className={styles.detailValue}>{profiledata.dob}</span>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {profiledata.location && (
-              <div className={styles.profile_item}>
-                <HugeiconsIcon icon={Location01Icon} size={16} className={styles.detailIcon} />
-                <div className={styles.detailContent}>
-                  <span className={styles.detailLabel}>Location</span>
-                  <span className={styles.detailValue}>{profiledata.location}</span>
+              {profiledata.gender && (
+                <div className={styles.profile_item}>
+                  <User size={16} weight="regular" className={styles.detailIcon} />
+                  <div className={styles.detailContent}>
+                    <span className={styles.detailLabel}>Gender</span>
+                    <span className={styles.detailValue}>
+                      {profiledata.gender.toLowerCase() === 'male' 
+                        ? 'Male' 
+                        : profiledata.gender.toLowerCase() === 'female' 
+                          ? 'Female' 
+                          : profiledata.gender.toLowerCase() === 'prefer_not_to_say' 
+                            ? 'Prefer not to say' 
+                            : profiledata.gender.charAt(0).toUpperCase() + profiledata.gender.slice(1)}
+                    </span>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {profiledata.email && (
-              <div className={styles.profile_item}>
-                <HugeiconsIcon icon={MailIcon} size={16} className={styles.detailIcon} />
-                <div className={styles.detailContent}>
-                  <span className={styles.detailLabel}>Email</span>
-                  <span className={styles.detailValue}>{profiledata.email}</span>
+              {profiledata.location && (
+                <div className={styles.profile_item}>
+                  <MapPin size={16} weight="regular" className={styles.detailIcon} />
+                  <div className={styles.detailContent}>
+                    <span className={styles.detailLabel}>Location</span>
+                    <span className={styles.detailValue}>{profiledata.location}</span>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            <div className={styles.profile_item}>
-              <HugeiconsIcon icon={Calendar02Icon} size={16} className={styles.detailIcon} />
-              <div className={styles.detailContent}>
-                <span className={styles.detailLabel}>Joined</span>
-                <span className={styles.detailValue}>
-                  {profiledata.created_at ? new Date(profiledata.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long' }) : 'Recently'}
-                </span>
+              {profiledata.email && (
+                <div className={styles.profile_item}>
+                  <EnvelopeSimple size={16} weight="regular" className={styles.detailIcon} />
+                  <div className={styles.detailContent}>
+                    <span className={styles.detailLabel}>Email</span>
+                    <span className={styles.detailValue}>{profiledata.email}</span>
+                  </div>
+                </div>
+              )}
+
+              <div className={styles.profile_item}>
+                <Calendar size={16} weight="regular" className={styles.detailIcon} />
+                <div className={styles.detailContent}>
+                  <span className={styles.detailLabel}>Joined</span>
+                  <span className={styles.detailValue}>
+                    {profiledata.created_at ? new Date(profiledata.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long' }) : 'Recently'}
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
-          {profiles.filter(p => p.username.trim()).length > 0 && (
+          {!profiledata.isAnonymous && profiles.filter(p => p.username.trim()).length > 0 && (
             <div className={styles.socialsSection}>
               <h4 className={styles.socialsTitle}>Social Connections</h4>
               <div className={styles.socialLinksContainer}>
                 {profiles
                   .filter(p => p.username.trim())
                   .map((profile, index) => {
-                    const platformMeta = platforms[profile.platform] || { name: profile.platform, url: '', icon: LinkIcon };
+                    const platformMeta = platforms[profile.platform] || { name: profile.platform, url: '', icon: LinkSimple };
+                    const PlatformIcon = platformMeta.icon;
                     return (
                       <a 
                         key={index} 
@@ -342,7 +484,7 @@ export default function ProfilePage() {
                         rel="noopener noreferrer" 
                         className={styles.socialLink}
                       >
-                        <HugeiconsIcon icon={platformMeta.icon} size={14} className={styles.socialLinkIcon} />
+                        <PlatformIcon size={14} weight="regular" className={styles.socialLinkIcon} />
                         <span>{platformMeta.name}</span>
                       </a>
                     );
@@ -382,6 +524,21 @@ export default function ProfilePage() {
                       value={profiledata.dob} 
                       onChange={(e) => handleProfileChange('dob', e.target.value)} 
                     />
+                  </div>
+
+                  <div className={styles.formItem}>
+                    <label htmlFor="gender">Gender</label>
+                    <select
+                      id="gender"
+                      value={profiledata.gender || ''}
+                      onChange={(e) => handleProfileChange('gender', e.target.value)}
+                    >
+                      <option value="">Select Gender</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                      <option value="other">Other</option>
+                      <option value="prefer_not_to_say">Prefer not to say</option>
+                    </select>
                   </div>
 
                   <div className={styles.formItem}>
@@ -438,7 +595,7 @@ export default function ProfilePage() {
                             onClick={() => removeSocialProfile(index)} 
                             className={styles.removeButton}
                           >
-                            <HugeiconsIcon icon={Cancel01Icon} size={14} />
+                            <X size={14} weight="regular" />
                           </button>
                         )}
                       </div>
@@ -449,11 +606,11 @@ export default function ProfilePage() {
 
               <div className={styles.buttons}>
                 <button type="button" className={styles.cancelButton} onClick={() => setIsEditing(false)}>
-                  <HugeiconsIcon icon={Cancel01Icon} size={14} style={{ marginRight: '6px' }} />
+                  <X size={14} weight="regular" style={{ marginRight: '6px' }} />
                   Cancel
                 </button>
                 <button type="submit" className={styles.saveButton}>
-                  <HugeiconsIcon icon={SaveIcon} size={14} style={{ marginRight: '6px' }} />
+                  <FloppyDisk size={14} weight="regular" style={{ marginRight: '6px' }} />
                   Save Changes
                 </button>
               </div>

@@ -1,0 +1,391 @@
+/* src/app/Styles/desk.module.css */
+
+.deskContainer {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+  min-height: calc(100vh - 4.5rem);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  color: var(--foreground);
+}
+
+/* Desk Header */
+.deskHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 1px solid var(--min-borders);
+  padding-bottom: 1.5rem;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.deskTitleSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.deskTitle {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.03em;
+  color: var(--foreground);
+}
+
+.deskSubtitle {
+  font-size: 0.95rem;
+  color: var(--task-editor-text-light);
+  margin: 0;
+}
+
+.newStoryButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--foreground);
+  color: var(--background);
+  border: 1px solid var(--foreground);
+  padding: 0.65rem 1.25rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.newStoryButton:hover {
+  background-color: transparent;
+  color: var(--foreground);
+}
+
+/* Toolbar: Search, Filters, Stats */
+.deskToolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.filterTabs {
+  display: flex;
+  gap: 0.5rem;
+  background-color: var(--card-bg);
+  border: 1px solid var(--min-borders);
+  padding: 3px;
+}
+
+.tabButton {
+  background: transparent;
+  border: none;
+  color: var(--task-editor-text-light);
+  padding: 0.4rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.tabButton:hover {
+  color: var(--foreground);
+}
+
+.tabButton.active {
+  background-color: var(--min-borders);
+  color: var(--foreground);
+}
+
+.tabCount {
+  font-size: 0.7rem;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+  min-width: 260px;
+  flex-grow: 0.3;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 0.75rem;
+  color: var(--task-editor-text-muted);
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.5rem 0.75rem 0.5rem 2.2rem;
+  background-color: var(--card-bg);
+  border: 1px solid var(--min-borders);
+  color: var(--foreground);
+  font-size: 0.85rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.searchInput:focus {
+  border-color: var(--editor-accent);
+}
+
+.searchInput::placeholder {
+  color: var(--task-editor-text-muted);
+}
+
+/* Stories Grid */
+.storiesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+/* Writing Card - Editorial Banner Card (Sharp Corners, No Shadow) */
+.writingCard {
+  background-color: var(--card-bg);
+  border: 1px solid var(--min-borders);
+  border-radius: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+  position: relative;
+  min-height: 220px;
+  box-sizing: border-box;
+  box-shadow: none;
+}
+
+.writingCard:hover {
+  border-color: var(--foreground);
+  box-shadow: none;
+}
+
+.writingCard:hover .cardTitle {
+  color: var(--editor-accent);
+}
+
+.cardTop {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-bottom: 1.25rem;
+}
+
+.cardHeaderRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.badgeGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.statusBadge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 0px;
+}
+
+.statusBadge.draft {
+  background-color: transparent;
+  color: var(--task-editor-text-muted);
+  border: 1px solid var(--min-borders);
+}
+
+.statusBadge.published {
+  background-color: var(--task-desc-hover-bg, rgba(255, 255, 255, 0.12));
+  color: var(--foreground);
+  border: 1px solid var(--min-borders);
+}
+
+.readTime {
+  font-size: 0.72rem;
+  color: var(--task-editor-text-muted);
+}
+
+.cardTitle {
+  font-family: var(--font-reading), 'Fauna One', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.22;
+  color: var(--foreground);
+  margin: 0 0 0.35rem 0;
+  letter-spacing: -0.015em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: calc(1.25rem * 1.22 * 2);
+  max-height: calc(1.25rem * 1.22 * 2);
+  transition: color 0.15s ease;
+}
+
+.cardSnippet {
+  font-size: 0.84rem;
+  line-height: 1.35;
+  color: var(--task-editor-text-light);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: calc(0.84rem * 1.35 * 3);
+  max-height: calc(0.84rem * 1.35 * 3);
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--min-borders);
+  padding-top: 1rem;
+  margin-top: auto;
+  gap: 0.75rem;
+}
+
+.cardMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.cardDate {
+  font-size: 0.72rem;
+  color: var(--task-editor-text-muted);
+}
+
+.cardWords {
+  font-size: 0.72rem;
+  color: var(--task-editor-text-light);
+  font-weight: 500;
+}
+
+.cardActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.actionIconBtn {
+  background: transparent;
+  border: 1px solid var(--min-borders);
+  color: var(--task-editor-text-light);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border-radius: 0px;
+  box-shadow: none;
+}
+
+.actionIconBtn:hover {
+  background-color: var(--task-desc-hover-bg, rgba(255, 255, 255, 0.12));
+  border-color: var(--foreground);
+  color: var(--foreground);
+}
+
+.actionIconBtn.delete:hover {
+  background-color: var(--task-desc-hover-bg, rgba(255, 255, 255, 0.12));
+  border-color: var(--foreground);
+  color: var(--foreground);
+}
+
+.actionIconBtn.publishActive {
+  background-color: var(--task-desc-hover-bg, rgba(255, 255, 255, 0.08));
+  color: var(--foreground);
+  border-color: var(--min-borders);
+}
+
+.actionIconBtn.publishActive:hover {
+  background-color: var(--task-desc-hover-bg, rgba(255, 255, 255, 0.16));
+  border-color: var(--foreground);
+  color: var(--foreground);
+}
+
+/* Empty State */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 2rem;
+  text-align: center;
+  border: 1px dashed var(--min-borders);
+  background-color: var(--card-bg);
+  gap: 1.25rem;
+  margin: 2rem 0;
+}
+
+.emptyIcon {
+  color: var(--task-editor-text-muted);
+}
+
+.emptyTitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--foreground);
+}
+
+.emptyDescription {
+  font-size: 0.9rem;
+  color: var(--task-editor-text-light);
+  max-width: 420px;
+  margin: 0;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .deskContainer {
+    padding: 1.5rem 1rem;
+    gap: 1.5rem;
+  }
+
+  .deskTitle {
+    font-size: 1.75rem;
+  }
+
+  .deskToolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .searchContainer {
+    min-width: 100%;
+  }
+
+  .storiesGrid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,26 +1,42 @@
-// src/app/Components/ThemeProvider.js
-'use client'
+'use client';
 
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 
-const ThemeContext = createContext();
+const ThemeContext = createContext({
+  theme: 'light',
+  toggleTheme: () => {},
+});
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState('dark');
+  const { data: session, status } = useSession();
+  const [theme, setTheme] = useState('light');
+
+  const isAuthenticated = status === 'authenticated' && !!session?.user;
 
   useEffect(() => {
-    const stored = localStorage.getItem('theme');
-    const initialTheme = stored || 'dark'; // Default to dark
-    setTheme(initialTheme);
-    // ✅ Change from body.className to data-theme attribute
-    document.documentElement.setAttribute('data-theme', initialTheme);
-  }, []);
+    if (status === 'loading') return;
+
+    if (!isAuthenticated) {
+      // Unauthenticated / logged-out visitors are ALWAYS white as white
+      setTheme('light');
+      document.documentElement.setAttribute('data-theme', 'light');
+    } else {
+      // Authenticated users restore their saved preference, defaulting to light
+      const stored = localStorage.getItem('theme');
+      const userTheme = stored === 'dark' ? 'dark' : 'light';
+      setTheme(userTheme);
+      document.documentElement.setAttribute('data-theme', userTheme);
+    }
+  }, [status, isAuthenticated]);
 
   const toggleTheme = () => {
+    // Only logged in users are allowed to change theme
+    if (!isAuthenticated) return;
+
     const next = theme === 'light' ? 'dark' : 'light';
     setTheme(next);
     localStorage.setItem('theme', next);
-    // ✅ Change from body.className to data-theme attribute
     document.documentElement.setAttribute('data-theme', next);
   };
 

@@ -16,34 +16,33 @@ import { Table } from '@tiptap/extension-table';
 import { TableRow } from '@tiptap/extension-table-row';
 import { TableHeader } from '@tiptap/extension-table-header';
 import { TableCell } from '@tiptap/extension-table-cell';
-import { HugeiconsIcon } from '@hugeicons/react';
 import {
-  TextBoldIcon,
-  TextItalicIcon,
-  TextUnderlineIcon,
-  TextStrikethroughIcon,
-  HighlighterIcon,
-  Heading01Icon,
-  Heading02Icon,
-  Heading03Icon,
-  ListIcon,
-  ListOrderedIcon,
-  ListTodoIcon,
-  QuoteIcon,
-  CodeIcon,
-  MinusIcon,
-  LinkIcon,
-  UndoIcon,
-  RedoIcon,
-  Delete01Icon,
-  SaveIcon,
-  TextColorIcon,
-  PanelLeftCloseIcon,
-  PanelLeftOpenIcon
-} from '@hugeicons/core-free-icons';
+  TextB,
+  TextItalic,
+  TextUnderline,
+  TextStrikethrough,
+  Highlighter,
+  TextHOne,
+  TextHTwo,
+  TextHThree,
+  ListBullets,
+  ListNumbers,
+  CheckSquare,
+  Quotes,
+  Code,
+  Minus,
+  LinkSimple,
+  ArrowUUpLeft,
+  ArrowUUpRight,
+  Trash,
+  FloppyDisk,
+  Palette,
+  SidebarSimple,
+  X,
+} from '@phosphor-icons/react';
 import styles from '../Styles/taskeditor.module.css';
 
-export default function TaskEditor({ task, onSave, onDelete, isCreating = false, isSidebarCollapsed = false, onToggleSidebar }) {
+export default function TaskEditor({ task, onSave, onDelete, onClose, isCreating = false, isSidebarCollapsed = false, onToggleSidebar }) {
   const [title, setTitle] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [lastSavedData, setLastSavedData] = useState({ title: '', description: '' });
@@ -234,7 +233,7 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false,
                 title: currentTitle || 'Untitled',
                 description: currentDescription,
               };
-              console.log('🔄 Flushing unsaved changes for task:', prevTask.id);
+              console.log('Flushing unsaved changes for task:', prevTask.id);
               onSave(dataToSave);
             }
           }
@@ -344,6 +343,23 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false,
     }
   };
 
+  const handleClose = async () => {
+    if (autoSaveTimeoutRef.current) {
+      clearTimeout(autoSaveTimeoutRef.current);
+    }
+
+    const currentCanSave = getPlainText().length > 0;
+    const currentHasChanges = hasContentChanged();
+
+    if (currentHasChanges && currentCanSave) {
+      await triggerSave();
+    }
+
+    if (onClose) {
+      onClose();
+    }
+  };
+
   const setLink = () => {
     const previousUrl = editor.getAttributes('link').href;
     const url = window.prompt('URL', previousUrl);
@@ -382,8 +398,20 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false,
               <button
                 onClick={onToggleSidebar}
                 title={isSidebarCollapsed ? "Show list" : "Hide list"}
+                className={styles.sidebarToggleButton}
               >
-                <HugeiconsIcon icon={isSidebarCollapsed ? PanelLeftOpenIcon : PanelLeftCloseIcon} size={15} />
+                <SidebarSimple size={15} weight="regular" />
+              </button>
+            </div>
+          )}
+
+          {onClose && (
+            <div className={styles.toolbarGroup}>
+              <button
+                onClick={handleClose}
+                title="Close editor"
+              >
+                <X size={15} weight="regular" />
               </button>
             </div>
           )}
@@ -395,35 +423,35 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false,
               className={editor.isActive('bold') ? styles.active : ''}
               title="Bold (Ctrl+B)"
             >
-              <HugeiconsIcon icon={TextBoldIcon} size={15} />
+              <TextB size={15} weight="regular" />
             </button>
             <button
               onClick={() => editor.chain().focus().toggleItalic().run()}
               className={editor.isActive('italic') ? styles.active : ''}
               title="Italic (Ctrl+I)"
             >
-              <HugeiconsIcon icon={TextItalicIcon} size={15} />
+              <TextItalic size={15} weight="regular" />
             </button>
             <button
               onClick={() => editor.chain().focus().toggleUnderline().run()}
               className={editor.isActive('underline') ? styles.active : ''}
               title="Underline (Ctrl+U)"
             >
-              <HugeiconsIcon icon={TextUnderlineIcon} size={15} />
+              <TextUnderline size={15} weight="regular" />
             </button>
             <button
               onClick={() => editor.chain().focus().toggleStrike().run()}
               className={editor.isActive('strike') ? styles.active : ''}
               title="Strikethrough"
             >
-              <HugeiconsIcon icon={TextStrikethroughIcon} size={15} />
+              <TextStrikethrough size={15} weight="regular" />
             </button>
             <button
               onClick={() => editor.chain().focus().toggleHighlight().run()}
               className={editor.isActive('highlight') ? styles.active : ''}
               title="Highlight"
             >
-              <HugeiconsIcon icon={HighlighterIcon} size={15} />
+              <Highlighter size={15} weight="regular" />
             </button>
           </div>
 
@@ -434,21 +462,21 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false,
               className={editor.isActive('heading', { level: 1 }) ? styles.active : ''}
               title="Heading 1"
             >
-              <HugeiconsIcon icon={Heading01Icon} size={15} />
+              <TextHOne size={15} weight="regular" />
             </button>
             <button
               onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
               className={editor.isActive('heading', { level: 2 }) ? styles.active : ''}
               title="Heading 2"
             >
-              <HugeiconsIcon icon={Heading02Icon} size={15} />
+              <TextHTwo size={15} weight="regular" />
             </button>
             <button
               onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
               className={editor.isActive('heading', { level: 3 }) ? styles.active : ''}
               title="Heading 3"
             >
-              <HugeiconsIcon icon={Heading03Icon} size={15} />
+              <TextHThree size={15} weight="regular" />
             </button>
           </div>
 
@@ -459,21 +487,21 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false,
               className={editor.isActive('bulletList') ? styles.active : ''}
               title="Bullet List"
             >
-              <HugeiconsIcon icon={ListIcon} size={15} />
+              <ListBullets size={15} weight="regular" />
             </button>
             <button
               onClick={() => editor.chain().focus().toggleOrderedList().run()}
               className={editor.isActive('orderedList') ? styles.active : ''}
               title="Numbered List"
             >
-              <HugeiconsIcon icon={ListOrderedIcon} size={15} />
+              <ListNumbers size={15} weight="regular" />
             </button>
             <button
               onClick={() => editor.chain().focus().toggleTaskList().run()}
               className={editor.isActive('taskList') ? styles.active : ''}
               title="Task List"
             >
-              <HugeiconsIcon icon={ListTodoIcon} size={15} />
+              <CheckSquare size={15} weight="regular" />
             </button>
           </div>
 
@@ -484,20 +512,20 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false,
               className={editor.isActive('blockquote') ? styles.active : ''}
               title="Quote"
             >
-              <HugeiconsIcon icon={QuoteIcon} size={15} />
+              <Quotes size={15} weight="regular" />
             </button>
             <button
               onClick={() => editor.chain().focus().toggleCodeBlock().run()}
               className={editor.isActive('codeBlock') ? styles.active : ''}
               title="Code Block"
             >
-              <HugeiconsIcon icon={CodeIcon} size={15} />
+              <Code size={15} weight="regular" />
             </button>
             <button
               onClick={() => editor.chain().focus().setHorizontalRule().run()}
               title="Horizontal Rule"
             >
-              <HugeiconsIcon icon={MinusIcon} size={15} />
+              <Minus size={15} weight="regular" />
             </button>
           </div>
 
@@ -508,14 +536,14 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false,
               className={editor.isActive('link') ? styles.active : ''}
               title="Add Link"
             >
-              <HugeiconsIcon icon={LinkIcon} size={15} />
+              <LinkSimple size={15} weight="regular" />
             </button>
             <button
               onClick={() => colorInputRef.current?.click()}
               title="Text Color"
               className={styles.colorButton}
             >
-              <HugeiconsIcon icon={TextColorIcon} size={15} />
+              <Palette size={15} weight="regular" />
               <span
                 className={styles.colorIndicator}
                 style={{ backgroundColor: editor.getAttributes('textStyle').color || '#000000' }}
@@ -537,14 +565,14 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false,
               disabled={!editor.can().undo()}
               title="Undo (Ctrl+Z)"
             >
-              <HugeiconsIcon icon={UndoIcon} size={15} />
+              <ArrowUUpLeft size={15} weight="regular" />
             </button>
             <button
               onClick={() => editor.chain().focus().redo().run()}
               disabled={!editor.can().redo()}
               title="Redo (Ctrl+Y)"
             >
-              <HugeiconsIcon icon={RedoIcon} size={15} />
+              <ArrowUUpRight size={15} weight="regular" />
             </button>
           </div>
 
@@ -570,7 +598,7 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false,
               onClick={handleManualSave}
               disabled={!canSave || !hasChanges || isSaving}
             >
-              <HugeiconsIcon icon={SaveIcon} size={13} style={{ marginRight: '4px' }} />
+              <FloppyDisk size={13} weight="regular" style={{ marginRight: '4px' }} />
               {isSaving ? 'Saving...' :
                 !hasChanges ? 'Saved' :
                   canSave ? (isCreating ? 'Sow Now' : 'Save') :
@@ -584,7 +612,7 @@ export default function TaskEditor({ task, onSave, onDelete, isCreating = false,
                 title="Delete this seed"
                 disabled={isSaving}
               >
-                <HugeiconsIcon icon={Delete01Icon} size={13} style={{ marginRight: '4px' }} />
+                <Trash size={13} weight="regular" style={{ marginRight: '4px' }} />
                 Remove
               </button>
             )}

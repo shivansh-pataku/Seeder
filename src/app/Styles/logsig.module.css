@@ -1,88 +1,128 @@
 /* src/app/Styles/logsig.module.css */
 .logsigContainer {
-  display: flex; 
+  display: flex;
   justify-content: center;
   align-items: center;
-  /* min-height: 100vh; */
-  margin-top: 2rem;
-  /* background-color: #000000; */
-  padding: 1rem;
+  min-height: calc(100vh - 130px);
+  padding: 2rem 1rem;
   background: transparent;
-  /* background: #071a29;
-  background: linear-gradient(90deg, rgba(7, 26, 41, 1) 0%, rgba(0, 0, 0, 1) 100%); */
 }
 
 .logsigForm {
-  background: var(--logsig-form-bg);  
-  border: 1px solid var(--logsig-form-border);  
-  box-shadow: var(--logsig-form-shadow);  
-  padding: 2rem;
-  border-radius: 8px;
-  max-width: 320px;
+  background: var(--card-bg, #111111);
+  border: 1px solid var(--min-borders, #27272a);
+  box-shadow: none;
+  padding: 2.5rem 2rem;
+  border-radius: 0;
+  max-width: 440px;
   width: 100%;
-  transition: all 0.3s ease;  
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.logsigHeader {
+  margin-bottom: 1.75rem;
+  text-align: center;
 }
 
 .logsigTitle {
-  color: var(--logsig-title-color);  
+  color: var(--foreground);
   text-align: center;
-  margin-bottom: 1.5rem;
-  font-size: 1.5rem;
-  font-weight: 600;
-  transition: color 0.3s ease;  
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0 0 0.4rem 0;
+  letter-spacing: -0.02em;
+}
+
+.logsigSubtitle {
+  color: var(--task-editor-text-muted, #71717a);
+  font-size: 0.875rem;
+  line-height: 1.45;
+  margin: 0;
+  text-align: center;
 }
 
 .logsigError {
-  background: rgba(239, 68, 68, 0.1);
-  color: #f87171;
-  padding: 0.6rem;
-  border-radius: 4px;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  border: 1px solid rgba(239, 68, 68, 0.2);
-  font-size: 0.7rem;
+  background: rgba(239, 68, 68, 0.08);
+  color: #ef4444;
+  padding: 0.75rem 1rem;
+  border-radius: 0;
+  margin-bottom: 1.25rem;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-left: 3px solid #ef4444;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .logsigSuccess {
-  background: rgba(34, 197, 94, 0.1);
-  color: #4ade80;
-  padding: 0.6rem;
-  border-radius: 4px;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  border: 1px solid rgba(34, 197, 94, 0.2);
-  font-size: 0.7rem;
+  background: rgba(34, 197, 94, 0.08);
+  color: #22c55e;
+  padding: 0.75rem 1rem;
+  border-radius: 0;
+  margin-bottom: 1.25rem;
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  border-left: 3px solid #22c55e;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .logsigField {
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.logsigLabelRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* margin-bottom: 0.45rem; */
 }
 
 .logsigLabel {
   display: block;
-  color: var(--logsig-label-color);  
-  margin-bottom: 0.2rem;
-  font-size: 0.7rem;
+  color: var(--task-editor-text-light, #a1a1aa);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.forgotLink {
+  font-size: 0.75rem;
+  color: var(--task-editor-text-muted, #71717a);
+  text-decoration: none;
   font-weight: 500;
-  transition: color 0.3s ease;  
+  transition: color 0.15s;
+}
+
+.forgotLink:hover {
+  color: var(--foreground);
+  text-decoration: underline;
 }
 
 .logsigInput {
   width: 100%;
-  padding: 0.7rem;
-  border: 1px solid var(--logsig-input-border);  
-  border-radius: 4px;
-  background: var(--logsig-input-bg);  
-  color: var(--logsig-input-color);  
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--min-borders, #27272a);
+  border-radius: 0;
+  background: var(--background, #09090b);
+  color: var(--foreground);
   box-sizing: border-box;
-  font-size: 0.8rem;
-  transition: border-color 0.2s;
-  font-family: montserrat;
+  font-size: 0.9rem;
+  transition: border-color 0.15s ease;
+  font-family: inherit;
 }
 
 .logsigInput:focus {
   outline: none;
-  border-color: var(--logsig-input-focus);  
+  border-color: var(--foreground);
+  box-shadow: none;
 }
 
 .logsigInput:disabled {
@@ -90,63 +130,405 @@
   cursor: not-allowed;
 }
 
+.passwordWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.passwordInput {
+  width: 100%;
+  padding: 0.75rem 2.6rem 0.75rem 0.9rem;
+  border: 1px solid var(--min-borders, #27272a);
+  border-radius: 0;
+  background: var(--background, #09090b);
+  color: var(--foreground);
+  box-sizing: border-box;
+  font-size: 0.9rem;
+  transition: border-color 0.15s ease;
+  font-family: inherit;
+}
+
+.passwordInput:focus {
+  outline: none;
+  border-color: var(--foreground);
+  box-shadow: none;
+}
+
+.passwordInput:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.passwordToggle {
+  position: absolute;
+  right: 0.5rem;
+  background: transparent;
+  border: none;
+  padding: 0.4rem;
+  color: var(--task-editor-text-muted, #71717a);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+  transition: color 0.15s ease;
+}
+
+.passwordToggle:hover {
+  color: var(--foreground);
+}
+
+.fieldHint {
+  font-size: 0.75rem;
+  margin-top: 0.35rem;
+  color: var(--task-editor-text-muted, #71717a);
+}
+
+.fieldError {
+  font-size: 0.75rem;
+  margin-top: 0.35rem;
+  color: #ef4444;
+}
+
 .logsigButton {
   width: 100%;
-  padding: 0.6rem;
+  padding: 0.75rem 1rem;
   margin-top: 1.5rem;
-  background: var(--logsig-button-bg);  
-  color: var(--logsig-button-text);  
-  border: none;
-  border-radius: 4px;
-  font-size: 0.8rem;
+  background: var(--foreground);
+  color: var(--background);
+  border: 1px solid var(--foreground);
+  border-radius: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.2s;
-  font-weight: 500;
-  font-family: montserrat;
+  transition: opacity 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: inherit;
 }
 
 .logsigButton:hover:not(:disabled) {
-  background: var(--logsig-button-hover);  
+  opacity: 0.9;
+}
+
+.logsigButton:active:not(:disabled) {
+  transform: none;
 }
 
 .logsigButton:disabled {
-  background: var(--logsig-button-disabled);  
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
 .logsigLinks {
   text-align: center;
   margin-top: 1.5rem;
-  color: var(--logsig-links-color);  
-  font-size: 0.7rem;
-  transition: color 0.3s ease;  
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--min-borders);
+  color: var(--task-editor-text-muted, #71717a);
+  font-size: 0.85rem;
 }
 
 .logsigLinks a {
-  color: var(--logsig-link-color);  
+  color: var(--foreground);
   text-decoration: none;
-  transition: color 0.2s;
-  font-weight: 400;
-  transition: all 0.8ms;
-  padding: 0px 5px 0px 5px;
-  margin: 5px;
-  font-weight:500;
+  font-weight: 600;
+  transition: opacity 0.2s;
 }
 
 .logsigLinks a:hover {
-  color: var(--logsig-link-hover);  
-  font-weight: 500;
-  transition: all 350ms ease-in-out;
-  /* text-decoration: underline; */
+  opacity: 0.8;
+  text-decoration: underline;
 }
 
-.logsigTestInfo {
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================================================
+   FLIPPED SPLIT-SCREEN LAYOUT (Inspired by xAI accounts page)
+   Left: Brand Showcase & Geometric Artwork | Right: Authentication Form
+   ========================================================================== */
+
+.splitPage {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  background: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden;
+}
+
+/* LEFT SIDE: Brand Showcase & Artwork */
+.brandSide {
+  flex: 1 1 46%;
+  background: #09090b;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3rem 3.5rem;
+  border-right: 1px solid var(--min-borders, #27272a);
+  box-sizing: border-box;
+}
+
+/* Ambient glow & backdrop elements */
+.brandGlow {
+  position: absolute;
+  top: 35%;
+  right: -5%;
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, rgba(217, 150, 20, 0.18) 0%, rgba(180, 100, 15, 0.06) 50%, transparent 75%);
+  filter: blur(70px);
+  pointer-events: none;
+}
+
+.brandGlowSecondary {
+  position: absolute;
+  bottom: 8%;
+  left: -5%;
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+}
+
+.brandGraphic {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  opacity: 0.85;
+  width: 100%;
+  height: 100%;
+}
+
+.brandHeader {
+  position: relative;
+  z-index: 2;
+}
+
+.brandLogoMark {
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.brandFooter {
+  position: relative;
+  z-index: 2;
+  max-width: 440px;
+}
+
+.brandTagline {
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: #f4f4f5;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+
+.brandSubtext {
+  font-size: 0.875rem;
+  color: #a1a1aa;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* RIGHT SIDE: Authentication Form */
+.formSide {
+  flex: 1 1 54%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3rem 3rem 2rem;
+  background: var(--background);
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.formContentWrapper {
+  width: 100%;
+  max-width: 440px;
+  margin: auto;
+  padding: 1rem 0;
+}
+
+.formTopMobileLogo {
+  display: none;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.formTermsNotice {
   text-align: center;
-  margin-top: 1rem;
-  color: var(--logsig-test-info-color);  
-  font-size: 0.85rem;
-  padding: 0.5rem;
-  background: var(--logsig-test-info-bg);  
-  border-radius: 4px;
-  transition: all 0.3s ease;  
+  font-size: 0.75rem;
+  color: var(--task-editor-text-muted, #71717a);
+  line-height: 1.5;
+  padding-top: 1.5rem;
+  margin-top: auto;
+}
+
+.formTermsNotice a {
+  color: var(--foreground);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Step Indicator */
+.stepIndicator {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.stepDot {
+  height: 3px;
+  border-radius: 0;
+  background: var(--min-borders, #333333);
+  transition: all 0.2s ease;
+  flex: 1;
+}
+
+.stepDotActive {
+  background: var(--foreground);
+}
+
+/* Live Username Validation Badge */
+.usernameBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-top: 0.4rem;
+}
+
+.badgeSuccess {
+  color: #22c55e;
+}
+
+.badgeError {
+  color: #ef4444;
+}
+
+.badgeChecking {
+  color: var(--task-editor-text-muted, #a1a1aa);
+}
+
+/* Password Strength Meter */
+.strengthContainer {
+  margin-top: 0.5rem;
+}
+
+.strengthBars {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  margin-bottom: 0.4rem;
+}
+
+.strengthBar {
+  height: 3px;
+  border-radius: 0;
+  background: var(--min-borders, #27272a);
+  transition: background-color 0.2s ease;
+}
+
+.strengthWeak {
+  background: #ef4444;
+}
+
+.strengthMedium {
+  background: #eab308;
+}
+
+.strengthStrong {
+  background: #22c55e;
+}
+
+.strengthText {
+  font-size: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  color: var(--task-editor-text-muted, #a1a1aa);
+}
+
+/* OTP Specific Input */
+.otpInput {
+  font-size: 1.5rem !important;
+  letter-spacing: 12px;
+  text-align: center;
+  font-family: var(--font-code) !important;
+  font-weight: 700;
+  padding: 0.85rem 0.5rem !important;
+}
+
+.otpActionsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.85rem;
+  font-size: 0.8rem;
+}
+
+.otpResendBtn {
+  background: none;
+  border: none;
+  color: var(--foreground);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.otpResendBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+/* Responsive Breakpoint */
+@media (max-width: 900px) {
+  .brandSide {
+    display: none;
+  }
+
+  .formSide {
+    flex: 1 1 100%;
+    padding: 2rem 1.5rem;
+  }
+
+  .formTopMobileLogo {
+    display: block;
+  }
 }

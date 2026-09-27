@@ -275,6 +275,7 @@ CREATE TABLE `users` (
   `dob` varchar(255) DEFAULT 'n/a',
   `location` varchar(255) DEFAULT 'n/a',
   `bio` varchar(255) DEFAULT 'n/a',
+  `gender` varchar(50) DEFAULT NULL,
   `socialProfiles` json DEFAULT NULL,
   `UPDATED_AT` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`userid`),

@@ -1,366 +1,472 @@
-
 :root {
   margin: 0px;
   padding: 0px;
-  
-/* =============================================================================================== */
-/* ================================= DEFAULT THEME VARIABLES (DARK) ============================== */
-/* =============================================================================================== */
 
-/* ============================== HOMEPAGE DEFAULT THEME VARIABLES (DARK) ======================== */
+  /* ============================== CENTRAL TYPOGRAPHY SYSTEM ============================== */
+  --font-primary: var(--font-redHatText), var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-reading: var(--font-faunaOne), var(--font-ibmPlexSerif), 'IBM Plex Serif', Georgia, 'Times New Roman', serif;
+  --font-code: Consolas, 'Courier New', monospace;
 
-  --background: #121212;
-  --foreground: #eee;
-  --card-bg: #1e1e1e;
-  --card-border: #333;
-  --card-shadow: none;
-  --card-shadow-light: none;
-  
-  /* Welcome section */
-  --welcome-bg: #1e1e1e;
-  --welcome-border: #333;
-  
-  /* Buttons */
-  --button-bg: #2a2a2a;
-  --button-bg-hover: #eeeeee;
-  --button-text: white;
-  --button-text-hover: black;
-  
-  /* Scrollbar */
-  --scrollbar-track: #121212;
-  --scrollbar-thumb: #333;
-  --scrollbar-thumb-hover: #444;
-  --min-borders: #333; /* New variable for minimal borders */
+  /* =============================================================================================== */
+  /* ===================== DEFAULT OFFICIAL THEME VARIABLES (LIGHT - WHITE AS WHITE) =============== */
+  /* =============================================================================================== */
 
+  /* ============================== HOMEPAGE DEFAULT THEME VARIABLES (LIGHT) ======================= */
 
-
-
-/* ======================= LOGIN/SIGNUP VARIABLES (DARK - Original Colors) ======================== */
-
-  --logsig-container-bg: transparent; /* Keep as transparent like your original */
-  --logsig-form-bg: #2a2a2a; /* Your exact gray */
-  --logsig-form-border: transparent; /* You had it commented out */
-  --logsig-form-shadow: none; /* You don't use shadows */
-  
-  --logsig-title-color: #fff; /* Your exact white */
-  --logsig-label-color: #ccc; /* Your exact light gray */
-  
-  --logsig-input-bg: #19191f; /* Your exact dark input bg */
-  --logsig-input-color: #fff; /* Your exact white text */
-  --logsig-input-border: #555; /* Your exact border color */
-  --logsig-input-focus: #60a5fa; /* Your exact blue focus */
-  
-  --logsig-button-bg: #2e3091; /* Your exact blue */
-  --logsig-button-hover: #3133a7; /* Your exact hover blue */
-  --logsig-button-text: white; /* Your exact white */
-  --logsig-button-disabled: #555; /* Your exact disabled gray */
-  
-  --logsig-links-color: #ccc; /* Your exact link color */
-  --logsig-link-color: #60a5fa; /* Your exact link blue */
-  --logsig-link-hover: #2688ff; /* Your exact hover blue */
-  
-  --logsig-test-info-bg: rgba(255, 255, 255, 0.05); /* Your exact test info bg */
-  --logsig-test-info-color: #999; /* Your exact test info color */
-
-
-
- /* ========== TASK EDITOR VARIABLES (DARK) ========== */
-  --task-editor-bg: #19191f;
-  --task-editor-border: #535353;
-  --task-editor-text: #ffffff;
-  --task-editor-text-muted: #888;
-  --task-editor-text-light: #ababab;
-  --task-editor-text-accent: #d3d3d3;
-  
-  /* Title and Description blocks */
-  --task-title-border: rgb(124, 124, 124);
-  --task-desc-hover-bg: rgba(46, 46, 46, 0.259);
-  
-  /* Header */
-  --task-header-bg: #111217;
-  --task-header-border: rgb(75, 75, 75);
-  --task-header-shadow: #171717;
-  --task-header-text: rgb(75, 75, 75);
-  
-  /* Buttons */
-  --task-button-bg: #2b4b6e;
-  --task-button-text: rgb(214, 214, 214);
-  --task-button-border: rgb(163, 163, 163);
-  --task-button-hover-bg: #ffffff;
-  --task-button-hover-text: #1e1e1e;
-  --task-delete-hover-text: #632929;
-  --task-button-disabled: #0000003b;
-  
-  /* TipTap Editor */
-  --editor-toolbar-bg: #1e2228;
-  --editor-toolbar-border: #323846;
-  --editor-content-bg: #1e1e1e;
-  --editor-content-text: #e0e0e0;
-  --editor-heading-color: #b5c2fe;
-  --editor-heading-border: #a3b4ff;
-  --editor-accent: #4a90e2;
-  --editor-code-bg: #2a2a2a;
-  --editor-code-color: #ff6b6b;
-  --editor-highlight-bg: #d2b26c;
-  --editor-blockquote-border: #4a90e2;
-  --editor-table-bg: #1a1a1a;
-  --editor-table-border: #404040;
-  
-  /* ========== FETCH DATA VARIABLES (DARK) ========== */
-  --fetch-container-bg: rgb(13, 14, 22);
-  --fetch-container-border: #000000;
-  --fetch-list-bg: #0f0f13;
-  --fetch-list-border: #535353;
-  --fetch-editor-bg: #19191f;
-  --fetch-button-border: #ffffff;
-  --fetch-button-text: #ffffff;
-  --fetch-button-hover-bg: #ffffff;
-  --fetch-button-hover-text: #000000;
-  --fetch-scrollbar-thumb: #555;
-  
-  /* ========== TASK CARD VARIABLES (DARK) ========== */
-  --card-bg: #262931e7;
-  --card-border: #333;
-  --card-border-hover: #555;
-  --card-title-color: #d3d3d3;
-  --card-desc-color: #ababab;
-  --card-desc-bg: #19181fe3;
-  --card-date-color: #fff7e8;
-  --card-date-bg: #1c1b21;
-  
-  /* Master AI Board */
-  --master-board-bg: #0e0e10e2;
-  --master-board-border: #212f3e;
-  --master-head-bg: #2c3e5042;
-  --master-head-text: #bed6f7;
-  --master-analyze-bg: #36526d;
-  --master-analyze-border: rgba(255, 255, 255, 0.337);
-  --master-analyze-text: #dfdfcb;
-  --master-analyze-hover-border: rgb(255, 250, 219);
-  --master-analyze-hover-text: #fefed3;
-  --master-content-text: #bababa;
-  --master-heading-color: #538abc;
-  --master-strong-color: #5b7a99;
-  --master-em-color: #7f8c8d;
-  --master-loading-bg: #16171e;
-  --master-loading-border: #4c5f957f;
-  --master-loading-text: #1d6c9e;
-  --master-error-bg: #1e1616;
-  --master-error-text: #642128;
-  --master-empty-bg: #10151b89;
-  --master-empty-border: #385067;
-
-  
-  /* ========== NAVBAR VARIABLES (DARK) ========== */
-  --navbar-bg: rgba(18, 18, 18, 0.8); /* Semi-transparent for blur */
-  --navbar-bg-blur: rgba(18, 18, 18, 0.9); /* More opaque on hover */
-  --navbar-border: rgba(255, 255, 255, 0.1);
-  --navbar-shadow: rgba(0, 0, 0, 0.3);
-  --navbar-title-color: #eee;
-  
-  /* Links */
-  --navbar-link-color: #ffffff;
-  --navbar-link-border: rgba(255, 255, 255, 0.2);
-  --navbar-link-hover-bg: rgba(255, 255, 255, 0.1);
-  --navbar-link-hover-color: #ffffff;
-  
-  /* Username */
-  --navbar-username-hover-bg: rgba(255, 255, 255, 0.1);
-  --navbar-username-hover-color: #ffffff;
-  
-  /* Dropdown Menu */
-  --navbar-menu-bg: rgba(30, 30, 30, 0.9); /* Semi-transparent for blur */
-  --navbar-menu-border: rgba(255, 255, 255, 0.15);
-  --navbar-menu-shadow: rgba(0, 0, 0, 0.4);
-  --navbar-menulink-color: #eee;
-  --navbar-menulink-border: rgba(255, 255, 255, 0.1);
-  --navbar-menulink-hover-bg: rgba(255, 255, 255, 0.1);
-  --navbar-menulink-hover-color: #ffffff;
-}
-
-
-
-
-
-
-/* =============================================================================================== */
-/* ==================================== LIGHT THEME OVERRIDES ==================================== */
-/* =============================================================================================== */
-[data-theme="light"] {
-
-/* ============================== HOMEPAGE DEFAULT THEME VARIABLES (LIGHT) ======================= */
-
-  --background: #fdfdfd;
+  --background: #ffffff;
   --foreground: #111111;
   --card-bg: #ffffff;
   --card-border: #cccccc;
   --card-shadow: none;
   --card-shadow-light: none;
-  
+
   /* Welcome section */
   --welcome-bg: #ffffff;
   --welcome-border: #cccccc;
-  
+
   /* Buttons */
   --button-bg: #f3f4f6;
   --button-bg-hover: #111111;
   --button-text: #111111;
   --button-text-hover: #ffffff;
-  
+
   /* Scrollbar */
-  --scrollbar-track: #fdfdfd;
+  --scrollbar-track: #ffffff;
   --scrollbar-thumb: #cccccc;
   --scrollbar-thumb-hover: #999999;
 
   --min-borders: #cccccc;
 
-
-
   /* ============================== LOGIN FORM VARIABLES (LIGHT) ============================== */
 
-  --logsig-container-bg: #f7fafc; /* Very light blue-gray */
+  --logsig-container-bg: transparent;
   --logsig-form-bg: #ffffff;
-  --logsig-form-border: #cbd5e0; /* Visible border */
-  --logsig-form-shadow: 0 4px 16px rgba(0, 0, 0, 0.12); /* Stronger shadow */
-  
-  --logsig-title-color: #2d3748; /* Dark text */
-  --logsig-label-color: #4a5568; /* Medium gray, readable */
-  
-  --logsig-input-bg: #f7fafc; /* Light background like dark theme */
-  --logsig-input-color: #2d3748; /* Dark text */
-  --logsig-input-border: #cbd5e0; /* Visible border */
-  --logsig-input-focus: #3182ce; /* Blue focus */
-  
-  --logsig-button-bg: #3182ce; /* Distinct button color */
-  --logsig-button-hover: #2c5aa0; /* Darker hover */
-  --logsig-button-text: white;
-  --logsig-button-disabled: #cbd5e0;
-  
-  --logsig-links-color: #718096; /* Medium gray */
-  --logsig-link-color: #3182ce; /* Blue links */
-  --logsig-link-hover: #2c5aa0; /* Darker hover */
-  
-  --logsig-test-info-bg: #edf2f7; /* Light gray background */
-  --logsig-test-info-color: #718096;
+  --logsig-form-border: #cccccc;
+  --logsig-form-shadow: none;
 
+  --logsig-title-color: #111111;
+  --logsig-label-color: #555555;
 
+  --logsig-input-bg: #ffffff;
+  --logsig-input-color: #111111;
+  --logsig-input-border: #cccccc;
+  --logsig-input-focus: #b80000;
+
+  --logsig-button-bg: #b80000;
+  --logsig-button-hover: #900000;
+  --logsig-button-text: #ffffff;
+  --logsig-button-disabled: #cccccc;
+
+  --logsig-links-color: #555555;
+  --logsig-link-color: #b80000;
+  --logsig-link-hover: #900000;
+
+  --logsig-test-info-bg: #f3f4f6;
+  --logsig-test-info-color: #555555;
 
   /* ========== TASK EDITOR VARIABLES (LIGHT) ========== */
-  --task-editor-bg: #f7fafc; /* Light background instead of pure white */
-  --task-editor-border: #cbd5e0; /* More visible borders */
-  --task-editor-text: #2d3748; /* Darker text */
-  --task-editor-text-muted: #718096; /* Better contrast for muted text */
-  --task-editor-text-light: #4a5568; /* Medium gray */
-  --task-editor-text-accent: #1a202c; /* Very dark accent */
-  
+  --task-editor-bg: #ffffff;
+  --task-editor-border: #cccccc;
+  --task-editor-text: #111111;
+  --task-editor-text-muted: #666666;
+  --task-editor-text-light: #333333;
+  --task-editor-text-accent: #111111;
+
   /* Title and Description blocks */
-  --task-title-border: #a0aec0; /* More visible border */
-  --task-desc-hover-bg: rgba(226, 232, 240, 0.5); /* Light gray hover */
-  
+  --task-title-border: #cccccc;
+  --task-desc-hover-bg: rgba(0, 0, 0, 0.02);
+
   /* Header */
-  --task-header-bg: #edf2f7; /* Light gray header */
-  --task-header-border: #cbd5e0;
-  --task-header-shadow: rgba(0, 0, 0, 0.08);
-  --task-header-text: #718096;
-  
+  --task-header-bg: #f3f4f6;
+  --task-header-border: #cccccc;
+  --task-header-shadow: none;
+  --task-header-text: #555555;
+
   /* Buttons */
-  --task-button-bg: #4299e1; /* Distinct blue */
-  --task-button-text: #ffffff;
-  --task-button-border: #4299e1;
-  --task-button-hover-bg: #2d3748; /* Dark hover like dark theme */
+  --task-button-bg: #f3f4f6;
+  --task-button-text: #111111;
+  --task-button-border: #cccccc;
+  --task-button-hover-bg: #111111;
   --task-button-hover-text: #ffffff;
-  --task-delete-hover-text: #e53e3e; /* Red for delete */
-  --task-button-disabled: #e2e8f0;
-  
+  --task-delete-hover-text: #b80000;
+  --task-button-disabled: #f3f4f6;
+
   /* TipTap Editor */
-  --editor-toolbar-bg: #edf2f7; /* Light gray toolbar */
-  --editor-toolbar-border: #cbd5e0;
+  --editor-toolbar-bg: #f3f4f6;
+  --editor-toolbar-border: #cccccc;
   --editor-content-bg: #ffffff;
-  --editor-content-text: #2d3748;
-  --editor-heading-color: #3182ce;
-  --editor-heading-border: #3182ce;
-  --editor-accent: #3182ce;
-  --editor-code-bg: #edf2f7; /* Light gray code background */
-  --editor-code-color: #d53f8c; /* Pink code text */
-  --editor-highlight-bg: #fefcbf; /* Yellow highlight */
-  --editor-blockquote-border: #3182ce;
-  --editor-table-bg: #f7fafc; /* Light table background */
-  --editor-table-border: #cbd5e0;
-  
+  --editor-content-text: #111111;
+  --editor-heading-color: #111111;
+  --editor-heading-border: #b80000;
+  --editor-accent: #b80000;
+  --editor-code-bg: #f3f4f6;
+  --editor-code-color: #b80000;
+  --editor-highlight-bg: #fff9db;
+  --editor-blockquote-border: #b80000;
+  --editor-table-bg: #f3f4f6;
+  --editor-table-border: #cccccc;
+
   /* ========== FETCH DATA VARIABLES (LIGHT) ========== */
-  --fetch-container-bg: #edf2f7; /* Light gray container */
-  --fetch-container-border: #a0aec0; /* Visible border */
-  --fetch-list-bg: #f7fafc; /* Slightly different from white */
-  --fetch-list-border: #cbd5e0;
+  --fetch-container-bg: #f3f4f6;
+  --fetch-container-border: #cccccc;
+  --fetch-list-bg: #ffffff;
+  --fetch-list-border: #cccccc;
   --fetch-editor-bg: #ffffff;
-  --fetch-button-border: #3182ce;
-  --fetch-button-text: #3182ce;
-  --fetch-button-hover-bg: #3182ce;
+  --fetch-button-border: #cccccc;
+  --fetch-button-text: #111111;
+  --fetch-button-hover-bg: #111111;
   --fetch-button-hover-text: #ffffff;
-  --fetch-scrollbar-thumb: #a0aec0;
-  
+  --fetch-scrollbar-thumb: #cccccc;
+
   /* ========== TASK CARD VARIABLES (LIGHT) ========== */
   --card-bg: #ffffff;
-  --card-border: #cbd5e0; /* More visible borders */
-  --card-border-hover: #a0aec0; /* Stronger hover border */
-  --card-title-color: #2d3748; /* Dark title */
-  --card-desc-color: #4a5568; /* Medium gray description */
-  --card-desc-bg: #f7fafc; /* Light background for description */
-  --card-date-color: #718096; /* Medium gray date */
-  --card-date-bg: #edf2f7; /* Light gray date background */
-  
+  --card-border: #cccccc;
+  --card-border-hover: #111111;
+  --card-title-color: #111111;
+  --card-desc-color: #555555;
+  --card-desc-bg: #f3f4f6;
+  --card-date-color: #666666;
+  --card-date-bg: #f3f4f6;
+
   /* Master AI Board */
-  --master-board-bg: #f7fafc; /* Light background instead of white */
-  --master-board-border: #cbd5e0; /* Visible border */
-  --master-head-bg: rgba(66, 153, 225, 0.1); /* Light blue background */
-  --master-head-text: #3182ce;
-  --master-analyze-bg: #3182ce;
-  --master-analyze-border: rgba(49, 130, 206, 0.3);
+  --master-board-bg: #ffffff;
+  --master-board-border: #cccccc;
+  --master-head-bg: #f3f4f6;
+  --master-head-text: #111111;
+  --master-analyze-bg: #b80000;
+  --master-analyze-border: #b80000;
   --master-analyze-text: #ffffff;
-  --master-analyze-hover-border: #2c5aa0;
+  --master-analyze-hover-border: #111111;
   --master-analyze-hover-text: #ffffff;
-  --master-content-text: #4a5568; /* Better contrast */
-  --master-heading-color: #3182ce;
-  --master-strong-color: #2c5aa0;
-  --master-em-color: #718096;
-  --master-loading-bg: #ebf8ff; /* Light blue loading */
-  --master-loading-border: #90cdf4;
-  --master-loading-text: #2c5aa0;
-  --master-error-bg: #fed7d7; /* Light red error */
-  --master-error-text: #c53030;
-  --master-empty-bg: #edf2f7; /* Light gray empty state */
-  --master-empty-border: #a0aec0;
-
-
+  --master-content-text: #333333;
+  --master-heading-color: #111111;
+  --master-strong-color: #b80000;
+  --master-em-color: #555555;
+  --master-loading-bg: #f3f4f6;
+  --master-loading-border: #cccccc;
+  --master-loading-text: #b80000;
+  --master-error-bg: #fff5f5;
+  --master-error-text: #b80000;
+  --master-empty-bg: #ffffff;
+  --master-empty-border: #cccccc;
 
   /* ========== NAVBAR VARIABLES (LIGHT) ========== */
-  --navbar-bg: rgba(247, 250, 252, 0.85); /* Light blue-gray with transparency */
-  --navbar-bg-blur: rgba(247, 250, 252, 0.95);
-  --navbar-border: rgba(203, 213, 224, 0.6); /* Visible border */
-  --navbar-shadow: rgba(0, 0, 0, 0.08);
-  --navbar-title-color: #2d3748;
-  
+  --navbar-bg: #ffffff;
+  --navbar-bg-blur: #ffffff;
+  --navbar-border: #cccccc;
+  --navbar-shadow: none;
+  --navbar-title-color: #111111;
+
   /* Links */
-  --navbar-link-color: #4a5568;
-  --navbar-link-border: rgba(160, 174, 192, 0.4); /* Visible link borders */
-  --navbar-link-hover-bg: rgba(45, 55, 72, 0.1);
-  --navbar-link-hover-color: #1a202c;
-  
+  --navbar-link-color: #111111;
+  --navbar-link-border: #cccccc;
+  --navbar-link-hover-bg: #f3f4f6;
+  --navbar-link-hover-color: #111111;
+
   /* Username */
-  --navbar-username-hover-bg: rgba(45, 55, 72, 0.08);
-  --navbar-username-hover-color: #1a202c;
-  
+  --navbar-username-hover-bg: #f3f4f6;
+  --navbar-username-hover-color: #111111;
+
   /* Dropdown Menu */
-  --navbar-menu-bg: rgba(255, 255, 255, 0.95); /* Slightly more opaque */
-  --navbar-menu-border: rgba(203, 213, 224, 0.8); /* Visible border */
-  --navbar-menu-shadow: rgba(0, 0, 0, 0.12); /* Stronger shadow */
-  --navbar-menulink-color: #4a5568;
-  --navbar-menulink-border: rgba(226, 232, 240, 0.8);
-  --navbar-menulink-hover-bg: rgba(45, 55, 72, 0.05);
-  --navbar-menulink-hover-color: #2d3748;
+  --navbar-menu-bg: #ffffff;
+  --navbar-menu-border: #cccccc;
+  --navbar-menu-shadow: none;
+  --navbar-menulink-color: #111111;
+  --navbar-menulink-border: #cccccc;
+  --navbar-menulink-hover-bg: #f3f4f6;
+  --navbar-menulink-hover-color: #111111;
+}
 
-  
+[data-theme="light"] {
+  --background: #ffffff;
+  --foreground: #111111;
+  --card-bg: #ffffff;
+  --card-border: #cccccc;
+  --card-shadow: none;
+  --card-shadow-light: none;
 
+  /* Welcome section */
+  --welcome-bg: #ffffff;
+  --welcome-border: #cccccc;
+
+  /* Buttons */
+  --button-bg: #f3f4f6;
+  --button-bg-hover: #111111;
+  --button-text: #111111;
+  --button-text-hover: #ffffff;
+
+  /* Scrollbar */
+  --scrollbar-track: #ffffff;
+  --scrollbar-thumb: #cccccc;
+  --scrollbar-thumb-hover: #999999;
+
+  --min-borders: #cccccc;
+
+  /* Login */
+  --logsig-container-bg: transparent;
+  --logsig-form-bg: #ffffff;
+  --logsig-form-border: #cccccc;
+  --logsig-form-shadow: none;
+  --logsig-title-color: #111111;
+  --logsig-label-color: #555555;
+  --logsig-input-bg: #ffffff;
+  --logsig-input-color: #111111;
+  --logsig-input-border: #cccccc;
+  --logsig-input-focus: #b80000;
+  --logsig-button-bg: #b80000;
+  --logsig-button-hover: #900000;
+  --logsig-button-text: #ffffff;
+  --logsig-button-disabled: #cccccc;
+  --logsig-links-color: #555555;
+  --logsig-link-color: #b80000;
+  --logsig-link-hover: #900000;
+  --logsig-test-info-bg: #f3f4f6;
+  --logsig-test-info-color: #555555;
+
+  /* Task Editor */
+  --task-editor-bg: #ffffff;
+  --task-editor-border: #cccccc;
+  --task-editor-text: #111111;
+  --task-editor-text-muted: #666666;
+  --task-editor-text-light: #333333;
+  --task-editor-text-accent: #111111;
+  --task-title-border: #cccccc;
+  --task-desc-hover-bg: rgba(0, 0, 0, 0.02);
+  --task-header-bg: #f3f4f6;
+  --task-header-border: #cccccc;
+  --task-header-shadow: none;
+  --task-header-text: #555555;
+  --task-button-bg: #f3f4f6;
+  --task-button-text: #111111;
+  --task-button-border: #cccccc;
+  --task-button-hover-bg: #111111;
+  --task-button-hover-text: #ffffff;
+  --task-delete-hover-text: #b80000;
+  --task-button-disabled: #f3f4f6;
+  --editor-toolbar-bg: #f3f4f6;
+  --editor-toolbar-border: #cccccc;
+  --editor-content-bg: #ffffff;
+  --editor-content-text: #111111;
+  --editor-heading-color: #111111;
+  --editor-heading-border: #b80000;
+  --editor-accent: #b80000;
+  --editor-code-bg: #f3f4f6;
+  --editor-code-color: #b80000;
+  --editor-highlight-bg: #fff9db;
+  --editor-blockquote-border: #b80000;
+  --editor-table-bg: #f3f4f6;
+  --editor-table-border: #cccccc;
+
+  /* Fetch data */
+  --fetch-container-bg: #f3f4f6;
+  --fetch-container-border: #cccccc;
+  --fetch-list-bg: #ffffff;
+  --fetch-list-border: #cccccc;
+  --fetch-editor-bg: #ffffff;
+  --fetch-button-border: #cccccc;
+  --fetch-button-text: #111111;
+  --fetch-button-hover-bg: #111111;
+  --fetch-button-hover-text: #ffffff;
+  --fetch-scrollbar-thumb: #cccccc;
+
+  /* Task Card */
+  --card-bg: #ffffff;
+  --card-border: #cccccc;
+  --card-border-hover: #111111;
+  --card-title-color: #111111;
+  --card-desc-color: #555555;
+  --card-desc-bg: #f3f4f6;
+  --card-date-color: #666666;
+  --card-date-bg: #f3f4f6;
+
+  /* Master AI */
+  --master-board-bg: #ffffff;
+  --master-board-border: #cccccc;
+  --master-head-bg: #f3f4f6;
+  --master-head-text: #111111;
+  --master-analyze-bg: #b80000;
+  --master-analyze-border: #b80000;
+  --master-analyze-text: #ffffff;
+  --master-analyze-hover-border: #111111;
+  --master-analyze-hover-text: #ffffff;
+  --master-content-text: #333333;
+  --master-heading-color: #111111;
+  --master-strong-color: #b80000;
+  --master-em-color: #555555;
+  --master-loading-bg: #f3f4f6;
+  --master-loading-border: #cccccc;
+  --master-loading-text: #b80000;
+  --master-error-bg: #fff5f5;
+  --master-error-text: #b80000;
+  --master-empty-bg: #ffffff;
+  --master-empty-border: #cccccc;
+
+  /* Navbar */
+  --navbar-bg: #ffffff;
+  --navbar-bg-blur: #ffffff;
+  --navbar-border: #cccccc;
+  --navbar-shadow: none;
+  --navbar-title-color: #111111;
+  --navbar-link-color: #111111;
+  --navbar-link-border: #cccccc;
+  --navbar-link-hover-bg: #f3f4f6;
+  --navbar-link-hover-color: #111111;
+  --navbar-username-hover-bg: #f3f4f6;
+  --navbar-username-hover-color: #111111;
+  --navbar-menu-bg: #ffffff;
+  --navbar-menu-border: #cccccc;
+  --navbar-menu-shadow: none;
+  --navbar-menulink-color: #111111;
+  --navbar-menulink-border: #cccccc;
+  --navbar-menulink-hover-bg: #f3f4f6;
+  --navbar-menulink-hover-color: #111111;
+}
+
+/* =============================================================================================== */
+/* ==================================== DARK THEME OVERRIDES ===================================== */
+/* =============================================================================================== */
+[data-theme="dark"] {
+  --background: #111111;
+  --foreground: #eeeeee;
+  --card-bg: #111111;
+  --card-border: #333333;
+  --card-shadow: none;
+  --card-shadow-light: none;
+
+  /* Welcome section */
+  --welcome-bg: #19191f;
+  --welcome-border: #333333;
+
+  /* Buttons */
+  --button-bg: #1e1e24;
+  --button-bg-hover: #eeeeee;
+  --button-text: #eeeeee;
+  --button-text-hover: #111111;
+
+  /* Scrollbar */
+  --scrollbar-track: #111111;
+  --scrollbar-thumb: #333333;
+  --scrollbar-thumb-hover: #444444;
+  --min-borders: #333333;
+
+  /* Login / Signup */
+  --logsig-container-bg: transparent;
+  --logsig-form-bg: #19191f;
+  --logsig-form-border: #333333;
+  --logsig-form-shadow: none;
+  --logsig-title-color: #ffffff;
+  --logsig-label-color: #a1a1aa;
+  --logsig-input-bg: #111111;
+  --logsig-input-color: #ffffff;
+  --logsig-input-border: #333333;
+  --logsig-input-focus: #ff3b30;
+  --logsig-button-bg: #ff3b30;
+  --logsig-button-hover: #d32f2f;
+  --logsig-button-text: #ffffff;
+  --logsig-button-disabled: #333333;
+  --logsig-links-color: #a1a1aa;
+  --logsig-link-color: #ff3b30;
+  --logsig-link-hover: #ff453a;
+  --logsig-test-info-bg: rgba(255, 255, 255, 0.05);
+  --logsig-test-info-color: #999999;
+
+  /* Task Editor */
+  --task-editor-bg: #111111;
+  --task-editor-border: #333333;
+  --task-editor-text: #eeeeee;
+  --task-editor-text-muted: #71717a;
+  --task-editor-text-light: #a1a1aa;
+  --task-editor-text-accent: #ffffff;
+  --task-title-border: #333333;
+  --task-desc-hover-bg: rgba(255, 255, 255, 0.03);
+  --task-header-bg: #19191f;
+  --task-header-border: #333333;
+  --task-header-shadow: none;
+  --task-header-text: #a1a1aa;
+  --task-button-bg: #19191f;
+  --task-button-text: #eeeeee;
+  --task-button-border: #333333;
+  --task-button-hover-bg: #eeeeee;
+  --task-button-hover-text: #111111;
+  --task-delete-hover-text: #ff3b30;
+  --task-button-disabled: #1e1e24;
+  --editor-toolbar-bg: #19191f;
+  --editor-toolbar-border: #333333;
+  --editor-content-bg: #111111;
+  --editor-content-text: #eeeeee;
+  --editor-heading-color: #ffffff;
+  --editor-heading-border: #ff3b30;
+  --editor-accent: #ff3b30;
+  --editor-code-bg: #19191f;
+  --editor-code-color: #ff3b30;
+  --editor-highlight-bg: #443a24;
+  --editor-blockquote-border: #ff3b30;
+  --editor-table-bg: #19191f;
+  --editor-table-border: #333333;
+
+  /* Fetch data */
+  --fetch-container-bg: #111111;
+  --fetch-container-border: #333333;
+  --fetch-list-bg: #19191f;
+  --fetch-list-border: #333333;
+  --fetch-editor-bg: #111111;
+  --fetch-button-border: #333333;
+  --fetch-button-text: #eeeeee;
+  --fetch-button-hover-bg: #eeeeee;
+  --fetch-button-hover-text: #111111;
+  --fetch-scrollbar-thumb: #333333;
+
+  /* Task Card */
+  --card-bg: #19191f;
+  --card-border: #333333;
+  --card-border-hover: #ffffff;
+  --card-title-color: #ffffff;
+  --card-desc-color: #a1a1aa;
+  --card-desc-bg: #111111;
+  --card-date-color: #71717a;
+  --card-date-bg: #19191f;
+
+  /* Master AI */
+  --master-board-bg: #111111;
+  --master-board-border: #333333;
+  --master-head-bg: #19191f;
+  --master-head-text: #ffffff;
+  --master-analyze-bg: #ff3b30;
+  --master-analyze-border: #ff3b30;
+  --master-analyze-text: #ffffff;
+  --master-analyze-hover-border: #ffffff;
+  --master-analyze-hover-text: #ffffff;
+  --master-content-text: #eeeeee;
+  --master-heading-color: #ffffff;
+  --master-strong-color: #ff3b30;
+  --master-em-color: #a1a1aa;
+  --master-loading-bg: #19191f;
+  --master-loading-border: #333333;
+  --master-loading-text: #ff3b30;
+  --master-error-bg: #1a1111;
+  --master-error-text: #ff3b30;
+  --master-empty-bg: #111111;
+  --master-empty-border: #333333;
+
+  /* Navbar */
+  --navbar-bg: #111111;
+  --navbar-bg-blur: #111111;
+  --navbar-border: #333333;
+  --navbar-shadow: none;
+  --navbar-title-color: #ffffff;
+  --navbar-link-color: #eeeeee;
+  --navbar-link-border: #333333;
+  --navbar-link-hover-bg: #19191f;
+  --navbar-link-hover-color: #ffffff;
+  --navbar-username-hover-bg: #19191f;
+  --navbar-username-hover-color: #ffffff;
+  --navbar-menu-bg: #19191f;
+  --navbar-menu-border: #333333;
+  --navbar-menu-shadow: none;
+  --navbar-menulink-color: #eeeeee;
+  --navbar-menulink-border: #333333;
+  --navbar-menulink-hover-bg: #111111;
+  --navbar-menulink-hover-color: #ffffff;
 }
 
 /* /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
@@ -370,14 +476,14 @@
 
 
 /* ============================== APPLY VARIABLES TO ELEMENTS OF HOMEPAGE ============================== */
+html,
 body {
-  font-family: 'Montserrat';
+  font-family: var(--font-primary);
   font-weight: 400;
   margin: 0px;
   padding: 0px;
   background-color: var(--background);
   color: var(--foreground);
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .card {
@@ -418,7 +524,7 @@ body {
   border-radius: 0.2rem;
   padding: 10px;
   margin-top: 20px;
-  font-family: montserrat;
+  font-family: inherit;
   font-weight: 400;
   box-shadow: 0 0.25rem 1.25rem var(--card-shadow-light);
   transition: all 0.3s ease-in-out;
@@ -447,9 +553,10 @@ body {
   flex-direction: row;
   align-items: center;
 }
+
 .Seeder-About .intro {
   background-color: var(--card-bg);
-  height:max-content;
+  height: max-content;
   min-height: 100px;
   /* max-height: 100px; */
   width: 40%;
@@ -464,8 +571,8 @@ body {
   box-shadow: 0 0.1rem 1.25rem var(--card-shadow-light);
 }
 
-.intro:hover{
- transform: scale(1.02);
+.intro:hover {
+  transform: scale(1.02);
 }
 
 
@@ -518,46 +625,7 @@ body {
   }
 }
 
-/* Global Loading Spinner styles */
-.global-loader-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: calc(100vh - 2.5rem);
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: 'Montserrat', sans-serif;
-  box-sizing: border-box;
-}
 
-.global-loader-spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid var(--min-borders);
-  border-radius: 50%;
-  border-top-color: var(--editor-accent);
-  animation: spinLoader 0.8s infinite linear;
-}
-
-.global-loader-text {
-  margin-top: 1.5rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  color: var(--task-editor-text-muted);
-  animation: pulseLoaderText 2s infinite ease-in-out;
-}
-
-@keyframes spinLoader {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes pulseLoaderText {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
-}
 
 /* Modern Landing Page Styles */
 .hero-section {
@@ -619,7 +687,7 @@ body {
   font-weight: 700;
   cursor: pointer;
   transition: all 0.15s ease;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-primary);
   z-index: 1;
 }
 
@@ -718,7 +786,7 @@ body {
 
 .feature-card h3 {
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-primary);
   font-weight: 600;
   font-size: 1.15rem;
   color: var(--foreground);

@@ -1,139 +1,218 @@
 /* src/app/Styles/Navbar.module.css */
-/* Your existing file is perfect! Just ensuring all variables are used correctly */
 
 .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 2.5rem;
-  min-height: 2.5rem;
+  height: 2.85rem;
+  min-height: 2.85rem;
   background: var(--background);
   border-bottom: 1px solid var(--min-borders);
   position: sticky;
   top: 0;
   z-index: 1000;
-  font-family: 'Montserrat';
+  font-family: var(--font-primary);
+  box-sizing: border-box;
+  padding: 0 1.25rem;
 }
+
+/* ==========================================================================
+   BRAND & LOGO PLACEMENT
+   ========================================================================== */
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   cursor: pointer;
-  margin-left: 12px;
   user-select: none;
+  text-decoration: none;
+}
+
+/* Dedicated placement slot for PNG logo */
+.logoSlot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 26px;
+  max-width: 120px;
+  flex-shrink: 0;
+}
+
+.brandLogo {
+  height: 24px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
 }
 
 .brandIcon {
-  color: var(--navbar-title-color);
-  transition: all 0.3s ease;
-}
-
-.brand:hover .brandIcon {
-  transform: rotate(-10deg) scale(1.1);
-  color: var(--editor-accent);
+  color: var(--navbar-title-color, var(--foreground));
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .title {
-  font-size: 1.15rem;
-  font-weight: 650;
-  color: var(--navbar-title-color);
-  border: none;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--navbar-title-color, var(--foreground));
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
-  transition: color 0.3s ease;
+  letter-spacing: -0.01em;
+  transition: opacity 0.15s ease;
 }
 
-.title:hover {
-  opacity: 0.8;
-  /* transform: scale(1.02); */
-  /* transition: all 0.2s ease; */
-}
+/* .brand:hover .title {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+} */
+
+/* ==========================================================================
+   NAVBAR LINKS & ACTIONS (SHARP & BBC EDITORIAL)
+   ========================================================================== */
 
 .links {
   display: flex;
-  gap: 0.6rem;
+  gap: 0.5rem;
   margin-left: auto;
-  padding: 0.2rem 0.5rem;
-  border: none;
   align-items: center;
-  text-decoration: none; 
-  font-weight: 400;
-}
-
-.Link {
   text-decoration: none;
 }
 
-.link, .logsig, .username {
+.link,
+.logsig,
+.username {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 0.35rem 0.75rem;
-  color: var(--navbar-link-color);
-  border: 1px solid var(--navbar-link-border);
-  border-radius: 0px;
-  transition: all 0.15s ease;
+  padding: 0.4rem 0.65rem;
+  color: var(--navbar-link-color, var(--task-editor-text-light));
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
   text-decoration: none;
-  font-weight: 600; 
-  font-size: 0.75rem;
-  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 0.78rem;
+  transition: color 0.15s ease, opacity 0.15s ease, background-color 0.15s ease;
+  background: transparent;
+  box-sizing: border-box;
 }
 
-.linkIcon, .userIcon {
+.link:hover,
+.logsig:hover,
+.username:hover {
+  color: var(--foreground);
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+.linkIcon,
+.userIcon {
   color: inherit;
   opacity: 0.85;
 }
 
+.navbarAvatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.dropdownAvatar {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
 .username {
-  border: 1px solid transparent;
+  border: none;
   background: transparent;
 }
 
-.username:hover {
-  background-color: var(--navbar-username-hover-bg);
-  color: var(--navbar-username-hover-color);
+/* New Story CTA Button */
+.newStoryBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.35rem 0.75rem;
+  background: var(--foreground);
+  color: var(--background);
+  border: 1px solid var(--foreground);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+  border-radius: 0px;
+  box-sizing: border-box;
 }
 
-.link:hover, .logsig:hover {
-  background-color: var(--navbar-link-hover-bg);
-  color: var(--navbar-link-hover-color);
-  border-color: var(--navbar-link-color);
+.newStoryBtn:hover {
+  opacity: 0.85;
 }
+
+/* ==========================================================================
+   THEME TOGGLE BUTTON (SHARP & WITH PROPER ICON)
+   ========================================================================== */
+
+.themeToggleBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.5rem;
+  background: transparent;
+  color: var(--navbar-link-color, var(--task-editor-text-light));
+  border: 1px solid var(--navbar-link-border, var(--min-borders));
+  border-radius: 0px;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  height: 28px;
+  box-sizing: border-box;
+}
+
+.themeToggleBtn:hover {
+  color: var(--foreground);
+  border-color: var(--foreground);
+}
+
+.themeIcon {
+  color: inherit;
+}
+
+/* ==========================================================================
+   USER DROPDOWN MENU (SHARP CORNERS, MINIMAL HOVER)
+   ========================================================================== */
 
 .menu {
   position: absolute;
-  top: 2.5rem;
-  right: 0.5rem;
+  top: calc(100% + 4px);
+  right: 0;
   background: var(--card-bg);
   border: 1px solid var(--min-borders);
-  padding: 0.2rem;
+  padding: 0.25rem 0;
   border-radius: 0px;
   z-index: 1001;
-  min-width: 120px;
+  min-width: 130px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .menuLink {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 0.45rem 0.75rem;
-  color: var(--navbar-menulink-color);
-  border-bottom: 1px solid var(--navbar-menulink-border);
-  transition: all 0.1s ease;
+  padding: 0.5rem 0.85rem;
+  color: var(--navbar-menulink-color, var(--foreground));
+  border-bottom: 1px solid var(--min-borders);
   cursor: pointer;
   border-radius: 0px;
   font-size: 0.75rem;
-  font-weight: 500;
-  position: relative;
-  overflow: hidden;
-}
-
-.dropdownIcon {
-  color: inherit;
-  opacity: 0.8;
+  font-weight: 600;
+  transition: background-color 0.15s ease;
 }
 
 .menuLink:last-child {
@@ -141,120 +220,59 @@
 }
 
 .menuLink:hover {
-  background-color: var(--navbar-menulink-hover-bg);
-  color: var(--navbar-menulink-hover-color);
-  transform: translateX(3px);
-  
-  /* ✅ Subtle shine effect on hover */
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  background-color: var(--navbar-menulink-hover-bg, rgba(255, 255, 255, 0.05));
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
-/* ✅ Mobile responsive adjustments */
+.dropdownIcon {
+  color: inherit;
+  opacity: 0.85;
+}
+
+.menuThemeRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.45rem 0.85rem;
+  color: var(--navbar-menulink-color, var(--foreground));
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-bottom: 1px solid var(--min-borders);
+}
+
+.menuThemeLabel {
+  color: inherit;
+}
+
+.menuDivider {
+  height: 1px;
+  background: var(--min-borders);
+  margin: 0.15rem 0;
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVENESS
+   ========================================================================== */
+
 @media (max-width: 768px) {
   .navbar {
+    padding: 0 0.75rem;
     height: 3rem;
-    min-height: 3rem;
-    padding: 0 0.5rem;
   }
-  
-  .title {
-    font-size: 1.1rem;
-    margin: 0 0 0 4px;
-  }
-  
-  .links {
-    gap: 0.4rem;
-    padding: 0.1rem 0.3rem;
-  }
-  
-  .link, .logsig, .username {
-    padding: 0.3rem 0.4rem;
-    font-size: 0.7rem;
-  }
-  
-  .menu {
-    right: 0.5rem;
-    min-width: 100px;
-  }
-  
-  .menuLink {
-    padding: 0.5rem 0.5rem;
-    font-size: 0.7rem;
-  }
-}
 
-/* ✅ Accessibility improvements */
-@media (prefers-reduced-motion: reduce) {
-  .navbar,
-  .title,
+  .title {
+    font-size: 0.95rem;
+  }
+
+  .links {
+    gap: 0.35rem;
+  }
+
   .link,
   .logsig,
-  .username,
-  .menuLink {
-    transition: none;
-  }
-  
-  .menu {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* ✅ High contrast mode support */
-@media (prefers-contrast: high) {
-  .navbar {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    background: var(--navbar-bg-blur);
-  }
-  
-  .menu {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    background: var(--navbar-menu-bg);
-  }
-}
-
-/* ✅ Focus states for accessibility */
-/* .link:focus,
-.logsig:focus,
-.username:focus,
-.menuLink:focus {
-  outline: 2px solid var(--editor-accent);
-  outline-offset: 2px;
-}
-
-.title:focus {
-  outline: 2px solid var(--editor-accent);
-  outline-offset: 2px;
-  border-radius: 2px;
-} */
-
-.loadingbar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2.5px;
-  background: linear-gradient(90deg, transparent 0%, var(--editor-accent) 50%, transparent 100%);
-  background-size: 200% 100%;
-  animation: loadingShimmer 1.4s infinite linear;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-  z-index: 1010;
-}
-
-.loadingbar.active {
-  opacity: 1;
-}
-
-@keyframes loadingShimmer {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
+  .username {
+    padding: 0.3rem 0.45rem;
+    font-size: 0.7rem;
   }
 }

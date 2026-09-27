@@ -6,7 +6,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 // POST method for custom analysis
 export async function POST(request) {
   try {
-    console.log("🤖 Processing custom AI analysis...");
+    console.log("Processing custom AI analysis...");
 
     const requestBody = await request.json(); // Get the full object
     const text = requestBody.text; // Extract the text property
@@ -20,7 +20,12 @@ export async function POST(request) {
       }, { status: 400 });
     }
 
-    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
+    let model;
+    try {
+      model = genAI.getGenerativeModel({ model: "gemini-3.6-flash" });
+    } catch {
+      model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
+    }
     
     const prompt = 
 `Before analyzing or improving any given text, first identify what kind of writing it is — not just by form, but by intention. It could be:
@@ -70,7 +75,7 @@ Text: ${text}`;
     });
 
   } catch (error) {
-    console.error("❌ POST Error:", error.message);
+    console.error("POST Error:", error.message);
     return NextResponse.json({ 
       success: false, 
       error: error.message 

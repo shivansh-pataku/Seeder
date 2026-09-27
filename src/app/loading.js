@@ -1,8 +1,17 @@
+'use client'
+
+import { useEffect } from 'react'
+import { useLoading } from './Components/LoadingContext'
+
 export default function Loading() {
-  return (
-    <div className="global-loader-container">
-      <div className="global-loader-spinner"></div>
-      <p className="global-loader-text">Loading Workspace</p>
-    </div>
-  );
+  const { startLoading, stopLoading } = useLoading()
+
+  useEffect(() => {
+    startLoading()
+    return () => {
+      stopLoading()
+    }
+  }, [startLoading, stopLoading])
+
+  return null
 }

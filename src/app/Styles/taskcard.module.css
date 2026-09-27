@@ -1,216 +1,224 @@
 /* src/app/Styles/taskcard.module.css */
+
 .suggestion_board {
-  background-color: aqua;
-  border-radius: 0.5rem;
+  background-color: var(--card-desc-bg);
+  border-radius: 0px;
+  border: 1px solid var(--card-border);
 }
 
 .taskCard {
   display: flex;
   flex-direction: column;
-  gap: 0.1rem;
-  padding: 0.6rem;
+  gap: 0.75rem;
+  padding: 1.2rem;
   border: 1px solid var(--card-border);
   background-color: var(--card-bg);
   border-radius: 0px;
-  font-family: 'DM Sans';
-  transition: border-color 0.15s ease;
+  font-family: var(--font-reading);
   cursor: pointer;
+  box-shadow: none;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+  position: relative;
 }
 
 .taskCard:hover {
   border-color: var(--foreground);
 }
 
+/* Selected state - BBC active border style */
+.selected {
+  border-color: var(--foreground) !important;
+  border-left: 4px solid var(--editor-accent) !important;
+}
+
 .tcareaA {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  height: auto;
-  padding-bottom: 0px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .taskTitle {
-  color: var(--card-title-color);
-  margin: 0rem auto 0.1rem 0.1rem;
-  font-size: 0.85rem;
-  line-clamp: 1;
-  font-weight: 550;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  transition: color 0.3s ease;
+  color: var(--foreground);
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.3;
+  word-wrap: break-word;
+  white-space: normal;
 }
 
 .tcareaB {
   display: flex;
-  flex-direction: row;
-  width: auto;
-  position: relative;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .taskDescription {
-  flex-direction: row;
-  width: 100%;
-  margin: 0rem 0rem auto 0rem;
-  padding: 0.6rem 0.3rem 0.6rem 0.3rem;
-  margin: 0.3rem 0.1rem 0.3rem 0.1rem;
-  color: var(--card-desc-color);
-  text-align: justify;
-  background-color: var(--card-desc-bg);
-  line-height: 1.2;
-  border-radius: 0px;
-  font-size: 0.7rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
+  margin: 0;
+  padding: 0;
+  color: var(--task-editor-text-light);
+  line-height: 1.4;
+  font-size: 0.82rem;
   font-weight: 500;
-  white-space: unset;
+  text-align: left;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: unset;
-  position: relative;
-  z-index: 1;
+  text-overflow: ellipsis;
 }
 
 .taskDate {
-  padding: auto;
-  margin-left: auto;
-  margin-top: auto;
-  color: var(--card-date-color);
-  background-color: var(--card-date-bg);
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  font-style: italic;
-  font-weight: lighter;
-  font-size: 0.6rem;
-  bottom: -0.9px;
-  right: 1.1px;
-  position: absolute;
-  z-index: 2;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--task-editor-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
+/* Category/Status Tag (YouTube / BBC News tag style) */
 .taskButton {
-  width: auto;
-  height: auto;
-  margin: 0rem;
-  border: none;
-  color: var(--card-title-color);
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid var(--card-border);
+  color: var(--task-editor-text-light);
+  padding: 0.2rem 0.5rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: var(--font-primary);
+  cursor: pointer;
+  transition: all 0.15s ease;
   border-radius: 0px;
-  background-color: transparent;
-  cursor: pointer;
-  font-size: 0.7rem;
-  font-weight: 400;
-  font-family: monospace, system-ui, sans-serif;
-  cursor: pointer;
+}
+
+.taskButton.active {
+  border-color: var(--editor-accent);
+  color: var(--editor-accent);
+}
+
+.taskButton.completed {
+  border-color: var(--card-border);
+  color: var(--task-editor-text-muted);
+  text-decoration: line-through;
+}
+
+.taskButton:hover {
+  background: var(--foreground);
+  color: var(--background);
+  border-color: var(--foreground);
 }
 
 /* Master AI Board */
 .master_board {
-  margin-top: 20px;
-  padding: 3px;
+  margin-top: 1rem;
   border: 1px solid var(--master-board-border);
   background-color: var(--master-board-bg);
   border-radius: 0px;
+  overflow: hidden;
 }
 
 .master_head {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 4px;
-  padding: 20px;
+  padding: 0.75rem 1rem;
   background-color: var(--master-head-bg);
+  border-bottom: 1px solid var(--master-board-border);
 }
 
-.master_head>div:first-child {
-  font-size: 15px;
+.master_head > div:first-child {
+  font-size: 0.75rem;
   color: var(--master-head-text);
-  font-family: 'montserrat';
-  font-weight: 600;
+  font-family: var(--font-primary);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .master_analyse {
-  font-size: 12px;
-  color: var(--master-analyze-text);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #ffffff;
   border: 1px solid var(--master-analyze-border);
   border-radius: 0px;
-  padding: 3px 6px 3px 6px;
+  padding: 0.25rem 0.6rem;
   background-color: var(--master-analyze-bg);
+  cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .master_analyse:hover {
-  color: var(--master-analyze-hover-text);
-  border: 1px solid var(--master-analyze-hover-border);
-  border-radius: 0px;
-  background-color: var(--master-analyze-bg);
+  background-color: var(--foreground);
+  border-color: var(--foreground);
+  color: var(--background);
 }
 
 .master_advice {
-  background-color: rgba(255, 255, 255, 0);
-  padding: 8px;
+  padding: 1rem;
 }
 
 .master_advice h3 {
-  margin-top: 0;
-  margin-bottom: 15px;
+  margin: 0 0 0.75rem 0;
   color: var(--master-heading-color);
-  font-size: 16px;
-  padding-bottom: 5px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-.master_head {
-  max-height: 400px;
-  overflow-y: auto;
-  padding: 7px 10px 7px 10px;
-  border-radius: 6px;
-  border-left: 4px solid var(--editor-accent);
-  border-right: 4px solid var(--editor-accent);
-}
-
-/* Style markdown elements */
-.markdown_content h1 {
-  font-size: 1.5em;
-  color: var(--master-heading-color);
-  margin-bottom: 10px;
-  border-bottom: 2px solid var(--editor-accent);
-  padding-bottom: 5px;
-}
-
-.markdown_content h2 {
-  font-size: 1.3em;
-  color: var(--master-heading-color);
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-
-.markdown_content h3 {
-  font-size: 1.1em;
-  color: var(--master-content-text);
-  margin-top: 15px;
-  margin-bottom: 8px;
-}
-
-.markdown_content p {
-  line-height: 1.6;
-  margin-bottom: 12px;
-  color: var(--master-content-text);
-  font-size: 1rem;
-}
-
-.markdown_content ul,
-.markdown_content ol {
-  margin-bottom: 15px;
-  padding-left: 20px;
-}
-
-.markdown_content li {
-  margin-bottom: 5px;
+/* Markdown elements within Master AI guidance */
+.markdown_content {
+  font-size: 0.85rem;
   line-height: 1.5;
   color: var(--master-content-text);
 }
 
+.markdown_content h1 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--master-heading-color);
+  margin: 1.5rem 0 0.5rem 0;
+  border-bottom: 1px solid var(--master-board-border);
+  padding-bottom: 0.25rem;
+}
+
+.markdown_content h2 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--master-heading-color);
+  margin: 1.2rem 0 0.4rem 0;
+}
+
+.markdown_content h3 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--master-heading-color);
+  margin: 1rem 0 0.3rem 0;
+}
+
+.markdown_content p {
+  margin: 0 0 0.75rem 0;
+}
+
+.markdown_content ul,
+.markdown_content ol {
+  margin: 0 0 0.75rem 0;
+  padding-left: 1.25rem;
+}
+
+.markdown_content li {
+  margin-bottom: 0.25rem;
+}
+
 .markdown_content strong {
-  color: var(--master-strong-color);
-  font-weight: 600;
+  color: var(--foreground);
+  font-weight: 700;
 }
 
 .markdown_content em {
@@ -220,25 +228,26 @@
 
 .markdown_content code {
   background-color: var(--editor-code-bg);
-  padding: 2px 4px;
-  border-radius: 3px;
-  font-family: 'Courier New', monospace;
-  font-size: 0.9em;
+  padding: 0.1rem 0.3rem;
+  border-radius: 0px;
+  font-family: var(--font-code);
+  font-size: 0.75rem;
   color: var(--editor-code-color);
 }
 
 .markdown_content blockquote {
-  border-left: 4px solid var(--editor-accent);
-  margin: 15px 0;
-  padding-left: 15px;
+  border-left: 2px solid var(--editor-accent);
+  margin: 1rem 0;
+  padding-left: 0.75rem;
   color: var(--master-em-color);
   font-style: italic;
 }
 
 /* Loading and Error States */
 .loading {
-  padding: 13px;
-  font-size: 0.8rem;
+  padding: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
   text-align: center;
   color: var(--master-loading-text);
   background-color: var(--master-loading-bg);
@@ -247,62 +256,32 @@
 }
 
 .error {
-  padding: 13px;
-  font-size: 0.8rem;
+  padding: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
   background-color: var(--master-error-bg);
   color: var(--master-error-text);
   border-radius: 0px;
-  border: 1px solid var(--master-error-bg);
+  border: 1px solid var(--master-board-border);
 }
 
 .empty_state {
-  padding: 13px;
-  font-size: 0.8rem;
+  padding: 0.75rem;
+  font-size: 0.75rem;
   text-align: center;
   color: var(--task-editor-text-muted);
   font-style: italic;
   background-color: var(--master-empty-bg);
   border-radius: 0px;
-  border: 1px solid var(--master-empty-border);
+  border: 1px dashed var(--master-empty-border);
 }
 
 .timestamp {
   display: block;
-  margin-top: 15px;
+  margin-top: 1rem;
   color: var(--task-editor-text-muted);
-  font-size: 0.85em;
+  font-size: 0.7rem;
   text-align: right;
-  padding-top: 10px;
-  border-top: 1px solid var(--editor-toolbar-border);
-}
-
-/* Scrollbar styling for markdown content */
-.markdown_content::-webkit-scrollbar {
-  width: 6px;
-}
-
-.markdown_content::-webkit-scrollbar-track {
-  background: var(--editor-toolbar-bg);
-  border-radius: 3px;
-}
-
-.markdown_content::-webkit-scrollbar-thumb {
-  background: var(--fetch-scrollbar-thumb);
-  border-radius: 3px;
-}
-
-.markdown_content::-webkit-scrollbar-thumb:hover {
-  background: var(--card-border-hover);
-}
-
-.master_advice h3,
-.master_advice h3,
-.markdown_content h1,
-.markdown_content h2,
-.markdown_content h3,
-.markdown_content p,
-.markdown_content code,
-.markdown_content li,
-.markdown_content blockquote {
-  font-size: small;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--master-board-border);
 }

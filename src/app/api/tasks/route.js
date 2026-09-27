@@ -24,9 +24,9 @@ export async function GET() {
 
     console.log('Fetching tasks for user:', currentUser.email)
 
-    // Fix: Use .execute() instead of .query()
+    // Lightweight list: no full description, just a short preview for cards
     const [rows] = await dbConfig.execute(
-      'SELECT * FROM TASKS WHERE userid = ? ORDER BY created_at DESC', 
+      'SELECT id, title, status, created_at, SUBSTRING(description, 1, 300) AS preview FROM TASKS WHERE userid = ? ORDER BY created_at DESC', 
       [currentUser.id]
     )
 
@@ -77,10 +77,13 @@ export async function POST(request) {
     const body = await request.json()
     const { title, description } = body
 
-    // Validate required fields
-    if (!title || !description) {
+    const cleanTitle = (title || '').trim()
+    const cleanDescription = (description || '').trim()
+
+    // Validate that at least title or description is provided
+    if (!cleanTitle && !cleanDescription) {
       return new Response(JSON.stringify({ 
-        message: 'Title and description are required',
+        message: 'A title or text content is required',
         error: 'Missing required fields' 
       }), {
         status: 400,
@@ -88,12 +91,15 @@ export async function POST(request) {
       })
     }
 
-    console.log('Creating task for user:', currentUser.email)
+    const finalTitle = cleanTitle || 'Untitled Story'
+    const finalDescription = description || ''
+
+    console.log('Creating writing for user:', currentUser.email)
 
     // Fix: Use .execute() instead of .query()
     const [result] = await dbConfig.execute(
       'INSERT INTO TASKS (title, description, userid, status, created_at) VALUES (?, ?, ?, ?, NOW())',
-      [title, description, currentUser.id, 0]
+      [finalTitle, finalDescription, currentUser.id, body.status ? 1 : 0]
     )
 
     // Fetch the newly created task
@@ -102,10 +108,10 @@ export async function POST(request) {
       [result.insertId]
     )
 
-    console.log('Task created with ID:', result.insertId)
+    console.log('Writing created with ID:', result.insertId)
 
     return new Response(JSON.stringify({ 
-      message: 'Task created successfully',
+      message: 'Writing created successfully',
       task: {
         ...newTask[0],
         status: newTask[0].status === 1
@@ -146,12 +152,12 @@ export async function PUT(request) {
     }
 
     const body = await request.json();
-    const { id, title, description } = body;
+    const { id, title, description, status } = body;
 
     // Validate required fields
-    if (!id || !title || !description) {
+    if (!id) {
       return new Response(JSON.stringify({ 
-        message: 'ID, title, and description are required',
+        message: 'ID is required',
         error: 'Missing required fields' 
       }), {
         status: 400,
@@ -159,11 +165,23 @@ export async function PUT(request) {
       });
     }
 
+    const cleanTitle = (title || '').trim();
+    const finalTitle = cleanTitle || 'Untitled Story';
+    const finalDescription = description !== undefined ? description : '';
+
+    let updateQuery = 'UPDATE TASKS SET title = ?, description = ?';
+    const queryParams = [finalTitle, finalDescription];
+
+    if (status !== undefined) {
+      updateQuery += ', status = ?';
+      queryParams.push(status ? 1 : 0);
+    }
+
+    updateQuery += ' WHERE id = ? AND userid = ?';
+    queryParams.push(id, currentUser.id);
+
     // Update task (ensure it belongs to current user)
-    const [result] = await dbConfig.execute(
-      'UPDATE TASKS SET title = ?, description = ? WHERE id = ? AND userid = ?',
-      [title, description, id, currentUser.id]
-    );
+    const [result] = await dbConfig.execute(updateQuery, queryParams);
 
     if (result.affectedRows === 0) {
       return new Response(JSON.stringify({ 

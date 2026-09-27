@@ -5,15 +5,14 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import styles from '../Styles/about.module.css';
 import Link from 'next/link';
-import { HugeiconsIcon } from '@hugeicons/react';
-import { 
-  PencilEdit01Icon, 
-  SparklesIcon, 
-  Clock01Icon, 
-  MailSendIcon, 
-  MailIcon,
-  HelpCircleIcon
-} from '@hugeicons/core-free-icons';
+import {
+  PencilSimple,
+  Sparkle,
+  Clock,
+  Question,
+  PaperPlaneTilt,
+  EnvelopeSimple,
+} from '@phosphor-icons/react';
 
 export default function AboutPage() {
   const { data: session, status } = useSession();
@@ -25,7 +24,7 @@ export default function AboutPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (status !== 'authenticated') {
       setError('Please sign in to submit feedback');
       router.push('/auth/signin');
@@ -43,12 +42,12 @@ export default function AboutPage() {
     try {
       const res = await fetch('/api/about', {
         method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json' 
+        headers: {
+          'Content-Type': 'application/json'
         },
         credentials: 'include',
-        body: JSON.stringify({ 
-          feedback_text: feedback.trim() 
+        body: JSON.stringify({
+          feedback_text: feedback.trim()
         }),
       });
 
@@ -60,7 +59,7 @@ export default function AboutPage() {
 
       setSubmitted(true);
       setFeedback('');
-      
+
       setTimeout(() => {
         setSubmitted(false);
       }, 3000);
@@ -86,9 +85,9 @@ export default function AboutPage() {
         <div className={styles.philosophyCard}>
           <h3>A Workspace for Every Writer</h3>
           <p>
-            We believe that writing is the ultimate tool for structuring human thought. 
-            For those who already love to write, we provide a clean, distraction-free environment to let your ideas flow. 
-            For those who want to write but struggle to start, we offer a welcoming space designed to make drafting simple, 
+            We believe that writing is the ultimate tool for structuring human thought.
+            For those who already love to write, we provide a clean, distraction-free environment to let your ideas flow.
+            For those who want to write but struggle to start, we offer a welcoming space designed to make drafting simple,
             intuitive, and rewarding.
           </p>
         </div>
@@ -96,9 +95,9 @@ export default function AboutPage() {
         <div className={styles.philosophyCard}>
           <h3>Beyond the Facts with Master AI</h3>
           <p>
-            Fact-checking is only the beginning. Master AI acts as your collaborative partner, 
-            helping you go beyond raw statistics and limits. It guides your content structure, 
-            captures context, maps thematic references, and provides editorial suggestions to ensure 
+            Fact-checking is only the beginning. Master AI acts as your collaborative partner,
+            helping you go beyond raw statistics and limits. It guides your content structure,
+            captures context, maps thematic references, and provides editorial suggestions to ensure
             your arguments are clear, convincing, and well-organized.
           </p>
         </div>
@@ -110,7 +109,7 @@ export default function AboutPage() {
         <div className={styles.featuresGrid}>
           <div className={styles.featureItem}>
             <div className={styles.iconWrapper}>
-              <HugeiconsIcon icon={PencilEdit01Icon} size={18} />
+              <PencilSimple size={18} weight="regular" />
             </div>
             <div>
               <h4>Minimalist Editor</h4>
@@ -120,7 +119,7 @@ export default function AboutPage() {
 
           <div className={styles.featureItem}>
             <div className={styles.iconWrapper}>
-              <HugeiconsIcon icon={SparklesIcon} size={18} />
+              <Sparkle size={18} weight="regular" />
             </div>
             <div>
               <h4>Master AI Insights</h4>
@@ -130,7 +129,7 @@ export default function AboutPage() {
 
           <div className={styles.featureItem}>
             <div className={styles.iconWrapper}>
-              <HugeiconsIcon icon={Clock01Icon} size={18} />
+              <Clock size={18} weight="regular" />
             </div>
             <div>
               <h4>Instant Sync</h4>
@@ -144,11 +143,11 @@ export default function AboutPage() {
       <section className={styles.bottomSection}>
         <div className={styles.feedbackContainer}>
           <div className={styles.feedbackHeader}>
-            <HugeiconsIcon icon={HelpCircleIcon} size={16} className={styles.feedbackIcon} />
+            <Question size={16} weight="regular" className={styles.feedbackIcon} />
             <h3>Share Your Thoughts</h3>
           </div>
           <p className={styles.feedbackIntro}>
-            Have an idea for a feature or found something that could be improved? 
+            Have an idea for a feature or found something that could be improved?
             Let us know how we can make your writing workflow even better.
           </p>
 
@@ -160,9 +159,14 @@ export default function AboutPage() {
 
           {error && <div className={styles.errorAlert}>{error}</div>}
 
+          {/*------------------> to next div */}
+        </div>
+
+        <div className={styles.contactContainer}>
+          <h3>Get in Touch</h3>
           {submitted ? (
             <div className={styles.successAlert}>
-              ✨ Thank you! Your feedback has been recorded successfully.
+              Thank you! Your feedback has been recorded successfully.
             </div>
           ) : (
             status === 'authenticated' && (
@@ -181,12 +185,12 @@ export default function AboutPage() {
                   <span>Submitting as: {session?.user?.name || session?.user?.email}</span>
                   <span>{feedback.length}/1000</span>
                 </div>
-                <button 
-                  className={styles.feedbackButton} 
+                <button
+                  className={styles.feedbackButton}
                   type="submit"
                   disabled={loading || !feedback.trim()}
                 >
-                  <HugeiconsIcon icon={MailSendIcon} size={13} style={{ marginRight: '6px' }} />
+                  <PaperPlaneTilt size={13} weight="regular" style={{ marginRight: '6px' }} />
                   {loading ? 'Sending...' : 'Send Feedback'}
                 </button>
               </form>
@@ -194,19 +198,19 @@ export default function AboutPage() {
           )}
         </div>
 
-        <div className={styles.contactContainer}>
+        {/* <div className={styles.contactContainer}>
           <h3>Get in Touch</h3>
           <p className={styles.contactText}>
             We&apos;d love to connect. Reach out to us via email:
           </p>
           <a href="mailto:patakushivansh@gmail.com" className={styles.emailLink}>
-            <HugeiconsIcon icon={MailIcon} size={14} style={{ marginRight: '6px', verticalAlign: 'middle' }} />
+            <EnvelopeSimple size={14} weight="regular" style={{ marginRight: '6px', verticalAlign: 'middle' }} />
             patakushivansh@gmail.com
           </a>
           <footer className={styles.footerNote}>
             Built with care using Next.js, React, MySQL, and NextAuth.
           </footer>
-        </div>
+        </div> */}
       </section>
     </div>
   );

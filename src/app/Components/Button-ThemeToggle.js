@@ -1,63 +1,30 @@
-// 'use client'
-// import styles from '../Styles/Navbar.module.css' // imports styles from a CSS module file named Button-ThemeToggle.module.css, which is used to style the button component.
-// import { useTheme } from './ThemeProvider' // imports a custom hook useTheme from the ThemeContext file, which is used to access the current theme and a function to toggle the theme between light and dark modes. This hook is used to get the current theme and toggleTheme function, which are then used in the ThemeToggle component to switch between themes when the button is clicked.
+'use client';
 
-// export default function ThemeToggle() {
-//   const { theme, toggleTheme } = useTheme() //value returned by useTheme is an object with theme and toggleTheme properties, which are destructured; const { theme, toggleTheme } = theme keyword is used to destructure the object returned by useTheme hook, and deyword toggleTheme is a function that toggles the theme between light and dark modes. means the value theme will be passed to ThemeToggle component, and toggleTheme is a function that will be called when the button is clicked to switch the theme. and this function will activate when the button is clicked
-
-//   return (
-//     <button onClick={toggleTheme} style={{
-//       padding: '4px 6.5px 4px 7px',
-//       alignItems: 'center',
-//       justifyContent: 'center',
-//       margin: '',
-//       borderRadius: '10rem',
-//       border: '1.5px solid #848484ff',
-//       backgroundColor: theme === 'dark' ? '#232323ff' : '#e9e9e9c0', // means if theme is dark, use a dark background, else light
-//       color: theme === 'dark' ? '#fff' : '#000', // means if theme is dark, use white text, else black
-//       cursor: 'pointer'
-//     }}>
-//       {theme === 'dark' ? 'D' : 'N'}
-//     </button>
-//   )
-// }
-
-
-// // all this code is to create a button that toggles the theme between light and dark modes.
-
-// src/app/Components/Button-ThemeToggle.js
-'use client'
-import { useTheme } from './ThemeProvider'
+import { useTheme } from './ThemeProvider';
+import { Sun, Moon } from '@phosphor-icons/react';
+import styles from '../Styles/Navbar.module.css';
 
 export default function ThemeToggle() {
-  const { theme, toggleTheme } = useTheme()
+  const { theme, toggleTheme } = useTheme();
+  const isDark = theme === 'dark';
 
   return (
-    <button 
-      onClick={toggleTheme} 
-      style={{
-        padding: '4px 4px',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: '10rem',
-        border: 'none',
-        backgroundColor: 'transparent',
-        // color: 'var(--foreground)',
-        cursor: 'pointer',
-        transition: 'all 0.3s ease',
-        fontSize: '14px',
-        fontWeight: '500'
+    <div
+      onClick={(e) => {
+        e.stopPropagation();
+        toggleTheme();
       }}
-      onMouseOver={(e) => {
-        // e.target.style.transform = 'scale(1.05)'
-        e.target.style.boxShadow = '0 2px 8px var(--card-shadow)'
-      }}
-      onMouseOut={(e) => {
-        // e.target.style.transform = 'scale(1)'
-        e.target.style.boxShadow = 'none'
-      }}
+      className={styles.menuLink}
+      title={isDark ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
+      role="button"
+      tabIndex={0}
     >
-      {theme === 'dark' ? '🌙' : '☀️'}
-    </button>
-  )
+      {isDark ? (
+        <Sun size={14} weight="regular" className={styles.dropdownIcon} />
+      ) : (
+        <Moon size={14} weight="regular" className={styles.dropdownIcon} />
+      )}
+      <span>Theme: {isDark ? 'Dark' : 'Light'}</span>
+    </div>
+  );
 }
