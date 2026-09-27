@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import styles from './stories.module.css';
 import { getGenderAvatar } from '@/app/lib/avatar';
-import { Export, ShareFat, BookmarkSimple } from '@phosphor-icons/react';
+import { ShareFat, BookmarkSimple } from '@phosphor-icons/react';
 import { useInkWell } from '@/app/Components/InkWell';
 import SaveToFolderPopover from '../SaveToFolderPopover';
 import { folderCache } from '@/app/lib/folderCache';
