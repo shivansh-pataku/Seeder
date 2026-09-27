@@ -157,7 +157,7 @@ function ResetPasswordForm() {
       <div className={styles.formSide}>
         <div className={styles.formTopMobileLogo}>
           <Link href="/" className={styles.brandLogoMark}>
-            {/* <span>✦</span> */}
+            {/* <span>✦ </span> */}
             <span>Meridian</span>
           </Link>
         </div>
