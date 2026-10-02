@@ -191,6 +191,7 @@ export class StoryService {
         id: row.id,
         title: row.title?.trim() || 'Untitled Story',
         snippet,
+        description: rawHtml,
         story_type: row.story_type || 'article',
         status: row.status === 1,
         word_count: words,

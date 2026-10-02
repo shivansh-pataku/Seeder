@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import Image from 'next/image';
 import styles from '../Styles/settings.module.css';
 import { getGenderAvatar } from '../lib/avatar';
 import { useLoading } from '../Components/LoadingContext';
+import { useInkWell } from '../Components/InkWell';
 import {
   User,
   Camera,
@@ -35,6 +36,7 @@ const PLATFORMS = {
 export default function SettingsPage() {
   const { data: session, status, update } = useSession();
   const { startLoading, stopLoading } = useLoading();
+  const inkWell = useInkWell();
 
   // Active section tab in sidebar ('profile' | 'account')
   const [activeTab, setActiveTab] = useState('profile');
@@ -43,6 +45,14 @@ export default function SettingsPage() {
   const [initialData, setInitialData] = useState(null);
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
+  const [initialUsername, setInitialUsername] = useState('');
+  const [usernameStatus, setUsernameStatus] = useState({
+    checking: false,
+    available: null,
+    message: '',
+  });
+  const usernameDebounceRef = useRef(null);
+  const isInitialLoadedRef = useRef(false);
   const [email, setEmail] = useState('');
   const [bio, setBio] = useState('');
   const [location, setLocation] = useState('');
@@ -72,7 +82,8 @@ export default function SettingsPage() {
   // Load existing profile & settings data
   useEffect(() => {
     async function loadSettings() {
-      if (!session?.user?.username) return;
+      if (!session?.user?.username || isInitialLoadedRef.current) return;
+      isInitialLoadedRef.current = true;
 
       try {
         const res = await fetch(`/api/profile/${session.user.username}`);
@@ -81,7 +92,8 @@ export default function SettingsPage() {
         if (res.ok && data.profile) {
           const p = data.profile;
           setName(p.name || '');
-          setUsername(session.user.username);
+          setUsername(p.username || session.user.username);
+          setInitialUsername(p.username || session.user.username);
           setEmail(p.email || '');
           setBio(p.bio || '');
           setLocation(p.location || '');
@@ -105,6 +117,7 @@ export default function SettingsPage() {
 
           setInitialData({
             name: p.name || '',
+            username: p.username || session.user.username,
             bio: p.bio || '',
             location: p.location || '',
             dob: p.dob ? p.dob.substring(0, 10) : '',
@@ -116,15 +129,74 @@ export default function SettingsPage() {
         }
       } catch (err) {
         console.error('Failed to load settings:', err);
+        inkWell.toast({ message: 'Failed to load profile settings', type: 'error' });
       } finally {
         setPageLoading(false);
       }
     }
 
-    if (session?.user?.username) {
+    if (session?.user?.username && !isInitialLoadedRef.current) {
       loadSettings();
     }
-  }, [session]);
+  }, [session, inkWell]);
+
+  // Live username availability check
+  useEffect(() => {
+    if (!initialUsername) return;
+
+    const trimmed = username.trim();
+    if (!trimmed) {
+      setUsernameStatus({ checking: false, available: false, message: 'Username cannot be empty' });
+      return;
+    }
+
+    if (trimmed.toLowerCase() === initialUsername.toLowerCase()) {
+      setUsernameStatus({ checking: false, available: true, message: 'Current username' });
+      return;
+    }
+
+    if (trimmed.length < 3) {
+      setUsernameStatus({ checking: false, available: false, message: 'Minimum 3 characters required' });
+      return;
+    }
+
+    if (trimmed.length > 30) {
+      setUsernameStatus({ checking: false, available: false, message: 'Maximum 30 characters allowed' });
+      return;
+    }
+
+    const usernameRegex = /^[a-zA-Z0-9_.-]+$/;
+    if (!usernameRegex.test(trimmed)) {
+      setUsernameStatus({ checking: false, available: false, message: 'Letters, numbers, dots, dashes, and underscores only' });
+      return;
+    }
+
+    setUsernameStatus({ checking: true, available: null, message: 'Checking availability...' });
+
+    if (usernameDebounceRef.current) {
+      clearTimeout(usernameDebounceRef.current);
+    }
+
+    usernameDebounceRef.current = setTimeout(async () => {
+      try {
+        const res = await fetch(`/api/auth/signup/check-username?username=${encodeURIComponent(trimmed)}`);
+        const data = await res.json();
+        if (data.available) {
+          setUsernameStatus({ checking: false, available: true, message: 'Username is available' });
+        } else {
+          setUsernameStatus({ checking: false, available: false, message: data.error || 'Username is already taken' });
+        }
+      } catch {
+        setUsernameStatus({ checking: false, available: null, message: 'Error checking availability' });
+      }
+    }, 400);
+
+    return () => {
+      if (usernameDebounceRef.current) {
+        clearTimeout(usernameDebounceRef.current);
+      }
+    };
+  }, [username, initialUsername]);
 
   // Social profile change handlers
   const handleSocialChange = (index, field, value) => {
@@ -154,6 +226,7 @@ export default function SettingsPage() {
   const handleCancel = () => {
     if (initialData) {
       setName(initialData.name);
+      setUsername(initialData.username || initialUsername);
       setBio(initialData.bio);
       setLocation(initialData.location);
       setDob(initialData.dob);
@@ -166,6 +239,7 @@ export default function SettingsPage() {
           : [{ platform: 'github', username: '' }]
       );
     }
+    setUsernameStatus({ checking: false, available: true, message: 'Current username' });
     setSaveSuccess('');
     setSaveError('');
   };
@@ -173,6 +247,18 @@ export default function SettingsPage() {
   // Save changes
   const handleSave = async (e) => {
     if (e) e.preventDefault();
+
+    const cleanUsername = username.trim();
+    if (!cleanUsername) {
+      inkWell.toast({ message: 'Username cannot be empty', type: 'error' });
+      return;
+    }
+
+    if (usernameStatus.available === false) {
+      inkWell.toast({ message: usernameStatus.message || 'Please choose an available username', type: 'error' });
+      return;
+    }
+
     setSaving(true);
     setSaveSuccess('');
     setSaveError('');
@@ -185,10 +271,12 @@ export default function SettingsPage() {
           username: sp.username.trim(),
         }));
 
-      const res = await fetch(`/api/profile/${session?.user?.username || username}`, {
+      const targetUsername = initialUsername || session?.user?.username;
+      const res = await fetch(`/api/profile/${targetUsername}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          username: cleanUsername,
           name: name.trim(),
           email,
           bio: bio.trim(),
@@ -203,20 +291,22 @@ export default function SettingsPage() {
 
       const data = await res.json();
       if (!res.ok) {
-        throw new Error(data.message || 'Failed to save settings');
+        throw new Error(data.error?.message || data.message || 'Failed to save settings');
       }
 
-      // Update session if gender changed
+      // Update session if username or gender changed
       if (typeof update === 'function') {
         try {
-          await update({ gender });
+          await update({ username: cleanUsername, gender });
         } catch (uErr) {
           console.warn('Session update notice:', uErr);
         }
       }
 
+      setInitialUsername(cleanUsername);
       setInitialData({
         name: name.trim(),
+        username: cleanUsername,
         bio: bio.trim(),
         location: location.trim(),
         dob,
@@ -226,10 +316,13 @@ export default function SettingsPage() {
         socialProfiles: validSocialProfiles.length > 0 ? validSocialProfiles : [{ platform: 'github', username: '' }],
       });
 
+      inkWell.toast({ message: 'Settings saved successfully', type: 'success' });
       setSaveSuccess('Settings and profile updated successfully!');
       setTimeout(() => setSaveSuccess(''), 4000);
     } catch (err) {
-      setSaveError(err.message || 'An error occurred while saving.');
+      const errMsg = err.message || 'An error occurred while saving.';
+      inkWell.toast({ message: errMsg, type: 'error' });
+      setSaveError(errMsg);
     } finally {
       setSaving(false);
     }
@@ -352,27 +445,54 @@ export default function SettingsPage() {
 
               {/* Profile Form Body Rows */}
               <div className={styles.formBody}>
-                {/* Row 1: Username (strictly non-modifiable) */}
+                {/* Row 1: Username (modifiable) */}
                 <div className={styles.formRow}>
                   <div className={styles.rowLabelCol}>
-                    <label className={styles.rowLabel}>Username</label>
+                    <label htmlFor="username" className={styles.rowLabel}>Username</label>
                     <p className={styles.rowDescription}>
-                      Your unique handle on Zentho (non-modifiable).
+                      Your unique handle on Meridain (modifiable).
                     </p>
                   </div>
                   <div className={styles.rowInputCol}>
                     <div className={styles.inputWithPrefix}>
-                      <span className={styles.inputPrefix}>zentho.com/</span>
+                      <span className={styles.inputPrefix}>meridain.app/</span>
                       <input
+                        id="username"
                         type="text"
                         value={username}
-                        disabled
-                        readOnly
-                        title="Username cannot be changed"
+                        onChange={(e) => setUsername(e.target.value.toLowerCase().replace(/\s+/g, ''))}
+                        placeholder="yourhandle"
                         className={styles.prefixInput}
-                        style={{ opacity: 0.75, cursor: 'not-allowed' }}
+                        autoCapitalize="none"
+                        autoCorrect="off"
+                        spellCheck="false"
                       />
                     </div>
+                    {usernameStatus.message && (
+                      <div
+                        className={`${styles.usernameStatusBadge} ${
+                          usernameStatus.checking
+                            ? styles.usernameChecking
+                            : usernameStatus.available
+                            ? styles.usernameAvailable
+                            : styles.usernameUnavailable
+                        }`}
+                      >
+                        {usernameStatus.checking && <span>Checking availability...</span>}
+                        {!usernameStatus.checking && usernameStatus.available && (
+                          <>
+                            <CheckCircle size={14} weight="fill" />
+                            <span>{usernameStatus.message}</span>
+                          </>
+                        )}
+                        {!usernameStatus.checking && usernameStatus.available === false && (
+                          <>
+                            <WarningCircle size={14} weight="fill" />
+                            <span>{usernameStatus.message}</span>
+                          </>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
 

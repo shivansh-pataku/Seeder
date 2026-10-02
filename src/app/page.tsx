@@ -63,10 +63,10 @@ export default function HomePage() {
             {/* LHS: Massive Literary Headline, Subtitle, & Pill CTAs */}
             <div className={styles.mediumLhs}>
               <h1 className={styles.mediumTitle}>
-                Human stories<br />&amp; ideas.
+                Humans thinks<br />&amp; write ideas.
               </h1>
               <p className={styles.mediumSubtitle}>
-                A quiet place to read, write, and deepen your understanding of the world.
+                Whatever you think uniquely must be shared, otherwise it is art but useless.
               </p>
               <div className={styles.mediumActions}>
                 <Link

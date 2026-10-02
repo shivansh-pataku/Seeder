@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styles from './stories.module.css';
 import { Globe, PencilSimple, Trash, Heart } from '@phosphor-icons/react';
 import { useInkWell } from '@/app/Components/InkWell';
@@ -36,6 +36,15 @@ export default function StoryDeskCard({
   const isPublished = Boolean(story.status);
   const displayTitle = story.title?.trim() || 'Untitled Story';
   const displaySnippet = story.snippet || story.preview || 'No content drafted yet...';
+
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const [isSingleLineTitle, setIsSingleLineTitle] = useState(() => (story.title?.trim().length || 0) <= 36);
+
+  useEffect(() => {
+    if (titleRef.current) {
+      setIsSingleLineTitle(titleRef.current.offsetHeight <= 32);
+    }
+  }, [story.title]);
 
   const words = story.word_count || 0;
   const readTimeMin = story.reading_time_minutes || 1;
@@ -90,8 +99,8 @@ export default function StoryDeskCard({
 
       {/* Main Content: Title & Snippet */}
       <div>
-        <h3 className={styles.deskTitle}>{displayTitle}</h3>
-        <p className={styles.deskSnippet}>{displaySnippet}</p>
+        <h3 ref={titleRef} className={styles.deskTitle}>{displayTitle}</h3>
+        <p className={`${styles.deskSnippet} ${isSingleLineTitle ? styles.snippetExpanded : ''}`}>{displaySnippet}</p>
       </div>
 
       {/* Footer Bar: Date & Likes on Left, Action buttons on Right */}

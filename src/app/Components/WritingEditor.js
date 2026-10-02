@@ -34,8 +34,10 @@ import {
   LinkSimple,
   ArrowUUpLeft,
   ArrowUUpRight,
+  X,
 } from '@phosphor-icons/react';
 import styles from '../Styles/desk-editor.module.css';
+import typographyStyles from '../Styles/story-typography.module.css';
 
 export default function WritingEditor({
   title = '',
@@ -47,6 +49,12 @@ export default function WritingEditor({
   editorRef,
 }) {
   const titleTextareaRef = useRef(null);
+  const [, setSelectionTick] = useState(0);
+  const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
+  const [linkUrl, setLinkUrl] = useState('');
+  const [linkText, setLinkText] = useState('');
+  const [linkSelectionRange, setLinkSelectionRange] = useState(null);
+
   const [wordCount, setWordCount] = useState(() => {
     if (!content) return 0;
     const plain = content.replace(/<[^>]+>/g, ' ').trim();
@@ -114,8 +122,24 @@ export default function WritingEditor({
     immediatelyRender: false,
     editorProps: {
       attributes: {
-        class: styles.tiptapEditor,
+        class: `${styles.tiptapEditor} ${typographyStyles.storyContent}`,
       },
+      transformPastedHTML(html) {
+        if (!html) return html;
+        // Strip hardcoded colors & background styling to ensure pasted text adapts seamlessly to dark/light themes
+        return html
+          .replace(/(style="[^"]*?)color\s*:\s*[^;"]+;?/gi, '$1')
+          .replace(/(style="[^"]*?)background-color\s*:\s*[^;"]+;?/gi, '$1')
+          .replace(/(style="[^"]*?)background\s*:\s*[^;"]+;?/gi, '$1')
+          .replace(/<font\b[^>]*color=[^>]*>/gi, '')
+          .replace(/<\/font>/gi, '');
+      },
+    },
+    onSelectionUpdate: () => {
+      setSelectionTick((t) => t + 1);
+    },
+    onTransaction: () => {
+      setSelectionTick((t) => t + 1);
     },
     onUpdate: ({ editor: ed }) => {
       const html = ed.getHTML();
@@ -176,18 +200,69 @@ export default function WritingEditor({
     }
   };
 
-  const setLink = () => {
+  const openLinkModal = () => {
     if (!editor) return;
-    const previousUrl = editor.getAttributes('link').href;
-    const url = window.prompt('URL', previousUrl);
+    const { from, to } = editor.state.selection;
+    const selectedText = editor.state.doc.textBetween(from, to, ' ');
+    const previousUrl = editor.getAttributes('link').href || '';
 
-    if (url === null) return;
-    if (url === '') {
+    setLinkUrl(previousUrl);
+    setLinkText(selectedText);
+    setLinkSelectionRange({ from, to });
+    setIsLinkModalOpen(true);
+  };
+
+  const handleApplyLink = (e) => {
+    if (e) e.preventDefault();
+    if (!editor) return;
+
+    const trimmedUrl = linkUrl.trim();
+    if (!trimmedUrl) {
       editor.chain().focus().extendMarkRange('link').unsetLink().run();
+      setIsLinkModalOpen(false);
       return;
     }
 
-    editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+    const formattedUrl = /^(https?:\/\/|mailto:|\/)/i.test(trimmedUrl)
+      ? trimmedUrl
+      : `https://${trimmedUrl}`;
+
+    if (linkSelectionRange) {
+      const currentSelectedText = editor.state.doc.textBetween(
+        linkSelectionRange.from,
+        linkSelectionRange.to,
+        ' '
+      );
+      if (linkText && linkText !== currentSelectedText) {
+        editor
+          .chain()
+          .focus()
+          .setTextSelection(linkSelectionRange)
+          .insertContent({
+            type: 'text',
+            text: linkText,
+            marks: [{ type: 'link', attrs: { href: formattedUrl } }],
+          })
+          .run();
+        setIsLinkModalOpen(false);
+        return;
+      }
+    }
+
+    editor
+      .chain()
+      .focus()
+      .extendMarkRange('link')
+      .setLink({ href: formattedUrl })
+      .run();
+
+    setIsLinkModalOpen(false);
+  };
+
+  const handleRemoveLink = () => {
+    if (!editor) return;
+    editor.chain().focus().extendMarkRange('link').unsetLink().run();
+    setIsLinkModalOpen(false);
   };
 
   if (!editor) return null;
@@ -329,7 +404,7 @@ export default function WritingEditor({
           <div className={styles.toolbarGroup}>
             <button
               type="button"
-              onClick={setLink}
+              onClick={openLinkModal}
               className={`${styles.toolbarBtn} ${editor.isActive('link') ? styles.active : ''}`}
               title="Insert Link"
             >
@@ -372,7 +447,7 @@ export default function WritingEditor({
 
         {/* TipTap Canvas */}
         <div className={styles.editorWrapper}>
-          <EditorContent editor={editor} />
+          <EditorContent editor={editor} className={typographyStyles.storyContent} />
         </div>
 
         {/* Live Word Count Indicator (computed purely from typed content in editor) */}
@@ -381,6 +456,87 @@ export default function WritingEditor({
             {wordCount} {wordCount === 1 ? 'word' : 'words'}
           </span>
         </div>
+
+        {/* Custom Hyperlink Modal Dialog */}
+        {isLinkModalOpen && (
+          <div
+            className={styles.linkModalOverlay}
+            onClick={() => setIsLinkModalOpen(false)}
+          >
+            <div
+              className={styles.linkModalDialog}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className={styles.linkModalHeader}>
+                <h3 className={styles.linkModalTitle}>
+                  {editor.getAttributes('link').href ? 'Edit Hyperlink' : 'Insert Hyperlink'}
+                </h3>
+                <button
+                  type="button"
+                  className={styles.linkModalCloseBtn}
+                  onClick={() => setIsLinkModalOpen(false)}
+                  aria-label="Close"
+                >
+                  <X size={16} />
+                </button>
+              </div>
+
+              <form onSubmit={handleApplyLink}>
+                <div className={styles.linkModalBody}>
+                  <div className={styles.linkFieldGroup}>
+                    <label className={styles.linkFieldLabel}>Display Text</label>
+                    <input
+                      type="text"
+                      className={styles.linkFieldInput}
+                      placeholder="Text to display..."
+                      value={linkText}
+                      onChange={(e) => setLinkText(e.target.value)}
+                    />
+                  </div>
+
+                  <div className={styles.linkFieldGroup}>
+                    <label className={styles.linkFieldLabel}>Link Destination (URL)</label>
+                    <input
+                      type="text"
+                      className={styles.linkFieldInput}
+                      placeholder="https://example.com"
+                      value={linkUrl}
+                      onChange={(e) => setLinkUrl(e.target.value)}
+                      autoFocus
+                    />
+                  </div>
+                </div>
+
+                <div className={styles.linkModalFooter}>
+                  {editor.getAttributes('link').href && (
+                    <button
+                      type="button"
+                      className={`${styles.linkModalBtn} ${styles.linkModalBtnDanger}`}
+                      onClick={handleRemoveLink}
+                    >
+                      Remove Link
+                    </button>
+                  )}
+                  <div className={styles.linkModalActionsRight}>
+                    <button
+                      type="button"
+                      className={styles.linkModalBtn}
+                      onClick={() => setIsLinkModalOpen(false)}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className={`${styles.linkModalBtn} ${styles.linkModalBtnPrimary}`}
+                    >
+                      Apply
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

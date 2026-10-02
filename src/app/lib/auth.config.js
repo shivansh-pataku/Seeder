@@ -12,7 +12,8 @@ export const authConfig = {
 
       const isProtected = 
         pathname.startsWith('/desk') || 
-        pathname.startsWith('/settings');
+        pathname.startsWith('/settings') ||
+        pathname.startsWith('/library');
 
       const isAuthRoute = 
         pathname.startsWith('/auth/signin') || 
@@ -38,8 +39,14 @@ export const authConfig = {
         token.gender = user.gender || null;
         token.provider = account?.provider || 'credentials';
       }
-      if (trigger === 'update' && session?.gender !== undefined) {
-        token.gender = session.gender;
+      if (trigger === 'update') {
+        if (session?.gender !== undefined) {
+          token.gender = session.gender;
+        }
+        if (session?.username !== undefined) {
+          token.username = session.username;
+          token.name = session.username;
+        }
       }
       return token;
     },

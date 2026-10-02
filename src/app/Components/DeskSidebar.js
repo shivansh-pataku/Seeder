@@ -78,11 +78,12 @@ export default function DeskSidebar({
       if (filterStatus === 'published' && !story.status) return false;
       if (filterStatus === 'draft' && story.status) return false;
 
-      // Search filter
+      // Search filter across title AND snippet / description
       if (searchQuery.trim()) {
         const query = searchQuery.toLowerCase().trim();
         const titleMatch = (story.title || '').toLowerCase().includes(query);
-        return titleMatch;
+        const descMatch = (story.snippet || story.description || story.preview || '').toLowerCase().includes(query);
+        return titleMatch || descMatch;
       }
 
       return true;

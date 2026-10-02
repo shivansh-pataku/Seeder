@@ -499,7 +499,7 @@ export default function WriterStudio({ initialId }) {
       </header>
 
       {/* Studio Workspace: Collapsible Sidebar + Writing Canvas */}
-      <div className={styles.studioBody}>
+      <div className={`${styles.studioBody} ${isSidebarCollapsed ? styles.sidebarCollapsed : ''}`}>
         <DeskSidebar
           stories={stories}
           activeStoryId={activeId}

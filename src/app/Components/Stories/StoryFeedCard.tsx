@@ -50,6 +50,8 @@ export default function StoryFeedCard({ story, article }: StoryFeedCardProps) {
   const [isSaved, setIsSaved] = useState(() => (currentStory ? folderCache.isStorySaved(currentStory.id) : false));
   const [showSavePopover, setShowSavePopover] = useState(false);
   const bookmarkBtnRef = useRef<HTMLButtonElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const [isSingleLineTitle, setIsSingleLineTitle] = useState(() => (currentStory?.title?.length || 0) <= 38);
 
   const initialLikesCount = currentStory?.likes_count ?? currentStory?.likesCount ?? 0;
   const [likesCount, setLikesCount] = useState(() =>
@@ -62,6 +64,9 @@ export default function StoryFeedCard({ story, article }: StoryFeedCardProps) {
   // Synchronize bookmark and like state with global caches
   useEffect(() => {
     if (!currentStory) return;
+    if (titleRef.current) {
+      setIsSingleLineTitle(titleRef.current.offsetHeight <= 32);
+    }
     setIsSaved(folderCache.isStorySaved(currentStory.id));
     setIsLiked(likeCache.isStoryLiked(currentStory.id) || Boolean(currentStory.is_liked || currentStory.isLiked));
     setLikesCount(likeCache.getLikesCount(currentStory.id, initialLikesCount));
@@ -201,12 +206,12 @@ export default function StoryFeedCard({ story, article }: StoryFeedCardProps) {
         </span>
       </div>
 
-      {/* Middle Body: Max 2 lines title, Max 3 lines snippet (both justified) */}
+      {/* Middle Body: Max 2 lines title, Snippet utilizes remaining space when title is single-line */}
       <div className={styles.feedCardBody}>
-        <h3 className={styles.feedCardTitle}>
+        <h3 ref={titleRef} className={styles.feedCardTitle}>
           {currentStory.title || 'Untitled Story'}
         </h3>
-        <p className={styles.feedCardSnippet}>
+        <p className={`${styles.feedCardSnippet} ${isSingleLineTitle ? styles.snippetExpanded : ''}`}>
           {currentStory.snippet || 'No preview available.'}
         </p>
       </div>

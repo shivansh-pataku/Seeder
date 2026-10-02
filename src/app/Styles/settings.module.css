@@ -354,6 +354,26 @@
   outline: none;
 }
 
+.usernameStatusBadge {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.usernameChecking {
+  color: var(--task-editor-text-muted, #71717a);
+}
+
+.usernameAvailable {
+  color: #22c55e;
+}
+
+.usernameUnavailable {
+  color: #ef4444;
+}
+
 /* Textarea for bio - Sharp */
 .bioTextarea {
   width: 100%;

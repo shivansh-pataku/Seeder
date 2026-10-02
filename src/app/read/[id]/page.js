@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from '../../Styles/read.module.css';
+import typographyStyles from '../../Styles/story-typography.module.css';
 import { getGenderAvatar } from '../../lib/avatar';
 import { ArrowLeft, PencilSimple, BookmarkSimple, Heart, ShareFat } from '@phosphor-icons/react';
 import { useInkWell } from '../../Components/InkWell';
@@ -202,7 +203,7 @@ export default function ArticleReadPage() {
           });
         }
 
-        return `<${tag}${attrs} id="${id}">${text}</${tag}>`;
+        return `<${tag} id="${id}" ${attrs}>${text}</${tag}>`;
       }
     );
 
@@ -299,7 +300,6 @@ export default function ArticleReadPage() {
             LEFT SIDEBAR: TABLE OF CONTENTS (PAGE OUTLINE)
             ================================================================== */}
         <aside className={styles.tocSidebar}>
-
           <Link href="/" className={styles.backLink}>
             <ArrowLeft size={15} weight="regular" />
             <span>Back to Stories</span>
@@ -423,7 +423,7 @@ export default function ArticleReadPage() {
           </header>
 
           <article
-            className={styles.articleBody}
+            className={typographyStyles.storyContent}
             dangerouslySetInnerHTML={{ __html: processedHtml }}
           />
 

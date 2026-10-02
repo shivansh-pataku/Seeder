@@ -67,7 +67,8 @@ export default function AuthBrandPanel({
       {/* Top Brand Header */}
       <div className={styles.brandHeader}>
         <Link href="/" className={styles.brandLogoMark}>
-          {/* <span>✦</span> */}
+          {/* Future Logo Image Placeholder: */}
+          {/* <Image src="/logo.png" alt="Meridian Logo" width={28} height={28} priority /> */}
           <span>Meridian</span>
         </Link>
       </div>

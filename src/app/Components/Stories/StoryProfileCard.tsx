@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './stories.module.css';
 import { Heart } from '@phosphor-icons/react';
@@ -24,6 +24,15 @@ interface StoryProfileCardProps {
 
 export default function StoryProfileCard({ story }: StoryProfileCardProps) {
   const router = useRouter();
+
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const [isSingleLineTitle, setIsSingleLineTitle] = useState(() => (story?.title?.trim().length || 0) <= 40);
+
+  useEffect(() => {
+    if (titleRef.current) {
+      setIsSingleLineTitle(titleRef.current.offsetHeight <= 26);
+    }
+  }, [story?.title]);
 
   if (!story) return null;
 
@@ -53,7 +62,7 @@ export default function StoryProfileCard({ story }: StoryProfileCardProps) {
       title="Click to read story"
     >
       {/* Row 1: Title */}
-      <h4 className={styles.profileTitle}>{displayTitle}</h4>
+      <h4 ref={titleRef} className={styles.profileTitle}>{displayTitle}</h4>
 
       {/* Row 2: Metadata (Story type, date, reading time, likes count) */}
       <div className={styles.profileMetaRow}>
@@ -73,8 +82,8 @@ export default function StoryProfileCard({ story }: StoryProfileCardProps) {
         </span>
       </div>
 
-      {/* Row 3: Description Snippet (Slim) */}
-      <p className={styles.profileSnippet}>{displaySnippet}</p>
+      {/* Row 3: Description Snippet (Slim, expands to 2 lines if title is single-line) */}
+      <p className={`${styles.profileSnippet} ${isSingleLineTitle ? styles.snippetExpanded : ''}`}>{displaySnippet}</p>
     </article>
   );
 }

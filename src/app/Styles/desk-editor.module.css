@@ -172,31 +172,26 @@
   position: relative;
 }
 
-/* Collapsible Sidebar with Lean Slide Animation */
+/* Collapsible Sidebar with Clean Width Transition */
 .sidebar {
-  width: 365px;
-  min-width: 365px;
+  width: 360px;
   border-right: 1px solid var(--min-borders);
   background-color: var(--background);
   display: flex;
   flex-direction: column;
-  transition: margin-left 0.22s cubic-bezier(0.2, 0, 0, 1),
-    width 0.22s cubic-bezier(0.2, 0, 0, 1),
-    opacity 0.18s ease;
   overflow: hidden;
   flex-shrink: 0;
   z-index: 10;
   position: relative;
-  will-change: margin-left, width;
+  box-sizing: border-box;
+  transition: width 0.22s cubic-bezier(0.2, 0, 0, 1),
+              border-color 0.15s ease;
 }
 
 .sidebar.collapsed {
   width: 0;
-  min-width: 0;
-  margin-left: -365px;
-  opacity: 0;
+  border-right-color: transparent;
   pointer-events: none;
-  border-right: 1px solid transparent;
 }
 
 /* =========================================================================
@@ -1117,6 +1112,12 @@
   flex-direction: column;
   gap: 1.5rem;
   font-family: var(--font-reading);
+  transition: max-width 0.22s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.sidebarCollapsed .canvasInner,
+.zenMode .canvasInner {
+  max-width: min(94vw, 1280px);
 }
 
 /* Floating/Sticky Editor Toolbar */
@@ -1223,224 +1224,11 @@
   padding: 20px;
   outline: none;
   min-height: 300px;
-  font-family: var(--font-reading);
-  line-height: 1.7;
-  font-size: 15px;
-  color: var(--editor-content-text);
   background: transparent;
   transition: all 0.3s ease;
 }
 
-/* Content Styles */
-.tiptapEditor h1 {
-  font-size: 2.2em;
-  font-weight: 700;
-  margin: 0.5em 0 0.6em 0;
-  color: var(--editor-heading-color);
-  line-height: 1.3;
-  border-bottom: 3px solid var(--editor-heading-border);
-  padding-bottom: 0.4em;
-}
-
-.tiptapEditor h2 {
-  font-size: 1.8em;
-  font-weight: 600;
-  margin: 1em 0 0.5em 0;
-  color: var(--editor-heading-color);
-  border-left: 4px solid var(--editor-heading-border);
-  padding-left: 0.4em;
-  line-height: 1.3;
-}
-
-.tiptapEditor h3 {
-  font-size: 1.4em;
-  font-weight: 600;
-  margin: 0.8em 0 0.4em 0;
-  color: var(--editor-content-text);
-  line-height: 1.4;
-}
-
-.tiptapEditor p {
-  margin: 0.8em 0;
-  line-height: 1.3;
-  color: var(--editor-content-text);
-}
-
-.tiptapEditor ul,
-.tiptapEditor ol {
-  margin: 1em 0;
-  padding-left: 2em;
-  color: var(--editor-content-text);
-}
-
-.tiptapEditor li {
-  margin: 0.4em 0;
-  line-height: 1.6;
-  display: flex;
-  flex-direction: row;
-}
-
-.tiptapEditor li p {
-  height: auto !important;
-  min-height: auto !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  line-height: 1.6;
-  display: inline !important;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-
-.tiptapEditor blockquote {
-  border-left: 4px solid var(--editor-blockquote-border);
-  margin: 1.5em 0;
-  padding: 1em 1.5em;
-  color: var(--task-editor-text-light);
-  font-style: italic;
-  background: var(--editor-code-bg);
-  border-radius: 0px;
-  position: relative;
-}
-
-.tiptapEditor blockquote::before {
-  content: '"';
-  font-size: 4em;
-  color: var(--task-editor-text-muted);
-  position: absolute;
-  top: -0.2em;
-  left: 0.2em;
-  font-family: var(--font-reading);
-}
-
-.tiptapEditor pre {
-  background: var(--editor-code-bg);
-  color: var(--editor-content-text);
-  border: 1px solid var(--editor-toolbar-border);
-  border-radius: 0px;
-  padding: 1.5em;
-  overflow-x: auto;
-  font-family: var(--font-code);
-  font-size: 0.9em;
-  line-height: 1.5;
-  margin: 1.5em 0;
-}
-
-.tiptapEditor code {
-  background: var(--editor-code-bg);
-  color: var(--editor-code-color);
-  padding: 0.3em 0.5em;
-  border-radius: 0px;
-  font-family: var(--font-code);
-  font-size: 0.9em;
-  font-weight: 500;
-  border: 1px solid var(--editor-toolbar-border);
-}
-
-.tiptapEditor pre code {
-  background: none;
-  color: inherit;
-  padding: 0;
-  border-radius: 0;
-  border: none;
-}
-
-.tiptapEditor mark {
-  background: var(--editor-highlight-bg);
-  color: var(--task-editor-text);
-  padding: 0.2em 0.3em;
-  border-radius: 0px;
-}
-
-.tiptapEditor hr {
-  margin: 2em 0;
-  border: none;
-  border-top: 2px solid var(--editor-toolbar-border);
-}
-
-/* Task List Styles */
-.tiptapEditor ul[data-type="taskList"] {
-  list-style: none;
-  padding-left: 0;
-  margin: 1em 0;
-}
-
-.tiptapEditor li[data-type="taskItem"] {
-  display: flex !important;
-  align-items: flex-start !important;
-  gap: 0.5rem !important;
-  margin: 0.6em 0 !important;
-  padding: 0.3em 0 !important;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-  list-style: none !important;
-  height: auto !important;
-  min-height: auto !important;
-  line-height: 1.6;
-}
-
-.tiptapEditor li[data-type="taskItem"]:hover {
-  background-color: var(--task-desc-hover-bg);
-}
-
-/* Link Styles */
-.tiptapEditor .customLink,
-.tiptapEditor a {
-  color: var(--editor-accent);
-  text-decoration: none;
-  border-bottom: 2px solid transparent;
-  transition: all 0.2s ease;
-  padding: 0.1em 0;
-}
-
-.tiptapEditor .customLink:hover,
-.tiptapEditor a:hover {
-  color: var(--editor-heading-color);
-  border-bottom-color: var(--editor-accent);
-  background: var(--task-desc-hover-bg);
-}
-
-/* Table Styles */
-.tiptapEditor table {
-  border-collapse: collapse;
-  table-layout: fixed;
-  width: 100%;
-  margin: 1em 0;
-  overflow: hidden;
-  background: var(--editor-table-bg);
-  border-radius: 0px;
-}
-
-.tiptapEditor td,
-.tiptapEditor th {
-  min-width: 1em;
-  border: 1px solid var(--editor-table-border);
-  padding: 8px 12px;
-  vertical-align: top;
-  box-sizing: border-box;
-  position: relative;
-  color: var(--editor-content-text);
-}
-
-.tiptapEditor th {
-  font-weight: bold;
-  text-align: left;
-  background: var(--editor-code-bg);
-  color: var(--editor-content-text);
-}
-
-.tiptapEditor .selectedCell:after {
-  z-index: 2;
-  position: absolute;
-  content: "";
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background: var(--task-desc-hover-bg);
-  pointer-events: none;
-}
-
-/* Placeholder */
+/* TipTap Empty State Placeholder */
 .tiptapEditor p.is-editor-empty:first-child::before {
   color: var(--task-editor-text-muted);
   content: attr(data-placeholder);
@@ -1450,92 +1238,7 @@
   font-style: italic;
 }
 
-/* Enhanced Task List Styles - COMPLETE FIX */
-.tiptapEditor li[data-type="taskItem"] input[type="checkbox"] {
-  appearance: none !important;
-  outline: none !important;
-  width: 1.2rem !important;
-  height: 1.2rem !important;
-  margin: 0.1em 0 0 0 !important;
-  padding: 0 !important;
-  background: transparent !important;
-  border: 2px solid var(--task-editor-text-muted) !important;
-  border-radius: 0px !important;
-  cursor: pointer !important;
-  flex-shrink: 0 !important;
-  position: relative !important;
-}
-
-/* Checkmark styling */
-.tiptapEditor li[data-type="taskItem"] input[type="checkbox"]:checked {
-  background: var(--editor-accent) !important;
-  border-color: var(--editor-accent) !important;
-}
-
-.tiptapEditor li[data-type="taskItem"] input[type="checkbox"]:checked::before {
-  content: '✓' !important;
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  color: white !important;
-  font-size: 0.8rem !important;
-  font-weight: bold !important;
-  line-height: 1 !important;
-}
-
-.tiptapEditor li[data-type="taskItem"] input[type="checkbox"]:hover {
-  border-color: var(--editor-accent) !important;
-  background: var(--task-desc-hover-bg) !important;
-}
-
-/* Task item text content */
-.tiptapEditor li[data-type="taskItem"]>label,
-.tiptapEditor li[data-type="taskItem"]>div,
-.tiptapEditor li[data-type="taskItem"]>p {
-  flex: 1 !important;
-  line-height: 1.6 !important;
-  color: var(--editor-content-text) !important;
-  word-wrap: break-word !important;
-  overflow-wrap: break-word !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  height: auto !important;
-  min-height: auto !important;
-}
-
-/* Completed task styling */
-.tiptapEditor li[data-type="taskItem"][data-checked="true"]>label,
-.tiptapEditor li[data-type="taskItem"][data-checked="true"]>div,
-.tiptapEditor li[data-type="taskItem"][data-checked="true"]>p,
-.tiptapEditor li[data-type="taskItem"]:has(input:checked)>label,
-.tiptapEditor li[data-type="taskItem"]:has(input:checked)>div,
-.tiptapEditor li[data-type="taskItem"]:has(input:checked)>p {
-  text-decoration: line-through !important;
-  opacity: 0.6 !important;
-  color: var(--task-editor-text-muted) !important;
-}
-
-/* Ensure regular lists work properly too */
-.tiptapEditor ul:not([data-type="taskList"]) li,
-.tiptapEditor ol li {
-  display: list-item !important;
-  height: auto !important;
-  min-height: auto !important;
-  margin: 0.4em 0 !important;
-  line-height: 1.6 !important;
-  align-items: flex-start !important;
-}
-
-.tiptapEditor ul:not([data-type="taskList"]) li p,
-.tiptapEditor ol li p {
-  display: inline !important;
-  height: auto !important;
-  min-height: auto !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  line-height: inherit !important;
-}
+/* Content typography is unified in story-typography.module.css */
 
 /* Mobile responsive */
 @media (max-width: 768px) {
@@ -1549,20 +1252,18 @@
 
   .sidebar {
     width: min(340px, 85vw);
-    min-width: 0;
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     z-index: 50;
     box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
+    transition: transform 0.22s cubic-bezier(0.2, 0, 0, 1);
   }
 
   .sidebar.collapsed {
-    width: 0;
-    min-width: 0;
-    margin-left: calc(-1 * min(340px, 85vw));
-    opacity: 0;
+    transform: translateX(-100%);
+    box-shadow: none;
     pointer-events: none;
   }
 
@@ -1591,4 +1292,167 @@
   color: var(--task-editor-text-muted, #71717a);
   letter-spacing: 0.02em;
   font-family: inherit;
+}
+
+/* =========================================================================
+   CUSTOM HYPERLINK MODAL DIALOG
+   ========================================================================= */
+.linkModalOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.linkModalDialog {
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--min-borders, #333333);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 440px;
+  border-radius: 0;
+  animation: modalFadeIn 0.15s ease-out;
+  overflow: hidden;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.linkModalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.15rem;
+  border-bottom: 1px solid var(--min-borders);
+}
+
+.linkModalTitle {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.linkModalCloseBtn {
+  background: transparent;
+  border: none;
+  color: var(--task-editor-text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  transition: color 0.15s ease;
+}
+
+.linkModalCloseBtn:hover {
+  color: var(--foreground);
+}
+
+.linkModalBody {
+  padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.linkFieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.linkFieldLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--task-editor-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.linkFieldInput {
+  background: var(--background);
+  border: 1px solid var(--min-borders);
+  color: var(--foreground);
+  padding: 0.55rem 0.75rem;
+  font-size: 0.85rem;
+  font-family: inherit;
+  border-radius: 0;
+  outline: none;
+  transition: border-color 0.15s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.linkFieldInput:focus {
+  border-color: var(--foreground);
+}
+
+.linkModalFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.15rem;
+  border-top: 1px solid var(--min-borders);
+  background: var(--task-desc-hover-bg, rgba(0, 0, 0, 0.02));
+}
+
+.linkModalActionsRight {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.linkModalBtn {
+  padding: 0.45rem 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 0;
+  border: 1px solid var(--min-borders);
+  background: transparent;
+  color: var(--foreground);
+  transition: all 0.15s ease;
+}
+
+.linkModalBtn:hover {
+  background: var(--task-desc-hover-bg, rgba(255, 255, 255, 0.08));
+  border-color: var(--foreground);
+}
+
+.linkModalBtnPrimary {
+  background: var(--foreground);
+  color: var(--background);
+  border-color: var(--foreground);
+}
+
+.linkModalBtnPrimary:hover {
+  opacity: 0.9;
+  background: var(--foreground);
+  color: var(--background);
+}
+
+.linkModalBtnDanger {
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.linkModalBtnDanger:hover {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: #ef4444;
 }

@@ -110,7 +110,7 @@ export default function DeskPage() {
       if (searchQuery.trim()) {
         const query = searchQuery.toLowerCase();
         const titleMatch = (story.title || '').toLowerCase().includes(query);
-        const descMatch = (story.preview || story.description || '').toLowerCase().includes(query);
+        const descMatch = (story.snippet || story.preview || story.description || '').toLowerCase().includes(query);
         return titleMatch || descMatch;
       }
 

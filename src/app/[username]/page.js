@@ -7,6 +7,7 @@ import Image from 'next/image'
 import styles from '../Styles/profile.module.css'
 import { useParams, notFound } from 'next/navigation'
 import { useLoading } from '../Components/LoadingContext'
+import { useInkWell } from '../Components/InkWell'
 import { getGenderAvatar } from '../lib/avatar'
 import { StoryProfileCard } from '../Components/Stories'
 import { 
@@ -38,6 +39,7 @@ export default function ProfilePage() {
   const { data: session, status, update } = useSession()
   const { startLoading, stopLoading } = useLoading()
   const router = useRouter()
+  const inkWell = useInkWell()
   const { username } = useParams()
 
   // Check if username is a reserved route
@@ -204,21 +206,49 @@ export default function ProfilePage() {
       })
 
       if (response.ok) {
+        const resData = await response.json();
+        const updated = resData.data?.profile || resData.profile || dataToSave;
+
+        // Immediately update state so UI changes are visible without reload
+        setProfileData(prev => ({
+          ...prev,
+          name: updated.name ?? prev.name,
+          email: updated.email ?? prev.email,
+          bio: updated.bio ?? prev.bio,
+          location: updated.location ?? prev.location,
+          dob: updated.dob ?? prev.dob,
+          gender: updated.gender ?? prev.gender,
+          is_private: updated.is_private ?? prev.is_private,
+          email_notifications: updated.email_notifications ?? prev.email_notifications,
+        }));
+
+        if (Array.isArray(updated.socialProfiles)) {
+          setProfiles(updated.socialProfiles.length > 0 ? updated.socialProfiles : [{ platform: "github", username: "" }]);
+        }
+
         if (typeof update === 'function' && isOwnProfile) {
           try {
-            await update({ gender: dataToSave.gender });
+            await update({ gender: updated.gender, name: updated.name });
           } catch (updateErr) {
             console.warn('Session update failed:', updateErr);
           }
         }
-        alert('Profile updated successfully!')
+
+        inkWell.toast({
+          message: 'Profile updated successfully!',
+          type: 'success',
+        });
         setIsEditing(false)
       } else {
-        throw new Error('Failed to update profile')
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.error?.message || errData.message || 'Failed to update profile')
       }
     } catch (error) {
       console.error('Save failed:', error)
-      alert('Failed to save profile')
+      inkWell.toast({
+        message: error.message || 'Failed to save profile',
+        type: 'error',
+      });
     }
   }
 
@@ -300,7 +330,7 @@ export default function ProfilePage() {
                   <button
                     className={styles.editToggleButton}
                     onClick={() => router.push('/settings')}
-                    title="Edit Profile in Settings"
+                    title="Edit Profile"
                   >
                     <PencilSimple size={14} weight="regular" style={{ marginRight: '6px' }} />
                     Edit Profile

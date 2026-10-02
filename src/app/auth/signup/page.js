@@ -246,9 +246,10 @@ export default function SignupPage() {
 
       {/* RIGHT SIDE: Single-Page Multi-Step Authentication Form */}
       <div className={styles.formSide}>
-        <div className={styles.formTopMobileLogo}>
+        <div className={styles.formTopLogo}>
           <Link href="/" className={styles.brandLogoMark}>
-            {/* <span>✦</span> */}
+            {/* Future Logo Image Placeholder: */}
+            {/* <Image src="/logo.png" alt="Meridian Logo" width={32} height={32} priority /> */}
             <span>Meridian</span>
           </Link>
         </div>

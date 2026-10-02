@@ -86,7 +86,6 @@
   transition: color 0.15s ease;
 }
 
-/* Max 3 lines snippet with justified text */
 .feedCardSnippet {
   font-size: 0.82rem;
   /* line-height: 1.45; */
@@ -97,8 +96,10 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  /* text-align: justify;
-  text-justify: inter-word; */
+}
+
+.feedCardSnippet.snippetExpanded {
+  -webkit-line-clamp: 5;
 }
 
 .feedCardDivider {
@@ -114,8 +115,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
   flex-shrink: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .authorInfo {
@@ -125,7 +128,9 @@
   text-decoration: none;
   color: inherit;
   min-width: 0;
+  flex: 1 1 auto;
   cursor: pointer;
+  overflow: hidden;
 }
 
 .authorAvatar {
@@ -151,6 +156,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .authorName:hover {
@@ -162,6 +168,7 @@
   align-items: center;
   gap: 0.35rem;
   flex-shrink: 0;
+  margin-left: auto;
 }
 
 .cardActionBtn {
@@ -327,6 +334,10 @@
   text-justify: inter-word; */
 }
 
+.deskSnippet.snippetExpanded {
+  -webkit-line-clamp: 5;
+}
+
 .deskFooter {
   display: flex;
   justify-content: space-between;
@@ -457,4 +468,42 @@
   text-overflow: ellipsis;
   /* text-align: justify;
   text-justify: inter-word; */
+}
+
+.profileSnippet.snippetExpanded {
+  -webkit-line-clamp: 2;
+}
+
+/* ==============================================================================
+   4. RESPONSIVE DESIGN FOR STORY CARDS
+   ============================================================================== */
+
+@media (max-width: 480px) {
+  .feedCard {
+    padding: 1rem 0.85rem 0.85rem 0.85rem;
+  }
+
+  .feedCardFooter {
+    gap: 0.35rem;
+  }
+
+  .cardActionButtons {
+    gap: 0.2rem;
+  }
+
+  .cardActionBtn {
+    width: 26px;
+    height: 26px;
+  }
+
+  .likeActionBtn {
+    height: 26px;
+    padding: 0 4px;
+    gap: 3px;
+    font-size: 0.68rem;
+  }
+
+  .topMetaRight {
+    font-size: 0.62rem;
+  }
 }

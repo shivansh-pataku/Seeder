@@ -1,0 +1,330 @@
+/* src/app/Styles/story-typography.module.css */
+/* Canonical typography system shared between /read/[id] and desk editor (WritingEditor.js) */
+
+.storyContent {
+  font-family: var(--font-reading);
+  font-size: 1.15rem;
+  line-height: 1.85;
+  color: var(--foreground);
+  letter-spacing: -0.003em;
+  word-break: break-word;
+  outline: none;
+}
+
+[data-theme="light"] .storyContent {
+  color: #1c1917;
+}
+
+[data-theme="dark"] .storyContent {
+  color: #eeeeee;
+}
+
+/* Paragraphs */
+.storyContent p {
+  margin: 0 0 1.25rem 0;
+  line-height: 1.85;
+  word-break: break-word;
+  color: inherit;
+}
+
+/* Inline Text Formatting */
+.storyContent strong,
+.storyContent b {
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+[data-theme="dark"] .storyContent strong,
+[data-theme="dark"] .storyContent b {
+  color: #ffffff;
+}
+
+.storyContent em,
+.storyContent i {
+  font-style: italic;
+}
+
+.storyContent u {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.storyContent s,
+.storyContent del {
+  text-decoration: line-through;
+}
+
+/* Headings */
+.storyContent h1 {
+  font-size: 2.2em;
+  font-weight: 750;
+  color: var(--foreground);
+  margin: 2.5rem 0 1rem 0;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--min-borders);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.storyContent h2 {
+  font-size: 1.75em;
+  font-weight: 700;
+  color: var(--foreground);
+  margin: 2rem 0 0.85rem 0;
+  padding-left: 0.75rem;
+  border-left: 3px solid var(--logsig-button-bg, #b80000);
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+
+.storyContent h3 {
+  font-size: 1.35em;
+  font-weight: 650;
+  color: var(--foreground);
+  margin: 1.65rem 0 0.65rem 0;
+  line-height: 1.35;
+}
+
+/* Blockquotes */
+.storyContent blockquote {
+  margin: 1.75rem 0;
+  padding: 1rem 1.35rem;
+  border-left: 3px solid var(--logsig-button-bg, #b80000);
+  background: var(--card-bg, rgba(255, 255, 255, 0.03));
+  border-radius: 0;
+  font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--task-editor-text-light, #a1a1aa);
+}
+
+[data-theme="dark"] .storyContent blockquote {
+  background: rgba(255, 255, 255, 0.04);
+  color: #cccccc;
+}
+
+.storyContent blockquote p {
+  margin: 0;
+  line-height: 1.8;
+}
+
+/* Lists & Semantic Markers */
+.storyContent ul,
+.storyContent ol {
+  padding-left: 1.75rem;
+  margin: 0 0 1.5rem 0;
+  color: inherit;
+}
+
+.storyContent li {
+  margin-bottom: 0.5rem;
+  line-height: 1.8;
+  color: inherit;
+}
+
+/* Numbered List Marker Typography Inheritance */
+.storyContent ol li::marker {
+  font-family: inherit;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  color: var(--foreground);
+}
+
+/* Task Lists (TipTap Checkboxes - Clean Single Row, No Bullet Points) */
+.storyContent ul[data-type="taskList"] {
+  list-style: none !important;
+  list-style-type: none !important;
+  padding-left: 0 !important;
+  margin: 1rem 0 !important;
+}
+
+.storyContent li[data-type="taskItem"] {
+  list-style: none !important;
+  list-style-type: none !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 0.65rem !important;
+  margin: 0.5rem 0 !important;
+  padding: 0.2rem 0 !important;
+  line-height: 1.8 !important;
+}
+
+.storyContent li[data-type="taskItem"]::marker {
+  display: none !important;
+  content: "" !important;
+}
+
+.storyContent li[data-type="taskItem"] > label {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 0 0 auto !important;
+  margin: 0.35rem 0 0 0 !important;
+  user-select: none !important;
+  cursor: pointer !important;
+}
+
+.storyContent li[data-type="taskItem"] input[type="checkbox"] {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  width: 1.15rem !important;
+  height: 1.15rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 1.5px solid var(--min-borders, #3f3f46) !important;
+  border-radius: 2px !important;
+  cursor: pointer !important;
+  position: relative !important;
+  outline: none !important;
+  transition: all 0.15s ease !important;
+}
+
+.storyContent li[data-type="taskItem"] input[type="checkbox"]:hover {
+  border-color: var(--logsig-button-bg, #b80000) !important;
+}
+
+.storyContent li[data-type="taskItem"] input[type="checkbox"]:checked {
+  background: var(--logsig-button-bg, #b80000) !important;
+  border-color: var(--logsig-button-bg, #b80000) !important;
+}
+
+.storyContent li[data-type="taskItem"] input[type="checkbox"]:checked::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 45% !important;
+  left: 50% !important;
+  width: 4px !important;
+  height: 8px !important;
+  border: solid #ffffff !important;
+  border-width: 0 2px 2px 0 !important;
+  transform: translate(-50%, -50%) rotate(45deg) !important;
+}
+
+.storyContent li[data-type="taskItem"] > div {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  line-height: 1.8 !important;
+}
+
+.storyContent li[data-type="taskItem"] > div > p {
+  margin: 0 !important;
+  line-height: 1.8 !important;
+}
+
+.storyContent li[data-type="taskItem"][data-checked="true"] > div {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+/* Hyperlinks */
+.storyContent a {
+  color: var(--logsig-button-bg, #b80000);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 0.15s ease;
+}
+
+.storyContent a:hover {
+  opacity: 0.8;
+}
+
+/* Code & Pre */
+.storyContent code {
+  font-family: var(--font-code, monospace);
+  font-size: 0.88em;
+  padding: 0.15rem 0.4rem;
+  border-radius: 2px;
+  background: var(--card-bg, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--min-borders);
+  color: var(--foreground);
+}
+
+.storyContent pre {
+  font-family: var(--font-code, monospace);
+  margin: 1.5rem 0;
+  padding: 1.25rem;
+  background: #0d0d11;
+  border: 1px solid var(--min-borders);
+  border-radius: 0;
+  overflow-x: auto;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: #f4f4f5;
+}
+
+[data-theme="dark"] .storyContent pre {
+  background: #18181b;
+  border-color: var(--min-borders);
+}
+
+[data-theme="light"] .storyContent pre {
+  background: #f4f4f5;
+  color: #111111;
+}
+
+.storyContent pre code {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  color: inherit !important;
+}
+
+/* Tables */
+.storyContent table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+  margin: 1.5rem 0;
+  overflow: hidden;
+  border: 1px solid var(--min-borders);
+  border-radius: 0;
+}
+
+.storyContent th,
+.storyContent td {
+  border: 1px solid var(--min-borders);
+  padding: 0.65rem 0.85rem;
+  vertical-align: top;
+  line-height: 1.6;
+}
+
+.storyContent th {
+  font-weight: 700;
+  background: var(--card-bg, rgba(255, 255, 255, 0.04));
+  color: var(--foreground);
+  text-align: left;
+}
+
+.storyContent .selectedCell:after {
+  z-index: 2;
+  position: absolute;
+  content: "";
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: var(--task-desc-hover-bg, rgba(255, 255, 255, 0.08));
+  pointer-events: none;
+}
+
+/* Horizontal Rule & Media */
+.storyContent hr {
+  margin: 2.5rem 0;
+  border: none;
+  border-top: 1px solid var(--min-borders);
+}
+
+.storyContent img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0;
+  margin: 1.5rem 0;
+}
+
+.storyContent mark {
+  background: rgba(234, 179, 8, 0.25);
+  color: inherit;
+  padding: 0.1em 0.3em;
+  border-radius: 2px;
+}

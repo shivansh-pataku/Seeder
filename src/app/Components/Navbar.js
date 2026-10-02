@@ -16,6 +16,7 @@ import {
   Gear,
   SignOut,
   PencilSimple,
+  Books,
 } from '@phosphor-icons/react';
 
 export default function Navbar() {
@@ -80,6 +81,15 @@ export default function Navbar() {
       router.push('/auth/signin');
     } else {
       router.push(`/${session.user.username}`);
+    }
+  };
+
+  const handleLibrary = () => {
+    setShowMenu(false);
+    if (session) {
+      router.push('/library');
+    } else {
+      router.push('/auth/signin');
     }
   };
 
@@ -152,6 +162,11 @@ export default function Navbar() {
                 <div className={styles.menuLink} onClick={handleProfile}>
                   <User size={14} weight="regular" className={styles.dropdownIcon} />
                   <span>Profile</span>
+                </div>
+
+                <div className={styles.menuLink} onClick={handleLibrary}>
+                  <Books size={14} weight="regular" className={styles.dropdownIcon} />
+                  <span>Library</span>
                 </div>
 
                 <div className={styles.menuLink} onClick={handleSettings}>

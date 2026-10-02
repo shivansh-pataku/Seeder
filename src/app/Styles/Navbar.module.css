@@ -221,8 +221,7 @@
 
 .menuLink:hover {
   background-color: var(--navbar-menulink-hover-bg, rgba(255, 255, 255, 0.05));
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  color: var(--foreground);
 }
 
 .dropdownIcon {
