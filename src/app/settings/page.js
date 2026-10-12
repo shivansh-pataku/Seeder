@@ -367,7 +367,7 @@ export default function SettingsPage() {
         </p>
       </header>
 
-      {saveSuccess && (
+      {/* {saveSuccess && (
         <div className={styles.statusBannerSuccess}>
           <CheckCircle size={18} weight="regular" />
           <span>{saveSuccess}</span>
@@ -379,7 +379,7 @@ export default function SettingsPage() {
           <WarningCircle size={18} weight="regular" />
           <span>{saveError}</span>
         </div>
-      )}
+      )} */}
 
       {/* Settings Layout: Left Sidebar + Right Content */}
       <div className={styles.settingsLayout}>
@@ -471,10 +471,10 @@ export default function SettingsPage() {
                     {usernameStatus.message && (
                       <div
                         className={`${styles.usernameStatusBadge} ${usernameStatus.checking
-                            ? styles.usernameChecking
-                            : usernameStatus.available
-                              ? styles.usernameAvailable
-                              : styles.usernameUnavailable
+                          ? styles.usernameChecking
+                          : usernameStatus.available
+                            ? styles.usernameAvailable
+                            : styles.usernameUnavailable
                           }`}
                       >
                         {usernameStatus.checking && <span>Checking availability...</span>}
