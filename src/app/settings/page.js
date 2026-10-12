@@ -259,9 +259,9 @@ export default function SettingsPage() {
       return;
     }
 
-    setSaving(true);
-    setSaveSuccess('');
-    setSaveError('');
+    // setSaving(true);
+    // setSaveSuccess('');
+    // setSaveError('');
 
     try {
       const validSocialProfiles = socialProfiles
