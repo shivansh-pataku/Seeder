@@ -317,7 +317,7 @@ export default function SettingsPage() {
       });
 
       inkWell.toast({ message: 'Settings saved successfully', type: 'success' });
-      setSaveSuccess('Settings and profile updated successfully!');
+      // setSaveSuccess('Settings and profile updated successfully!');
       setTimeout(() => setSaveSuccess(''), 4000);
     } catch (err) {
       const errMsg = err.message || 'An error occurred while saving.';
@@ -470,13 +470,12 @@ export default function SettingsPage() {
                     </div>
                     {usernameStatus.message && (
                       <div
-                        className={`${styles.usernameStatusBadge} ${
-                          usernameStatus.checking
+                        className={`${styles.usernameStatusBadge} ${usernameStatus.checking
                             ? styles.usernameChecking
                             : usernameStatus.available
-                            ? styles.usernameAvailable
-                            : styles.usernameUnavailable
-                        }`}
+                              ? styles.usernameAvailable
+                              : styles.usernameUnavailable
+                          }`}
                       >
                         {usernameStatus.checking && <span>Checking availability...</span>}
                         {!usernameStatus.checking && usernameStatus.available && (
