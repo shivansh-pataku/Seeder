@@ -1,5 +1,5 @@
-import crypto from 'crypto';
-import dbConfig from '../../../../lib/db.js';
+﻿import crypto from 'crypto';
+import dbConfig from '@/lib/db';
 
 export async function POST(request) {
   try {
@@ -95,3 +95,4 @@ export async function POST(request) {
     );
   }
 }
+

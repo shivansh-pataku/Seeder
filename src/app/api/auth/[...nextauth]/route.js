@@ -1,5 +1,5 @@
-// src/app/api/auth/[...nextauth]/route.js
-import { handlers } from '../../../lib/auth.js'
+﻿// src/app/api/auth/[...nextauth]/route.js
+import { handlers } from '@/lib/auth.js'
 
 export const GET = handlers.GET
 export const POST = handlers.POST

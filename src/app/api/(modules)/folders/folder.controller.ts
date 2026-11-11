@@ -1,8 +1,8 @@
-// src/app/api/(modules)/folders/folder.controller.ts
-import { getCurrentUser } from '@/app/lib/getCurrentUser';
+﻿// src/app/api/(modules)/folders/folder.controller.ts
+import { getCurrentUser } from '@/lib/getCurrentUser';
 import { FolderService } from './folder.service';
 import { createFolderSchema } from './folder.schema';
-import { handleSuccessResponse, handleErrorResponse } from '@/app/lib/errorHandler';
+import { handleSuccessResponse, handleErrorResponse } from '@/lib/errorHandler';
 
 export class FolderController {
   static async list() {
@@ -59,3 +59,4 @@ export class FolderController {
     }
   }
 }
+

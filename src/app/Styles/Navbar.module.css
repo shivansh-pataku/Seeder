@@ -114,11 +114,18 @@
 }
 
 .navbarAvatar {
-  width: 28px;
-  height: 28px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   object-fit: cover;
   display: block;
+}
+
+.usernameText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
 }
 
 .dropdownAvatar {
@@ -185,69 +192,392 @@
 }
 
 /* ==========================================================================
-   USER DROPDOWN MENU (SHARP CORNERS, MINIMAL HOVER)
+   USER TRIGGER BUTTON (NAVBAR)
    ========================================================================== */
 
-.menu {
-  position: absolute;
-  top: calc(100% + 4px);
-  right: 0;
-  background: var(--card-bg);
-  border: 1px solid var(--min-borders);
-  padding: 0.25rem 0;
-  border-radius: 0px;
-  z-index: 1001;
-  min-width: 130px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.menuLink {
+.userTriggerBtn {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 0.5rem 0.85rem;
-  color: var(--navbar-menulink-color, var(--foreground));
-  border-bottom: 1px solid var(--min-borders);
+  gap: 7px;
+  padding: 0.35rem 0.55rem;
+  color: var(--navbar-link-color, var(--foreground));
+  background: transparent;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
-  border-radius: 0px;
-  font-size: 0.75rem;
+  font-family: inherit;
   font-weight: 600;
-  transition: background-color 0.15s ease;
+  font-size: 0.78rem;
+  transition: all 0.15s ease;
+  user-select: none;
+  outline: none;
 }
 
-.menuLink:last-child {
-  border-bottom: none;
+.userTriggerBtn:hover {
+  background-color: var(--button-bg, #f3f4f6);
 }
 
-.menuLink:hover {
-  background-color: var(--navbar-menulink-hover-bg, rgba(255, 255, 255, 0.05));
+.userTriggerBtn[data-state="open"] {
+  background-color: var(--button-bg, #f3f4f6);
+}
+
+.userTriggerAvatar {
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--button-bg, #f3f4f6);
+  flex-shrink: 0;
+}
+
+.triggerChevron {
+  color: var(--task-editor-text-muted, #71717a);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.15s ease;
+  margin-left: 2px;
+}
+
+.userTriggerBtn[data-state="open"] .triggerChevron {
+  transform: rotate(180deg);
   color: var(--foreground);
 }
 
-.dropdownIcon {
-  color: inherit;
-  opacity: 0.85;
+/* ==========================================================================
+   REDESIGNED USER DROPDOWN MENU
+   ========================================================================== */
+
+.menu {
+  min-width: 240px;
+  max-width: 280px;
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--min-borders, #cccccc);
+  border-radius: 0px;
+  padding: 0.2rem;
+  box-shadow: 0 14px 34px -4px rgba(0, 0, 0, 0.12), 0 4px 14px rgba(0, 0, 0, 0.05);
+  z-index: 1050;
+  outline: none;
+  font-family: var(--font-primary);
+  transform-origin: top right;
+  animation: dropdownEnter 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.menuThemeRow {
+@keyframes dropdownEnter {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Dropdown Header Card */
+.menuHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: var(--button-bg, #f8f9fa);
+  /* border-bottom: 1px solid var(--min-borders, #cccccc); */
+  /* margin-top: -0.35rem; */
+}
+
+.menuHeaderAvatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid var(--min-borders, #cccccc);
+  background: var(--background, #ffffff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menuHeaderAvatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.menuHeaderAvatarPlaceholder {
+  color: var(--task-editor-text-muted, #71717a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menuHeaderMeta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.menuHeaderName {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--foreground, #111111);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.25;
+}
+
+.menuHeaderHandle {
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: var(--task-editor-text-muted, #71717a);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 1px;
+}
+
+.menuHeaderEmail {
+  font-size: 0.68rem;
+  color: var(--task-editor-text-light, #a1a1aa);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: -1px;
+}
+
+/* Dropdown Menu Items */
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.52rem 0.95rem;
+  color: var(--foreground, #111111);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.12s ease, color 0.12s ease;
+  user-select: none;
+}
+
+.menuItem:hover,
+.menuItem[data-highlighted] {
+  background-color: var(--button-bg, #f3f4f6);
+  color: var(--foreground, #111111);
+}
+
+.menuItemIcon {
+  color: var(--task-editor-text-muted, #71717a);
+  flex-shrink: 0;
+  transition: color 0.12s ease;
+}
+
+.menuItem:hover .menuItemIcon,
+.menuItem[data-highlighted] .menuItemIcon {
+  color: var(--foreground, #111111);
+}
+
+.menuItemContent {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.45rem 0.85rem;
-  color: var(--navbar-menulink-color, var(--foreground));
-  font-size: 0.75rem;
-  font-weight: 600;
-  border-bottom: 1px solid var(--min-borders);
+  flex: 1;
+  min-width: 0;
 }
 
-.menuThemeLabel {
-  color: inherit;
+.menuItemTitle {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.menuDivider {
+.menuSeparator {
   height: 1px;
-  background: var(--min-borders);
-  margin: 0.15rem 0;
+  background: var(--min-borders, #cccccc);
+  margin: 0.1rem;
+}
+
+/* Destructive / Sign Out Item */
+.menuItemLogout {
+  color: var(--foreground, #111111);
+}
+
+.menuItemLogout:hover,
+.menuItemLogout[data-highlighted] {
+  background-color: rgba(220, 38, 38, 0.08) !important;
+  color: #dc2626 !important;
+}
+
+.menuItemLogout:hover .menuItemIcon,
+.menuItemLogout[data-highlighted] .menuItemIcon {
+  color: #dc2626 !important;
+}
+
+[data-theme="dark"] .menuItemLogout:hover,
+[data-theme="dark"] .menuItemLogout[data-highlighted] {
+  background-color: rgba(239, 68, 68, 0.12) !important;
+  color: #ef4444 !important;
+}
+
+[data-theme="dark"] .menuItemLogout:hover .menuItemIcon,
+[data-theme="dark"] .menuItemLogout[data-highlighted] .menuItemIcon {
+  color: #ef4444 !important;
+}
+
+.desktopNav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ==========================================================================
+   MOBILE HAMBURGER & DRAWER
+   ========================================================================== */
+
+.hamburgerBtn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--min-borders, #cccccc);
+  color: var(--foreground, #111111);
+  padding: 0.35rem;
+  cursor: pointer;
+  border-radius: 0px;
+  line-height: 1;
+  transition: background-color 0.15s ease;
+}
+
+.hamburgerBtn:hover {
+  background-color: var(--button-bg, #f3f4f6);
+}
+
+.mobileAuthLink {
+  display: none;
+  color: var(--navbar-link-color, var(--foreground));
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.mobileAuthLink:hover {
+  color: var(--foreground);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.hamburgerHiddenOnHome {
+  display: none;
+}
+
+.drawerOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
+  z-index: 2000;
+  animation: overlayFadeIn 0.2s ease-out;
+}
+
+.drawerContent {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 280px;
+  max-width: 85vw;
+  background: var(--background, #ffffff);
+  color: var(--foreground, #111111);
+  border-left: 1px solid var(--min-borders, #cccccc);
+  z-index: 2001;
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem 1rem;
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
+  animation: drawerSlideIn 0.25s ease-out;
+  outline: none;
+  font-family: var(--font-primary);
+}
+
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes drawerSlideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.drawerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--min-borders, #cccccc);
+  margin-bottom: 0.85rem;
+}
+
+.drawerTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--foreground, #111111);
+  letter-spacing: -0.01em;
+}
+
+.drawerCloseBtn {
+  background: transparent;
+  border: none;
+  color: var(--foreground, #111111);
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drawerNav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.drawerLink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.65rem 0.75rem;
+  color: var(--foreground, #111111);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border-radius: 0px;
+  transition: background-color 0.15s ease;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.drawerLink:hover {
+  background-color: var(--button-bg, #f3f4f6);
+}
+
+.drawerFooter {
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--min-borders, #cccccc);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 /* ==========================================================================
@@ -264,27 +594,20 @@
     font-size: 0.95rem;
   }
 
-  .ourStoryLink {
+  .desktopNav {
     display: none;
   }
 
-  .usernameText {
+  .hamburgerBtn {
+    display: flex;
+  }
+
+  .hamburgerHiddenOnHome {
     display: none;
   }
 
-  .links {
-    gap: 0.35rem;
-  }
-
-  .link,
-  .logsig,
-  .username {
-    padding: 0.3rem 0.45rem;
-    font-size: 0.7rem;
-  }
-
-  .newStoryBtn {
-    padding: 0.3rem 0.55rem;
-    font-size: 0.72rem;
+  .mobileAuthLink {
+    display: inline-flex;
+    align-items: center;
   }
 }

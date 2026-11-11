@@ -1,8 +1,8 @@
-// src/app/api/(modules)/likes/like.controller.ts
-import { getCurrentUser } from '@/app/lib/getCurrentUser';
+﻿// src/app/api/(modules)/likes/like.controller.ts
+import { getCurrentUser } from '@/lib/getCurrentUser';
 import { LikeService } from './like.service';
 import { likeActionSchema } from './like.schema';
-import { handleSuccessResponse, handleErrorResponse } from '@/app/lib/errorHandler';
+import { handleSuccessResponse, handleErrorResponse } from '@/lib/errorHandler';
 
 export class LikeController {
   /**
@@ -71,3 +71,4 @@ export class LikeController {
     }
   }
 }
+

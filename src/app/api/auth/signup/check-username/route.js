@@ -1,4 +1,4 @@
-import dbConfig from '../../../../lib/db.js';
+﻿import dbConfig from '@/lib/db';
 
 export async function GET(request) {
   try {
@@ -74,3 +74,4 @@ export async function GET(request) {
     );
   }
 }
+

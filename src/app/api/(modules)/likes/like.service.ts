@@ -1,5 +1,5 @@
-// src/app/api/(modules)/likes/like.service.ts
-import pool, { withTransaction } from '@/app/lib/db';
+﻿// src/app/api/(modules)/likes/like.service.ts
+import pool, { withTransaction } from '@/lib/db';
 import { RowDataPacket, ResultSetHeader } from 'mysql2';
 
 async function getStoryTableName(): Promise<string> {
@@ -105,3 +105,4 @@ export class LikeService {
     return rows || [];
   }
 }
+

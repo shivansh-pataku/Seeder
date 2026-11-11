@@ -1,6 +1,6 @@
-import crypto from 'crypto';
-import { UserService } from '../../../lib/user.js';
-import { sendPasswordResetEmail } from '../../../lib/mail.js';
+﻿import crypto from 'crypto';
+import { UserService } from '@/lib/user.js';
+import { sendPasswordResetEmail } from '@/lib/mail.js';
 
 export async function POST(request) {
   try {
@@ -66,3 +66,4 @@ export async function POST(request) {
     );
   }
 }
+

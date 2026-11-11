@@ -1,9 +1,9 @@
-// src/app/api/(modules)/profile/profile.controller.ts
+﻿// src/app/api/(modules)/profile/profile.controller.ts
 import { NextResponse } from 'next/server';
-import { getCurrentUser } from '@/app/lib/getCurrentUser';
+import { getCurrentUser } from '@/lib/getCurrentUser';
 import { ProfileService } from './profile.service';
 import { updateProfileSchema } from './profile.schema';
-import { handleErrorResponse } from '@/app/lib/errorHandler';
+import { handleErrorResponse } from '@/lib/errorHandler';
 
 export class ProfileController {
   /**
@@ -68,3 +68,4 @@ export class ProfileController {
     }
   }
 }
+

@@ -1,7 +1,7 @@
-// src/app/api/(modules)/saved-items/[id]/route.ts
-import { handleSuccessResponse, handleErrorResponse } from '@/app/lib/errorHandler';
-import { getCurrentUser } from '@/app/lib/getCurrentUser';
-import pool from '@/app/lib/db';
+﻿// src/app/api/(modules)/saved-items/[id]/route.ts
+import { handleSuccessResponse, handleErrorResponse } from '@/lib/errorHandler';
+import { getCurrentUser } from '@/lib/getCurrentUser';
+import pool from '@/lib/db';
 import { ResultSetHeader } from 'mysql2';
 
 interface RouteProps {
@@ -30,3 +30,4 @@ export async function DELETE(request: Request, { params }: RouteProps) {
     return handleErrorResponse(error);
   }
 }
+

@@ -1,5 +1,5 @@
-// src/app/api/(modules)/folders/folder.service.ts
-import pool from '@/app/lib/db';
+﻿// src/app/api/(modules)/folders/folder.service.ts
+import pool from '@/lib/db';
 import { CreateFolderInput } from './folder.schema';
 import { RowDataPacket, ResultSetHeader } from 'mysql2';
 
@@ -45,3 +45,4 @@ export class FolderService {
     return result.affectedRows > 0;
   }
 }
+

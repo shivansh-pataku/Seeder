@@ -15,6 +15,266 @@
   background: var(--background);
 }
 
+.landingPage {
+  height: calc(100vh - 2.85rem);
+  min-height: 520px;
+  overflow: hidden;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.landingHero {
+  width: min(1180px, 100%);
+  height: 100%;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 5rem) clamp(1.25rem, 5vw, 4rem);
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(280px, 0.85fr) minmax(380px, 1.15fr);
+  align-items: center;
+  gap: clamp(2rem, 7vw, 7rem);
+}
+
+.landingCopy {
+  position: relative;
+  z-index: 1;
+}
+
+.landingKicker,
+.paperWindowLabel,
+.paperCaption {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.landingKicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--task-editor-text-muted, #71717a);
+}
+
+.landingKicker::before {
+  content: '';
+  width: 1.8rem;
+  height: 1px;
+  background: var(--foreground);
+}
+
+.landingTitle {
+  max-width: 600px;
+  margin: 1.15rem 0 1.25rem;
+  font-family: var(--font-reading), Georgia, serif;
+  font-size: clamp(3.35rem, 7vw, 6.7rem);
+  font-weight: 400;
+  line-height: 0.94;
+  letter-spacing: -0.065em;
+}
+
+.landingSubtitle {
+  max-width: 360px;
+  margin: 0;
+  color: var(--task-editor-text-light, #a1a1aa);
+  font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+  line-height: 1.55;
+}
+
+.landingActions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.landingPrimaryBtn,
+.landingTextBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.landingPrimaryBtn {
+  padding: 0.75rem 1rem;
+  color: var(--background);
+  background: var(--foreground);
+  border: 1px solid var(--foreground);
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.landingPrimaryBtn:hover {
+  opacity: 0.82;
+  transform: translateY(-2px);
+}
+
+.landingTextBtn {
+  color: var(--foreground);
+  border-bottom: 1px solid var(--foreground);
+  padding-bottom: 0.15rem;
+}
+
+.landingTextBtn:hover {
+  opacity: 0.65;
+}
+
+.landingNote {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: clamp(3rem, 8vh, 6rem);
+  color: var(--task-editor-text-muted, #71717a);
+  font-size: 0.68rem;
+}
+
+.landingNoteLine {
+  width: 2.5rem;
+  height: 1px;
+  background: var(--min-borders);
+}
+
+.paperWindow {
+  position: relative;
+  width: min(100%, 560px);
+  aspect-ratio: 1.08 / 1;
+  justify-self: end;
+  background: var(--card-bg);
+  border: 1px solid var(--foreground);
+  box-shadow: 16px 16px 0 var(--min-borders);
+  transform: rotate(2deg);
+}
+
+.paperWindow::before {
+  content: '';
+  position: absolute;
+  inset: 14px;
+  border: 1px solid var(--min-borders);
+  pointer-events: none;
+}
+
+.paperWindowTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2.4rem;
+  padding: 0 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--min-borders);
+  color: var(--task-editor-text-muted, #71717a);
+}
+
+.paperWindowDots {
+  letter-spacing: 0.2rem;
+  font-size: 0.8rem;
+}
+
+.paperSheet {
+  position: absolute;
+  top: 4.7rem;
+  left: 13%;
+  width: 68%;
+  min-height: 66%;
+  padding: 1.35rem 1.5rem;
+  box-sizing: border-box;
+  background: var(--background);
+  border: 1px solid var(--min-borders);
+  transform: rotate(-4deg);
+}
+
+.paperSheetHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--foreground);
+  font-family: var(--font-reading), Georgia, serif;
+  font-size: 0.9rem;
+}
+
+.paperRule {
+  height: 1px;
+  margin: 1rem 0 1.25rem;
+  background: var(--min-borders);
+}
+
+.paperHeading,
+.paperText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.42rem;
+}
+
+.paperHeadingLine,
+.paperHeadingLineShort,
+.paperText span {
+  display: block;
+  height: 0.38rem;
+  background: var(--foreground);
+  opacity: 0.82;
+}
+
+.paperHeadingLine {
+  width: 72%;
+}
+
+.paperHeadingLineShort {
+  width: 46%;
+}
+
+.paperText {
+  margin-top: 1.25rem;
+}
+
+.paperText span {
+  width: 92%;
+  height: 0.25rem;
+  background: var(--min-borders);
+}
+
+.paperText .paperTextShort {
+  width: 63%;
+}
+
+.paperQuote {
+  display: flex;
+  gap: 0.45rem;
+  align-items: flex-start;
+  margin: 1.35rem 0;
+  padding: 0.75rem;
+  border-left: 2px solid var(--foreground);
+  color: var(--foreground);
+  font-family: var(--font-reading), Georgia, serif;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+.floatingCard {
+  position: absolute;
+  right: 7%;
+  bottom: 17%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 0.9rem;
+  background: var(--foreground);
+  color: var(--background);
+  font-size: 0.72rem;
+  font-weight: 700;
+  transform: rotate(5deg);
+}
+
+.paperCaption {
+  position: absolute;
+  right: 1.4rem;
+  bottom: 1.2rem;
+  color: var(--task-editor-text-muted, #71717a);
+}
+
 .heroBannerFull {
   flex: 1;
   min-height: calc(100vh - 3.5rem);
@@ -519,9 +779,398 @@
   opacity: 0.9;
 }
 
+.landingPage {
+  height: calc(100vh - 2.85rem);
+  min-height: 520px;
+  overflow: hidden;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.landingHero {
+  width: min(1180px, 100%);
+  height: 100%;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 5rem) clamp(1.25rem, 5vw, 4rem);
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(280px, 0.85fr) minmax(380px, 1.15fr);
+  align-items: center;
+  gap: clamp(2rem, 7vw, 7rem);
+}
+
+.landingCopy {
+  position: relative;
+  z-index: 1;
+}
+
+.landingKicker,
+.paperWindowLabel,
+.paperCaption {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.landingKicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--task-editor-text-muted, #71717a);
+}
+
+.landingKicker::before {
+  content: '';
+  width: 1.8rem;
+  height: 1px;
+  background: var(--foreground);
+}
+
+.landingTitle {
+  max-width: 600px;
+  margin: 1.15rem 0 1.25rem;
+  font-family: var(--font-reading), Georgia, serif;
+  font-size: clamp(3.35rem, 7vw, 6.7rem);
+  font-weight: 400;
+  line-height: 0.94;
+  letter-spacing: -0.065em;
+}
+
+.landingSubtitle {
+  max-width: 360px;
+  margin: 0;
+  color: var(--task-editor-text-light, #a1a1aa);
+  font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+  line-height: 1.55;
+}
+
+.landingActions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.landingPrimaryBtn,
+.landingTextBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.landingPrimaryBtn {
+  padding: 0.75rem 1rem;
+  color: var(--background);
+  background: var(--foreground);
+  border: 1px solid var(--foreground);
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.landingPrimaryBtn:hover {
+  opacity: 0.82;
+  transform: translateY(-2px);
+}
+
+.landingTextBtn {
+  color: var(--foreground);
+  border-bottom: 1px solid var(--foreground);
+  padding-bottom: 0.15rem;
+}
+
+.landingTextBtn:hover {
+  opacity: 0.65;
+}
+
+.landingNote {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: clamp(3rem, 8vh, 6rem);
+  color: var(--task-editor-text-muted, #71717a);
+  font-size: 0.68rem;
+}
+
+.landingNoteLine {
+  width: 2.5rem;
+  height: 1px;
+  background: var(--min-borders);
+}
+
+.paperWindow {
+  position: relative;
+  width: min(100%, 560px);
+  aspect-ratio: 1.08 / 1;
+  justify-self: end;
+  background: var(--card-bg);
+  border: 1px solid var(--foreground);
+  box-shadow: 16px 16px 0 var(--min-borders);
+  transform: rotate(2deg);
+}
+
+.paperWindow::before {
+  content: '';
+  position: absolute;
+  inset: 14px;
+  border: 1px solid var(--min-borders);
+  pointer-events: none;
+}
+
+.paperWindowTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2.4rem;
+  padding: 0 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--min-borders);
+  color: var(--task-editor-text-muted, #71717a);
+}
+
+.paperWindowDots {
+  letter-spacing: 0.2rem;
+  font-size: 0.8rem;
+}
+
+.paperSheet {
+  position: absolute;
+  top: 4.7rem;
+  left: 13%;
+  width: 68%;
+  min-height: 66%;
+  padding: 1.35rem 1.5rem;
+  box-sizing: border-box;
+  background: var(--background);
+  border: 1px solid var(--min-borders);
+  transform: rotate(-4deg);
+}
+
+.paperSheetHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--foreground);
+  font-family: var(--font-reading), Georgia, serif;
+  font-size: 0.9rem;
+}
+
+.paperRule {
+  height: 1px;
+  margin: 1rem 0 1.25rem;
+  background: var(--min-borders);
+}
+
+.paperHeading,
+.paperText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.42rem;
+}
+
+.paperHeadingLine,
+.paperHeadingLineShort,
+.paperText span {
+  display: block;
+  height: 0.38rem;
+  background: var(--foreground);
+  opacity: 0.82;
+}
+
+.paperHeadingLine {
+  width: 72%;
+}
+
+.paperHeadingLineShort {
+  width: 46%;
+}
+
+.paperText {
+  margin-top: 1.25rem;
+}
+
+.paperText span {
+  width: 92%;
+  height: 0.25rem;
+  background: var(--min-borders);
+}
+
+.paperText .paperTextShort {
+  width: 63%;
+}
+
+.paperQuote {
+  display: flex;
+  gap: 0.45rem;
+  align-items: flex-start;
+  margin: 1.35rem 0;
+  padding: 0.75rem;
+  border-left: 2px solid var(--foreground);
+  color: var(--foreground);
+  font-family: var(--font-reading), Georgia, serif;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+.floatingCard {
+  position: absolute;
+  right: 7%;
+  bottom: 17%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 0.9rem;
+  background: var(--foreground);
+  color: var(--background);
+  font-size: 0.72rem;
+  font-weight: 700;
+  transform: rotate(5deg);
+}
+
+.paperCaption {
+  position: absolute;
+  right: 1.4rem;
+  bottom: 1.2rem;
+  color: var(--task-editor-text-muted, #71717a);
+}
+
 /* ==========================================================================
    RESPONSIVE DESIGN
    ========================================================================== */
+
+@media (max-width: 820px) {
+  .landingPage {
+    height: calc(100dvh - 3rem);
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .landingHero {
+    min-height: 0;
+    height: 100%;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    padding: 1.5rem 1.25rem;
+  }
+
+  .landingCopy {
+    align-self: center;
+  }
+
+  .landingTitle {
+    font-size: clamp(3rem, 12vw, 5rem);
+    margin-top: 0.85rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .landingNote {
+    margin-top: 1.25rem;
+  }
+
+  .paperWindow {
+    width: min(100%, 520px);
+    justify-self: center;
+    flex-shrink: 1;
+  }
+}
+
+@media (max-width: 520px) {
+  .landingHero {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.15rem 1rem;
+  }
+
+  .landingTitle {
+    font-size: clamp(2.65rem, 14vw, 3.8rem);
+  }
+
+  .landingActions {
+    margin-top: 1.15rem;
+  }
+
+  .landingNote {
+    display: none;
+  }
+
+  .paperWindow {
+    width: min(78vw, 290px);
+    align-self: center;
+    box-shadow: 9px 9px 0 var(--min-borders);
+  }
+
+  .paperSheet {
+    top: 3.6rem;
+    padding: 0.8rem;
+  }
+
+  .paperQuote {
+    margin: 0.65rem 0;
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 520px) and (max-height: 700px) {
+  .landingHero {
+    gap: 0.65rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+  }
+
+  .landingTitle {
+    margin-top: 0.6rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .landingSubtitle {
+    font-size: 0.82rem;
+  }
+
+  .landingActions {
+    margin-top: 0.85rem;
+  }
+
+  .paperWindow {
+    width: min(70vw, 250px);
+  }
+
+  .paperWindowTop {
+    height: 2rem;
+    padding: 0 0.8rem;
+  }
+
+  .paperSheet {
+    top: 3rem;
+    min-height: 62%;
+  }
+
+  .paperSheetHeader {
+    font-size: 0.72rem;
+  }
+
+  .paperRule {
+    margin: 0.65rem 0 0.8rem;
+  }
+
+  .paperText {
+    margin-top: 0.75rem;
+  }
+
+  .floatingCard {
+    right: 4%;
+    bottom: 12%;
+    padding: 0.5rem 0.6rem;
+    font-size: 0.6rem;
+  }
+}
 
 @media (max-width: 960px) {
   .homePageLocked {

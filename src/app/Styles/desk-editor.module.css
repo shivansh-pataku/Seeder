@@ -174,7 +174,7 @@
 
 /* Collapsible Sidebar with Clean Width Transition */
 .sidebar {
-  width: 360px;
+  width: 330px;
   border-right: 1px solid var(--min-borders);
   background-color: var(--background);
   display: flex;
@@ -198,7 +198,7 @@
    SEGMENTED NAVIGATION HEADER (Sharp Minimalist Style)
    ========================================================================= */
 .sidebarSegmentedHeader {
-  padding: 0.65rem 0.75rem 0.55rem 0.75rem;
+  padding: 0.65rem 0.75rem;
   border-bottom: 1px solid var(--min-borders);
   background-color: var(--background);
   flex-shrink: 0;
@@ -215,39 +215,40 @@
 
 .sidebarSegmentBtn {
   flex: 1;
-  padding: 0.38rem 0.25rem;
+  padding: 0.42rem 0.35rem;
   border: none;
   background: transparent;
   border-radius: 0;
   color: var(--task-editor-text-muted);
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  transition: color 0.15s ease, background-color 0.15s ease;
+  gap: 5px;
+  transition: all 0.15s ease;
   white-space: nowrap;
 }
 
 .sidebarSegmentBtn:hover {
   color: var(--foreground);
+  background-color: var(--task-desc-hover-bg, rgba(255, 255, 255, 0.03));
 }
 
 .sidebarSegmentBtn.activeSegment {
   background-color: var(--background);
   color: var(--foreground);
-  box-shadow: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
   font-weight: 700;
 }
 
 .sidebarBadgeCount {
   font-size: 0.62rem;
   font-family: var(--font-code);
-  padding: 1px 4px;
+  padding: 1px 5px;
   border-radius: 0;
-  background-color: var(--task-desc-hover-bg, rgba(255, 255, 255, 0.08));
+  background-color: var(--min-borders);
   color: var(--task-editor-text-light);
   line-height: 1;
 }
@@ -278,45 +279,22 @@
   min-height: 0;
 }
 
-.storiesHeaderActions {
-  padding: 0.75rem 0.75rem 0.4rem 0.75rem;
-}
-
-.newStoryActionBtn {
-  width: 100%;
+.storiesTopBar {
+  padding: 0.65rem 0.75rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid var(--min-borders);
-  background-color: var(--card-bg, rgba(255, 255, 255, 0.03));
-  color: var(--foreground);
-  font-size: 0.75rem;
-  font-weight: 600;
-  border-radius: 0;
-  cursor: pointer;
-  transition: border-color 0.15s ease, background-color 0.15s ease;
-}
-
-.newStoryActionBtn:hover {
-  border-color: var(--foreground);
-  background-color: var(--task-desc-hover-bg);
-}
-
-.storiesFilterSection {
-  padding: 0.35rem 0.75rem 0.6rem 0.75rem;
-  border-bottom: 1px solid var(--min-borders);
-  display: flex;
-  flex-direction: column;
   gap: 0.5rem;
+  border-bottom: 1px solid var(--min-borders);
+  background-color: var(--background);
+  flex-shrink: 0;
 }
 
 .searchBarWrapper {
   position: relative;
   display: flex;
   align-items: center;
-  width: 100%;
+  flex: 1;
+  min-width: 0;
 }
 
 .searchIcon {
@@ -328,8 +306,9 @@
 
 .sidebarSearchInput {
   width: 100%;
+  height: 30px;
   box-sizing: border-box;
-  padding: 0.38rem 1.6rem 0.38rem 1.65rem;
+  padding: 0 1.6rem 0 1.7rem;
   background-color: var(--card-bg, rgba(255, 255, 255, 0.03));
   border: 1px solid var(--min-borders);
   border-radius: 0;
@@ -365,16 +344,43 @@
   color: var(--foreground);
 }
 
+.newStoryActionBtn {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0 0.75rem;
+  border: 1px solid var(--foreground);
+  background-color: var(--foreground);
+  color: var(--background);
+  font-size: 0.73rem;
+  font-weight: 700;
+  border-radius: 0;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.newStoryActionBtn:hover {
+  opacity: 0.9;
+}
+
 .filterChipsRow {
   display: flex;
-  gap: 4px;
+  gap: 3px;
+  padding: 0.4rem 0.75rem;
+  border-bottom: 1px solid var(--min-borders);
+  background-color: var(--card-bg, rgba(255, 255, 255, 0.02));
+  flex-shrink: 0;
 }
 
 .filterChip {
   flex: 1;
-  padding: 0.22rem 0.3rem;
+  padding: 0.28rem 0.35rem;
   background: transparent;
-  border: 1px solid var(--min-borders);
+  border: 1px solid transparent;
   border-radius: 0;
   color: var(--task-editor-text-muted);
   font-size: 0.68rem;
@@ -387,58 +393,51 @@
 
 .filterChip:hover {
   color: var(--foreground);
-  border-color: var(--task-editor-text-light);
+  background-color: var(--task-desc-hover-bg, rgba(255, 255, 255, 0.04));
 }
 
 .filterChip.activeChip {
-  background-color: var(--foreground);
-  color: var(--background);
-  border-color: var(--foreground);
-  font-weight: 600;
+  background-color: var(--background);
+  border-color: var(--min-borders);
+  color: var(--foreground);
+  font-weight: 700;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .storiesListScroll {
   flex: 1;
   overflow-y: auto;
-  padding: 0.5rem 0.65rem;
+  padding: 0.55rem 0.65rem;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.4rem;
   scrollbar-width: thin;
 }
 
 .storyCardItem {
-  padding: 0.6rem 0.75rem;
-  border: 1px solid transparent;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--min-borders);
+  border-left: 3px solid transparent;
   background-color: transparent;
   border-radius: 0;
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
-  transition: background-color 0.15s ease, border-color 0.15s ease;
+  gap: 0.32rem;
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
   position: relative;
 }
 
 .storyCardItem:hover {
   background-color: var(--card-bg, rgba(255, 255, 255, 0.04));
   border-color: var(--min-borders);
+  border-left-color: var(--task-editor-text-light);
 }
 
 .storyCardItem.activeStoryCard {
-  background-color: var(--card-bg, rgba(255, 255, 255, 0.06));
+  background-color: var(--card-bg, rgba(255, 255, 255, 0.07));
   border-color: var(--min-borders);
-}
-
-.storyCardItem.activeStoryCard::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background-color: var(--editor-accent);
-  border-radius: 0;
+  border-left-color: var(--editor-accent, #ff3b30);
 }
 
 .storyCardHeader {
@@ -449,49 +448,80 @@
 }
 
 .storyCardTitle {
-  font-size: 0.8rem;
+  font-size: 0.81rem;
   font-weight: 600;
   color: var(--foreground);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   flex: 1;
+  line-height: 1.25;
 }
 
-.activePillDot {
-  width: 5px;
-  height: 5px;
-  border-radius: 0;
-  background-color: var(--editor-accent);
-  flex-shrink: 0;
+.storyCardItem.activeStoryCard .storyCardTitle {
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.storyCardSnippet {
+  font-size: 0.71rem;
+  line-height: 1.35;
+  color: var(--task-editor-text-muted);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .storyCardFooter {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.68rem;
-}
-
-/* Simple text format for Draft and Published tags */
-.storyStatusText {
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-}
-
-.statusPublished {
-  color: var(--foreground);
-  background-color: var(--task-desc-hover-bg, rgba(255, 255, 255, 0.12));
-  padding: 1px 4px;
-}
-
-.statusDraft {
+  font-size: 0.67rem;
   color: var(--task-editor-text-muted);
+  padding-top: 2px;
+}
+
+.storyStatusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.62rem;
+  font-family: var(--font-code);
+  font-weight: 600;
+  padding: 1px 5px;
+  border-radius: 0;
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+
+.badgePublished {
+  background-color: rgba(34, 197, 94, 0.12);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.badgeDraft {
+  background-color: var(--min-borders);
+  color: var(--task-editor-text-muted);
+  border: 1px solid transparent;
+}
+
+.statusDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: currentColor;
 }
 
 .storyDateMeta {
-  font-size: 0.66rem;
+  font-size: 0.67rem;
+  color: var(--task-editor-text-muted);
+  font-family: var(--font-code);
+}
+
+.storyWordsMeta {
+  font-size: 0.67rem;
   color: var(--task-editor-text-muted);
   font-family: var(--font-code);
 }
@@ -606,9 +636,10 @@
   padding: 0.38rem 0.55rem;
   border-radius: 0;
   cursor: pointer;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
   color: var(--task-editor-text-light);
   border: 1px solid transparent;
+  border-left: 2.5px solid transparent;
 }
 
 .outlineTreeItem:hover {
@@ -620,6 +651,25 @@
 .outlineTreeItem:hover .outlineHoverArrow {
   opacity: 1;
   transform: translateX(2px);
+}
+
+.outlineTreeItem.activeTreeItem {
+  background-color: var(--card-bg, rgba(255, 255, 255, 0.05));
+  border-color: var(--min-borders);
+  border-left-color: var(--editor-accent, #ff3b30);
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.outlineTreeItem.activeTreeItem .headingLevelTag {
+  background-color: var(--foreground);
+  color: var(--background);
+  font-weight: 700;
+}
+
+.outlineTreeItem.activeTreeItem .outlineHoverArrow {
+  opacity: 1;
+  color: var(--editor-accent, #ff3b30);
 }
 
 .headingLevelTag {

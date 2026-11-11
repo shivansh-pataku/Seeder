@@ -1,6 +1,6 @@
-import dbConfig from '../../../lib/db.js';
-import { UserService } from '../../../lib/user.js';
-import { sendWelcomeEmail } from '../../../lib/mail.js';
+﻿import dbConfig from '@/lib/db';
+import { UserService } from '@/lib/user.js';
+import { sendWelcomeEmail } from '@/lib/mail.js';
 
 export async function POST(request) {
   try {
@@ -139,3 +139,4 @@ export async function POST(request) {
     );
   }
 }
+

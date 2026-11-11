@@ -1,8 +1,8 @@
-// src/app/api/(modules)/saved-items/savedItem.controller.ts
-import { getCurrentUser } from '@/app/lib/getCurrentUser';
+﻿// src/app/api/(modules)/saved-items/savedItem.controller.ts
+import { getCurrentUser } from '@/lib/getCurrentUser';
 import { SavedItemService } from './savedItem.service';
 import { saveItemSchema, unsaveItemSchema } from './savedItem.schema';
-import { handleSuccessResponse, handleErrorResponse } from '@/app/lib/errorHandler';
+import { handleSuccessResponse, handleErrorResponse } from '@/lib/errorHandler';
 
 export class SavedItemController {
   static async save(request: Request) {
@@ -69,3 +69,4 @@ export class SavedItemController {
     }
   }
 }
+

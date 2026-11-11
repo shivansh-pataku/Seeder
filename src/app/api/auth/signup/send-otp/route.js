@@ -1,7 +1,7 @@
-import crypto from 'crypto';
-import dbConfig from '../../../../lib/db.js';
-import { UserService } from '../../../../lib/user.js';
-import { sendSignupOtpEmail } from '../../../../lib/mail.js';
+﻿import crypto from 'crypto';
+import dbConfig from '@/lib/db';
+import { UserService } from '@/lib/user.js';
+import { sendSignupOtpEmail } from '@/lib/mail.js';
 
 export async function POST(request) {
   try {
@@ -74,3 +74,5 @@ export async function POST(request) {
     );
   }
 }
+
+

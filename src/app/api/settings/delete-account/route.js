@@ -1,5 +1,5 @@
-import dbConfig from '../../../lib/db.js';
-import { getCurrentUser } from '../../../lib/getCurrentUser.js';
+﻿import dbConfig from '@/lib/db';
+import { getCurrentUser } from '@/lib/getCurrentUser';
 
 export async function DELETE() {
   try {
@@ -68,3 +68,4 @@ export async function DELETE() {
     );
   }
 }
+

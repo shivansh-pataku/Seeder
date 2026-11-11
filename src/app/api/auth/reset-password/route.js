@@ -1,5 +1,5 @@
-import crypto from 'crypto';
-import { UserService } from '../../../lib/user.js';
+﻿import crypto from 'crypto';
+import { UserService } from '@/lib/user.js';
 
 export async function POST(request) {
   try {
@@ -64,3 +64,4 @@ export async function POST(request) {
     );
   }
 }
+

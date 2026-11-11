@@ -1,8 +1,8 @@
-// src/app/api/(modules)/stories/story.controller.ts
-import { getCurrentUser } from '@/app/lib/getCurrentUser';
+﻿// src/app/api/(modules)/stories/story.controller.ts
+import { getCurrentUser } from '@/lib/getCurrentUser';
 import { StoryService } from './story.service';
 import { createStorySchema, updateStorySchema } from './story.schema';
-import { handleSuccessResponse, handleErrorResponse } from '@/app/lib/errorHandler';
+import { handleSuccessResponse, handleErrorResponse } from '@/lib/errorHandler';
 
 export class StoryController {
   /**
@@ -124,3 +124,4 @@ export class StoryController {
     }
   }
 }
+

@@ -1,5 +1,5 @@
-// src/app/api/(modules)/stories/story.service.ts
-import pool from '@/app/lib/db';
+﻿// src/app/api/(modules)/stories/story.service.ts
+import pool from '@/lib/db';
 import { CreateStoryInput, UpdateStoryInput, StoryDTO } from './story.schema';
 import { RowDataPacket, ResultSetHeader } from 'mysql2';
 
@@ -352,3 +352,4 @@ export class StoryService {
     return result.affectedRows > 0;
   }
 }
+

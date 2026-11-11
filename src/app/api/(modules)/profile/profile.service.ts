@@ -1,5 +1,5 @@
-// src/app/api/(modules)/profile/profile.service.ts
-import pool from '@/app/lib/db';
+﻿// src/app/api/(modules)/profile/profile.service.ts
+import pool from '@/lib/db';
 import { RowDataPacket, ResultSetHeader } from 'mysql2';
 import { UpdateProfileInput } from './profile.schema';
 
@@ -197,7 +197,7 @@ export class ProfileService {
 
     await pool.execute<ResultSetHeader>(
       `UPDATE users 
-       SET username = ?, name = ?, email = ?, dob = ?, location = ?, bio = ?, gender = ?, socialProfiles = ?, is_private = ?, email_notifications = ?, UPDATED_AT = NOW() 
+       SET username = ?, name = ?, email = ?, dob = ?, location = ?, bio = ?, gender = ?, socialProfiles = ?, is_private = ?, email_notifications = ? 
        WHERE userid = ?`,
       [
         updatedUsername,
@@ -233,3 +233,4 @@ export class ProfileService {
     };
   }
 }
+

@@ -1,6 +1,6 @@
-import dbConfig from '../../lib/db.js'
-import { getCurrentUser } from '../../lib/getCurrentUser.js'
-import { sendFeedbackNotificationEmail } from '../../lib/mail.js'
+﻿import dbConfig from '@/lib/db'
+import { getCurrentUser } from '@/lib/getCurrentUser'
+import { sendFeedbackNotificationEmail } from '@/lib/mail.js'
 
 export async function POST(request) {
   try {
@@ -148,3 +148,4 @@ export async function GET() {
     })
   }
 }
+

@@ -1,5 +1,5 @@
-// src/app/api/(modules)/saved-items/savedItem.service.ts
-import pool from '@/app/lib/db';
+﻿// src/app/api/(modules)/saved-items/savedItem.service.ts
+import pool from '@/lib/db';
 import { SaveItemInput } from './savedItem.schema';
 import { RowDataPacket, ResultSetHeader } from 'mysql2';
 
@@ -86,6 +86,18 @@ export class SavedItemService {
   }
 
   /**
+   * Get all folder IDs where this story is saved by user
+   */
+  static async getStorySavedFolders(userId: number | string, storyId: number): Promise<Array<number | 'root'>> {
+    const [rows] = await pool.execute<RowDataPacket[]>(
+      "SELECT folder_id FROM saved_items WHERE user_id = ? AND entity_id = ? AND entity_type IN ('story', 'task')",
+      [userId, storyId]
+    );
+    if (!rows || rows.length === 0) return [];
+    return rows.map((r) => (r.folder_id === null || r.folder_id === undefined ? 'root' : Number(r.folder_id)));
+  }
+
+  /**
    * Get all saved stories for user, optionally filtered by folder
    */
   static async getUserSavedStories(userId: number | string, folderId?: number | null) {
@@ -129,3 +141,4 @@ export class SavedItemService {
     return rows || [];
   }
 }
+

@@ -1,9 +1,16 @@
 // src/app/layout.tsx
 import "./globals.css";
-import ClientLayout from "./Components/ClientLayout.js";
+import ClientLayout from "@/components/ClientLayout";
 import { Red_Hat_Text, Fauna_One } from "next/font/google";
+import type { Metadata } from "next";
 
-import { auth } from "./lib/auth.js";
+import { auth } from "@/lib/auth.js";
+
+export const metadata: Metadata = {
+  icons: {
+    icon: "/favicon.png",
+  },
+};
 
 const redHatText = Red_Hat_Text({ // for website UI , buttons, body text, form etc
   subsets: ["latin"],
@@ -37,3 +44,4 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     </html>
   );
 }
+
