@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useLoading } from '@/components/LoadingContext';
 import LibrarySidebar from '@/components/Library/LibrarySidebar';
 import styles from '../Styles/library.module.css';
+import { formatDateShort } from '@/lib/date';
 import {
   BookmarksSimple,
   Heart,
@@ -202,11 +203,7 @@ export default function LibraryPage() {
                           {story.name && <span>•</span>}
                           <span>
                             {story.saved_at
-                              ? new Date(story.saved_at).toLocaleDateString(undefined, {
-                                  month: 'short',
-                                  day: 'numeric',
-                                  year: 'numeric',
-                                })
+                              ? formatDateShort(story.saved_at)
                               : 'Saved'}
                           </span>
                         </div>
@@ -318,11 +315,7 @@ export default function LibraryPage() {
                             <span>•</span>
                             <span>
                               {story.saved_at
-                                ? new Date(story.saved_at).toLocaleDateString(undefined, {
-                                    month: 'short',
-                                    day: 'numeric',
-                                    year: 'numeric',
-                                  })
+                                ? formatDateShort(story.saved_at)
                                 : 'Saved'}
                             </span>
                           </div>
@@ -380,11 +373,7 @@ export default function LibraryPage() {
                         <span>•</span>
                         <span>
                           {story.liked_at
-                            ? new Date(story.liked_at).toLocaleDateString(undefined, {
-                                month: 'short',
-                                day: 'numeric',
-                                year: 'numeric',
-                              })
+                            ? formatDateShort(story.liked_at)
                             : 'Liked'}
                         </span>
                       </div>
