@@ -69,20 +69,32 @@ export default async function ProfilePage({ params }: PageProps) {
     return <ProfileClient username={username} />;
   }
 
+  const formatDateField = (val: unknown): string => {
+    if (!val) return '';
+    if (val instanceof Date) return val.toISOString();
+    return String(val);
+  };
+
+  const formatDobField = (val: unknown): string => {
+    if (!val) return '';
+    if (val instanceof Date) return val.toISOString().slice(0, 10);
+    return String(val).slice(0, 10);
+  };
+
   const profileData: ProfileData = {
     name: profileDTO.name,
     username: profileDTO.username,
-    dob: profileDTO.dob ? String(profileDTO.dob instanceof Date ? profileDTO.dob.toISOString().slice(0, 10) : profileDTO.dob) : '',
+    dob: formatDobField(profileDTO.dob),
     gender: profileDTO.gender || '',
     location: profileDTO.location || '',
     bio: profileDTO.bio || '',
     email: profileDTO.email || '',
-    created_at: profileDTO.created_at ? String(profileDTO.created_at instanceof Date ? profileDTO.created_at.toISOString() : profileDTO.created_at) : '',
+    created_at: formatDateField(profileDTO.created_at),
     is_private: profileDTO.is_private,
     isAnonymous: profileDTO.isAnonymous,
     publishedStories: (profileDTO.publishedStories || []).map((s) => ({
       ...s,
-      created_at: s.created_at ? String(s.created_at instanceof Date ? s.created_at.toISOString() : s.created_at) : '',
+      created_at: formatDateField(s.created_at),
     })),
     email_notifications: profileDTO.email_notifications,
     socialProfiles: profileDTO.socialProfiles,

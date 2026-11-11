@@ -9,13 +9,13 @@ export interface ProfileUserDTO {
   name: string;
   email?: string | null;
   bio: string;
-  dob?: string | null;
+  dob?: string | Date | null;
   location?: string | null;
   gender?: string | null;
   socialProfiles: Array<{ platform: string; username: string }>;
   is_private: number;
   email_notifications: number;
-  created_at: string;
+  created_at: string | Date;
   isOwner: boolean;
   isAnonymous: boolean;
   publishedStories: Array<{
@@ -27,7 +27,7 @@ export interface ProfileUserDTO {
     reading_time_minutes: number;
     word_count: number;
     likes_count: number;
-    created_at: string;
+    created_at: string | Date;
   }>;
 }
 
