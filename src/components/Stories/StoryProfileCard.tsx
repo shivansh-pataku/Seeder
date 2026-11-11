@@ -4,6 +4,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './stories.module.css';
 import { Heart } from '@phosphor-icons/react';
+import { formatDateShort } from '@/lib/date';
 
 export interface StoryProfileItem {
   id: number | string;
@@ -33,11 +34,7 @@ export default function StoryProfileCard({ story }: StoryProfileCardProps) {
   };
 
   const formattedDate = story.created_at
-    ? new Date(story.created_at).toLocaleDateString(undefined, {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    })
+    ? formatDateShort(story.created_at)
     : '';
 
   const readTime = story.reading_time_minutes || 1;

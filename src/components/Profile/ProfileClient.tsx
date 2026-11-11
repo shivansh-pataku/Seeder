@@ -8,6 +8,7 @@ import styles from '@/app/Styles/profile.module.css';
 import { useInkWell } from '@/components/InkWell';
 import { getGenderAvatar } from '@/lib/avatar';
 import { StoryProfileCard, StoryProfileItem } from '@/components/Stories';
+import { formatDateMonthYear } from '@/lib/date';
 import * as Dialog from '@radix-ui/react-dialog';
 import {
   User,
@@ -49,8 +50,8 @@ export interface ProfileData {
 }
 
 export interface ProfileClientProps {
-  initialProfile: ProfileData;
-  initialIsOwner: boolean;
+  initialProfile?: ProfileData | null;
+  initialIsOwner?: boolean;
   username: string;
 }
 
@@ -67,7 +68,7 @@ const platforms: Record<string, { name: string; url: string; icon: React.Compone
 
 export default function ProfileClient({
   initialProfile,
-  initialIsOwner,
+  initialIsOwner = false,
   username,
 }: ProfileClientProps) {
   const { update } = useSession();
@@ -76,10 +77,25 @@ export default function ProfileClient({
 
   const [isOwnProfile] = useState(initialIsOwner);
   const [isEditing, setIsEditing] = useState(false);
-  const [profiledata, setProfileData] = useState<ProfileData>(initialProfile);
+  const [profiledata, setProfileData] = useState<ProfileData>(
+    initialProfile || {
+      name: '',
+      username,
+      dob: '',
+      gender: '',
+      location: '',
+      bio: '',
+      email: '',
+      created_at: '',
+      publishedStories: [],
+    }
+  );
+  const [notFoundState] = useState(!initialProfile);
 
   const initialSocials =
-    Array.isArray(initialProfile.socialProfiles) && initialProfile.socialProfiles.length > 0
+    initialProfile &&
+    Array.isArray(initialProfile.socialProfiles) &&
+    initialProfile.socialProfiles.length > 0
       ? initialProfile.socialProfiles
       : [{ platform: 'github', username: '' }];
 
@@ -179,6 +195,43 @@ export default function ProfileClient({
     }
   };
 
+  if (notFoundState) {
+    return (
+      <div className={styles.notFoundContainer}>
+        <div className={styles.notFoundCard}>
+          <div className={styles.notFoundIconBadge}>
+            <User size={36} weight="regular" className={styles.notFoundIcon} />
+          </div>
+
+          <div className={styles.notFoundText}>
+            <span className={styles.notFoundTag}>404 — User Not Found</span>
+            <h2 className={styles.notFoundTitle}>Profile Not Found</h2>
+            <p className={styles.notFoundDescription}>
+              The profile <span className={styles.notFoundUsername}>@{username}</span> could not be found. The user might have changed their username or the account doesn&apos;t exist.
+            </p>
+          </div>
+
+          <div className={styles.notFoundActions}>
+            <button
+              type="button"
+              onClick={() => router.push('/desk')}
+              className={styles.notFoundPrimaryBtn}
+            >
+              Go to Desk
+            </button>
+            <button
+              type="button"
+              onClick={() => router.back()}
+              className={styles.notFoundSecondaryBtn}
+            >
+              Go Back
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.profilepageContainer}>
       <div className={styles.profile_A}>
@@ -266,7 +319,13 @@ export default function ProfileClient({
                   <Calendar size={16} weight="regular" className={styles.detailIcon} />
                   <div className={styles.detailContent}>
                     <span className={styles.detailLabel}>Born On</span>
-                    <span className={styles.detailValue}>{profiledata.dob}</span>
+                    <span className={styles.detailValue}>
+                      {typeof profiledata.dob === 'string'
+                        ? profiledata.dob
+                        : (profiledata.dob as any) instanceof Date
+                          ? (profiledata.dob as any).toISOString().slice(0, 10)
+                          : String(profiledata.dob || '')}
+                    </span>
                   </div>
                 </div>
               )}
@@ -315,10 +374,7 @@ export default function ProfileClient({
                   <span className={styles.detailLabel}>Joined</span>
                   <span className={styles.detailValue}>
                     {profiledata.created_at
-                      ? new Date(profiledata.created_at).toLocaleDateString(undefined, {
-                          year: 'numeric',
-                          month: 'long',
-                        })
+                      ? formatDateMonthYear(profiledata.created_at)
                       : 'Recently'}
                   </span>
                 </div>

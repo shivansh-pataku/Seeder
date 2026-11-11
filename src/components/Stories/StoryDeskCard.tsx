@@ -4,6 +4,7 @@ import React from 'react';
 import styles from './stories.module.css';
 import { Globe, PencilSimple, Trash, Heart } from '@phosphor-icons/react';
 import { useInkWell } from '@/components/InkWell';
+import { formatDateShort } from '@/lib/date';
 
 export interface StoryDeskItem {
   id: number | string;
@@ -42,11 +43,7 @@ export default function StoryDeskCard({
   const likes = Number(story.likes_count ?? story.likesCount ?? 0);
 
   const formattedDate = story.created_at
-    ? new Date(story.created_at).toLocaleDateString(undefined, {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-      })
+    ? formatDateShort(story.created_at)
     : 'Draft';
 
   const handleCardClick = () => {

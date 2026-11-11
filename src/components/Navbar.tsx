@@ -60,7 +60,10 @@ export default function Navbar() {
   };
 
   const currentUser = session?.user as any;
-  const userProfilePath = currentUser ? `/${currentUser.username || currentUser.name}` : '/auth/signin';
+  const rawUsername = currentUser?.username || currentUser?.name;
+  const userProfilePath = rawUsername
+    ? `/${encodeURIComponent(String(rawUsername).trim())}`
+    : '/auth/signin';
   const isLoggedOutHome = pathname === '/' && !currentUser && status !== 'loading';
 
   return (

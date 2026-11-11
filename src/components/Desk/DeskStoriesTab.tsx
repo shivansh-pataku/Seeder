@@ -8,6 +8,7 @@ import {
   X,
   Article,
 } from '@phosphor-icons/react';
+import { formatDateShort } from '@/lib/date';
 
 export interface DeskStory {
   id: string | number;
@@ -135,10 +136,7 @@ export default function DeskStoriesTab({
             const isActive = String(story.id) === String(activeStoryId);
             const isStoryPublished = Boolean(story.status);
             const formattedDate = story.created_at
-              ? new Date(story.created_at).toLocaleDateString(undefined, {
-                  month: 'short',
-                  day: 'numeric',
-                })
+              ? formatDateShort(story.created_at)
               : 'Draft';
 
             // Clean 1-line snippet

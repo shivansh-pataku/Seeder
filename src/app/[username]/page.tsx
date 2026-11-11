@@ -19,7 +19,8 @@ interface PageProps {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { username } = await params;
+  const { username: rawUsername } = await params;
+  const username = decodeURIComponent(rawUsername).trim();
 
   if (RESERVED_ROUTES.includes(username.toLowerCase())) {
     return { title: 'Not Found | Meridian' };
@@ -42,7 +43,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function ProfilePage({ params }: PageProps) {
-  const { username } = await params;
+  const { username: rawUsername } = await params;
+  const username = decodeURIComponent(rawUsername).trim();
 
   if (RESERVED_ROUTES.includes(username.toLowerCase())) {
     notFound();
@@ -64,21 +66,24 @@ export default async function ProfilePage({ params }: PageProps) {
   }
 
   if (!profileDTO) {
-    notFound();
+    return <ProfileClient username={username} />;
   }
 
   const profileData: ProfileData = {
     name: profileDTO.name,
     username: profileDTO.username,
-    dob: profileDTO.dob || '',
+    dob: profileDTO.dob ? String(profileDTO.dob instanceof Date ? profileDTO.dob.toISOString().slice(0, 10) : profileDTO.dob) : '',
     gender: profileDTO.gender || '',
     location: profileDTO.location || '',
     bio: profileDTO.bio || '',
     email: profileDTO.email || '',
-    created_at: profileDTO.created_at,
+    created_at: profileDTO.created_at ? String(profileDTO.created_at instanceof Date ? profileDTO.created_at.toISOString() : profileDTO.created_at) : '',
     is_private: profileDTO.is_private,
     isAnonymous: profileDTO.isAnonymous,
-    publishedStories: profileDTO.publishedStories,
+    publishedStories: (profileDTO.publishedStories || []).map((s) => ({
+      ...s,
+      created_at: s.created_at ? String(s.created_at instanceof Date ? s.created_at.toISOString() : s.created_at) : '',
+    })),
     email_notifications: profileDTO.email_notifications,
     socialProfiles: profileDTO.socialProfiles,
   };

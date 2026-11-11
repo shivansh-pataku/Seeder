@@ -50,6 +50,7 @@ export interface WritingEditorProps {
   activeHeadingPos?: number | null;
   onActiveHeadingChange?: (pos: number | null) => void;
   editorRef?: React.MutableRefObject<Editor | null>;
+  onCanvasClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 export default function WritingEditor({
@@ -62,6 +63,7 @@ export default function WritingEditor({
   activeHeadingPos,
   onActiveHeadingChange,
   editorRef,
+  onCanvasClick,
 }: WritingEditorProps) {
   const canvasWrapperRef = useRef<HTMLDivElement>(null);
   const titleTextareaRef = useRef<HTMLTextAreaElement>(null);
@@ -409,7 +411,11 @@ export default function WritingEditor({
   if (!editor) return null;
 
   return (
-    <div className={styles.canvasWrapper} ref={canvasWrapperRef}>
+    <div
+      className={styles.canvasWrapper}
+      ref={canvasWrapperRef}
+      onClick={onCanvasClick}
+    >
       <div className={styles.canvasInner}>
         {/* Floating/Sticky Formatting Toolbar */}
         <div className={styles.toolbarContainer}>

@@ -544,6 +544,11 @@ export default function WriterStudio({ initialId }: WriterStudioProps) {
           activeHeadingPos={activeHeadingPos}
           onActiveHeadingChange={setActiveHeadingPos}
           editorRef={editorInstanceRef}
+          onCanvasClick={() => {
+            if (!isSidebarCollapsed) {
+              setIsSidebarCollapsed(true);
+            }
+          }}
         />
       </div>
     </div>
