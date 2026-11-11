@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useSession, signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import styles from '../Styles/settings.module.css';
 import { getGenderAvatar } from '@/lib/avatar';
@@ -48,6 +49,7 @@ interface ProfileSettingsData {
 
 export default function SettingsPage() {
   const { data: session, status, update } = useSession();
+  const router = useRouter();
   const { startLoading, stopLoading } = useLoading();
   const inkWell = useInkWell();
 
@@ -311,11 +313,22 @@ export default function SettingsPage() {
       // Update session if username or gender changed
       if (typeof update === 'function') {
         try {
-          await update({ username: cleanUsername, gender });
+          await update({
+            user: {
+              name: name.trim(),
+              username: cleanUsername,
+              gender,
+            },
+            username: cleanUsername,
+            gender,
+          });
         } catch (uErr) {
           console.warn('Session update notice:', uErr);
         }
       }
+
+      // Refresh Server Components (Navbar in RootLayout, feed, etc.)
+      router.refresh();
 
       setInitialUsername(cleanUsername);
       setInitialData({

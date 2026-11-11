@@ -40,12 +40,16 @@ export const authConfig = {
         token.provider = account?.provider || 'credentials';
       }
       if (trigger === 'update') {
-        if (session?.gender !== undefined) {
-          token.gender = session.gender;
+        const updateData = session?.user || session;
+        if (updateData?.gender !== undefined) {
+          token.gender = updateData.gender;
         }
-        if (session?.username !== undefined) {
-          token.username = session.username;
-          token.name = session.username;
+        if (updateData?.username !== undefined) {
+          token.username = updateData.username;
+          token.name = updateData.username;
+        }
+        if (updateData?.name !== undefined && !token.username) {
+          token.name = updateData.name;
         }
       }
       return token;

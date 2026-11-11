@@ -171,11 +171,22 @@ export default function ProfileClient({
 
         if (typeof update === 'function' && isOwnProfile) {
           try {
-            await update({ gender: updated.gender, name: updated.name });
+            await update({
+              user: {
+                name: updated.name,
+                username: updated.username,
+                gender: updated.gender,
+              },
+              username: updated.username,
+              gender: updated.gender,
+            });
           } catch (updateErr) {
             console.warn('Session update failed:', updateErr);
           }
         }
+
+        // Refresh Server Components so Navbar and adjacent server views re-render
+        router.refresh();
 
         inkWell.toast({
           message: 'Profile updated successfully!',
